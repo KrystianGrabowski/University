@@ -1,5 +1,8 @@
 package onp;
 
+/**
+ * Sufit ONP
+ */
 public class Ceil extends Op1Arg{
 
     @Override

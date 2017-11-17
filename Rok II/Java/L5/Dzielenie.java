@@ -1,5 +1,8 @@
 package onp;
 
+/**
+ * Dzielenie ONP
+ */
 public class Dzielenie extends Op2Arg{
 
     @Override

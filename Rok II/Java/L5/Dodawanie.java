@@ -1,5 +1,8 @@
 package onp;
 
+/**
+ * Dodawanie ONP
+ */
 public class Dodawanie extends Op2Arg{
 
     @Override

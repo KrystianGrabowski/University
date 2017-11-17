@@ -1,5 +1,8 @@
 package onp;
 
+/**
+ * Logarytm ONP
+ */
 public class Log extends Op2Arg{
 
     @Override

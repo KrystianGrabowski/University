@@ -1,5 +1,8 @@
 package onp;
 
+/**
+ * Cosinus ONP
+ */
 public class Cos extends Op1Arg{
 
     @Override

@@ -2,6 +2,9 @@ package onp;
 import wyjatki.WyjatkiONP;
 import wyjatki.ONP_BladArgumentu;
 
+/**
+ * Klasa nadrzędna dla funkcji jednoagumentowych
+ */
 public abstract class Op1Arg extends Funkcja{
 
     protected double argument;

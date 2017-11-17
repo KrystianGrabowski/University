@@ -1,5 +1,8 @@
 package onp;
 
+/**
+ * Liczba Pi
+ */
 public class Pi extends Op0Arg{
 
     @Override

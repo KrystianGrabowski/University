@@ -1,5 +1,8 @@
 package onp;
 
+/**
+ * Potęgowanie ONP
+ */
 public class Pow extends Op2Arg{
 
     @Override

@@ -1,5 +1,8 @@
 package onp;
 
+/**
+ * Arcus cotangens ONP
+ */
 public class Acot extends Op1Arg{
 
     @Override

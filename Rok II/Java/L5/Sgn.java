@@ -1,5 +1,8 @@
 package onp;
 
+/**
+ * Signum ONP
+ */
 public class Sgn extends Op1Arg{
 
     @Override

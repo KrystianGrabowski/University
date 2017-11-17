@@ -1,5 +1,8 @@
 package onp;
 
+/**
+ * Odejmowanie ONP
+ */
 public class Odejmowanie extends Op2Arg{
 
     @Override

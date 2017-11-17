@@ -1,5 +1,8 @@
 package onp;
 
+/**
+ * Podłoga ONP
+ */
 public class Floor extends Op1Arg{
 
     @Override

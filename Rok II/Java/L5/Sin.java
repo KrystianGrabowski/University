@@ -1,5 +1,8 @@
 package onp;
 
+/**
+ * Sinus ONP
+ */
 public class Sin extends Op1Arg{
 
     @Override

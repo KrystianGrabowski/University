@@ -2,6 +2,9 @@ package onp;
 import wyjatki.WyjatkiONP;
 import wyjatki.ONP_BladArgumentu;
 
+/**
+ * Klasa nadrzędna dla funkcji dwuargumentowych
+ */
 public abstract class Op2Arg extends Funkcja{
 
     protected double argument1;

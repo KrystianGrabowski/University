@@ -1,5 +1,8 @@
 package onp;
 
+/**
+ * Arcus tangens ONP
+ */
 public class Atan extends Op1Arg{
 
     @Override

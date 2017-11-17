@@ -1,5 +1,8 @@
 package onp;
 
+/**
+ * Logarytm naturalny ONP
+ */
 public class Ln extends Op1Arg{
 
     @Override

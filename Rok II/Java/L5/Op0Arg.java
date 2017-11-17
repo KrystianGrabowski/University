@@ -2,6 +2,10 @@ package onp;
 import wyjatki.WyjatkiONP;
 import wyjatki.ONP_BladArgumentu;
 
+/**
+ * Klasa nadrzędna dla funkcji zeroagumentowych
+ */
+
 public abstract class Op0Arg extends Funkcja{
 
     public Op0Arg(){}

@@ -1,5 +1,8 @@
 package onp;
 
+/**
+ * Minimum ONP
+ */
 public class Min extends Op2Arg{
 
     @Override

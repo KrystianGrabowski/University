@@ -1,5 +1,8 @@
 package onp;
 
+/**
+ * Wartosć bezwzgledna ONP
+ */
 public class Abs extends Op1Arg{
 
     @Override

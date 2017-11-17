@@ -1,5 +1,8 @@
 package onp;
 
+/**
+ * Maximum ONP
+ */
 public class Max extends Op2Arg{
 
     @Override

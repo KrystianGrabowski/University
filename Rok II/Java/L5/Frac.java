@@ -1,5 +1,8 @@
 package onp;
 
+/**
+ * Część ułamkowa ONP
+ */
 public class Frac extends Op1Arg{
 
     @Override
