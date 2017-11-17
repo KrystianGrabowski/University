@@ -1,6 +1,11 @@
 package narzedzia;
 
 
+/**
+ * Klasa przechowywująca Parę klucz-wartosc (String-double)
+ *
+ */
+
 public class Para {
 
 	public final String key;

@@ -1,6 +1,6 @@
 /**
  * pakiet wyjatki
- * Wyjątki dla ONP
+ * Wyjątki dla klas ONP
  * @author Krystian Grabowski
  */
 

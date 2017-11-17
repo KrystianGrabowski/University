@@ -27,7 +27,7 @@ public class Lista<T> {
     }
     /**
      * Dodaje element na koniec listy
-     * @param war element do dodania na koniec listy
+     * @param war wartość do dodania na koniec listy
      * @throws ListaWyjatek kiedy podany agument jest nullem
      */
     public void DodajKoniec(T war) throws ListaWyjatek{
@@ -45,7 +45,7 @@ public class Lista<T> {
 
     /**
      * Dodaje element na poczętek listy
-     * @param war element do dodania na początek listy
+     * @param war wartość do dodania na początek listy
      * @throws ListaWyjatek kiedy podany agument jest nullem
      */
     public void DodajPoczatek(T war) throws ListaWyjatek{
@@ -71,6 +71,9 @@ public class Lista<T> {
         return (rozmiar == 0);
     }
 
+    /**
+     * Wymazuje wszystkie dane z listy
+     */
     public void czysc(){
         poczatek.nastepny = koniec;
         koniec.poprzedni = poczatek;
@@ -133,6 +136,7 @@ public class Lista<T> {
     /**
      * Zwraca wartosc pierwszego elementu listy
      * @throws ListaWyjatek kiedy lista jest pusta
+     * @return wartosc pierwszego elementu listy
      */
     public T Pierwszy() throws ListaWyjatek{
         if (this.isEmpty()){
@@ -144,6 +148,7 @@ public class Lista<T> {
     /**
      * Zwraca wartosc ostatniego elementu listy
      * @throws ListaWyjatek kiedy lista jest pusta
+     * @return wartosc ostatniego elementu listy
      */
     public T Ostatni() throws ListaWyjatek{
         if (this.isEmpty()){
@@ -153,10 +158,10 @@ public class Lista<T> {
     }
 
     /**
-     * Wyszukuje w całej liście wartoci i zwraca ją
+     * Wyszukuje w całej liście wartości i zwraca ją
      * @param war klucz mówiący co należy wyszukać
      * @return wartość lub null
-     * @throws ListaWyjatek kiedy argument ma wartość null, lub wartosc węzła równa jest zero
+     * @throws ListaWyjatek kiedy argument ma wartość null, lub wartosc węzła równa jest null
      */
     public T szukaj(T war) throws ListaWyjatek{
         if (war == null){
@@ -180,7 +185,7 @@ public class Lista<T> {
 
 
     /**
-     * Klasa wewnętrzna klasy Lista przechowywująca dwa wskaźniki oraz wartość
+     * Klasa wewnętrzna klasy Lista przechowywująca dwa wskaźniki oraz pewną wartość
      *
      */
     private class Wezel{
