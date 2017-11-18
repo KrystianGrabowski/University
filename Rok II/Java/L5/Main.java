@@ -30,7 +30,6 @@ public class Main{
                 String tekst = input.nextLine();
                 tab = tekst.split(" ");
                 if (tab[0].equals("calc")){
-
                     for (int i = 1; i < tab.length; i++){
                         wyrazenie += tab[i];
                         if (i != tab.length-1){
