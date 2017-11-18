@@ -84,11 +84,3 @@ def mini_wyszukiwarka(szukana_fraza, url, glebokosc):
             mini_wyszukiwarka(szukana_fraza, link, glebokosc - 1)
 
     return Wyniki_wyszukiwania
-
-for i in (mini_wyszukiwarka("Python", "https://pl.python.org/docs/lib/msvcrt-console.html#l2h-4699",1)):
-    print(i,i.liczba_wystapien)
-"""
-print("________________")
-for i in (mini_wyszukiwarka("Python", "https://www.ii.uni.wroc.pl/~marcinm/dyd/python/",1)):
-    print(i,i.liczba_wystapien)
-    """
