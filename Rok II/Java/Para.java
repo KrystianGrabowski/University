@@ -1,4 +1,4 @@
-package narzedzia;
+package wyrazenia;
 
 /**
  * Klasa dla przechowywyjąca parę klucz-wartość
@@ -17,11 +17,11 @@ public class Para {
 	public double getValue() {
 		return value;
 	}
-
+	
 	public void setValue(double value) {
 		this.value = value;
 	}
-
+	
 	public String toString(){
 		return "< " + key + "," + value + " >";
 	}

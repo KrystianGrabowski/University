@@ -180,6 +180,20 @@ public class Lista<T> {
         return null;
     }
 
+    public String toString(){
+        Wezel Obecny = poczatek.nastepny;
+        while (Obecny != koniec){
+            System.out.println(Obecny.wartosc);
+            Obecny = Obecny.nastepny;
+
+
+        }
+    return "AAA";
+    }
+
+
+
+
 
 
 

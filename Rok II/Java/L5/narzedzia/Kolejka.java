@@ -48,4 +48,8 @@ public class Kolejka<T> {
     public boolean isEmpty(){
         return kolejka.isEmpty();
     }
+
+    public String toString(){
+        return kolejka.toString();
+    }
 }

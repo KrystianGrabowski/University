@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 import wyjatki.WyjatkiONP;
 import wyjatki.ONP_NieznanySymbol;
 import wyjatki.ONP_DzieleniePrzez0;
-
+import narzedzia.ListaWyjatek;
 
 
 
@@ -27,10 +27,13 @@ public class Wyrazenie{
         catch (WyjatkiONP e) {
 
         }
+        kolejka.toString();
+
 
     }
 
     private void nakolejke(String[] elementy) throws WyjatkiONP{
+        try{
         for (String element : elementy) {
             if(Pattern.matches("(?i)acot", element)) kolejka.wloz(new Acot());
             else if(Pattern.matches("(?i)abs", element))kolejka.wloz(new Abs());
@@ -61,13 +64,25 @@ public class Wyrazenie{
                     throw new ONP_NieznanySymbol("Nie rozpoznano symbolu");
                 }
                 else{
-                    double z = zmienne.szukaj(element);
-                    kolejka.wloz(new Zmienna(element,z));
+                    /*
+                    Object o = zmienne.szukaj(element);
+                    double z = new Double(o.toString());
+                    kolejka.wloz(new Zmienna(element,z));*/
+                    Object o = zmienne.szukaj(element);
+                    if (o instanceof Para){
+                        Para p = (Para) o;
+                        double z = p.getValue();
+                        kolejka.wloz(new Zmienna(element,z));
 
+                    }
                 }
             }
         }
 
+    }
+    catch (ListaWyjatek e){
+        System.out.println(e);
+    }
     }
 
 
