@@ -1,4 +1,3 @@
-package onp;
 import wyjatki.WyjatkiONP;
 import wyjatki.ONP_BladArgumentu;
 /**

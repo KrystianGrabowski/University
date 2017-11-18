@@ -1,4 +1,3 @@
-package onp;
 
 /**
  * Sinus ONP

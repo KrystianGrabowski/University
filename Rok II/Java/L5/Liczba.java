@@ -1,4 +1,3 @@
-package onp;
 
 public class Liczba extends Operand implements Obliczalny{
 

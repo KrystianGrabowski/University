@@ -1,4 +1,3 @@
-package onp;
 
 /**
  * Liczba Pi

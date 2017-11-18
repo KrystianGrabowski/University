@@ -6,40 +6,34 @@ package narzedzia;
  *
  */
 
-public class Para {
+public class Para<K,W> {
+	public final K klucz;
+	private W wartosc;
 
-	public final String key;
-	private double value;
-
-	public Para(String key, double value) {
-		this.key = key;
-		this.value = value;
+	public Para(K klucz, W wartosc){
+		this.klucz = klucz;
+		this.wartosc = wartosc;
 	}
 
-	public double getValue() {
-		return value;
+	public void ustaw(W wartosc){
+		this.wartosc = wartosc;
 	}
 
-	public void setValue(double value) {
-		this.value = value;
+	public W pobierz(){
+		return this.wartosc;
 	}
 
 	public String toString(){
-		return "< " + key + "," + value + " >";
+		return "<" + this.klucz + "," + this.wartosc + ">";
 	}
-
-	public boolean equals(Object o) {
-		if (o == null || this.getClass() != o.getClass()) {
+	public boolean equals(Object o){
+		if (o == null){
 			return false;
 		}
 
-		if (this == o) {
-			return true;
-		}
-		Para para = (Para) o;
-		if (this.key.equals(para.key)){
-			return true;
-		}
-		return false;
+		return (o instanceof Para && this.klucz.equals(((Para) o).klucz));
+
+
 	}
+
 }

@@ -1,4 +1,3 @@
-package onp;
 import narzedzia.Para;
 import wyjatki.WyjatkiONP;
 import wyjatki.ONP_BladArgumentu;

@@ -1,4 +1,3 @@
-package onp;
 
 /**
  * Część ułamkowa ONP

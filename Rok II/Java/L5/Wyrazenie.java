@@ -1,9 +1,7 @@
-package onp;
 import narzedzia.Kolejka;
 import narzedzia.Stos;
 import narzedzia.Lista;
 import narzedzia.Para;
-import onp.Zmienna;
 import java.util.regex.Pattern;
 import wyjatki.WyjatkiONP;
 import wyjatki.ONP_NieznanySymbol;
@@ -12,7 +10,7 @@ import wyjatki.ONP_DzieleniePrzez0;
 
 
 
-public abstract class Wyrazenie{
+public class Wyrazenie{
     private Kolejka kolejka;
     private Stos stos;
     private Lista zmienne;
@@ -20,7 +18,7 @@ public abstract class Wyrazenie{
     public Wyrazenie (String onp, Lista zm){
         kolejka = new Kolejka<>();
         stos = new Stos<>();
-        zmienne = new Lista<>();
+        zmienne = zm;
 
         String[] elementy = onp.split(" ");
         try{

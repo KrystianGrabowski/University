@@ -1,4 +1,3 @@
-package onp;
 
 /**
  * Arcus tangens ONP

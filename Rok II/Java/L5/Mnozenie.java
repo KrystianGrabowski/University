@@ -1,4 +1,3 @@
-package onp;
 
 public class Mnozenie extends Op2Arg{
 

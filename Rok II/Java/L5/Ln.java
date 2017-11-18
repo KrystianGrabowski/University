@@ -1,4 +1,3 @@
-package onp;
 
 /**
  * Logarytm naturalny ONP

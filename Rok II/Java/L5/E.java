@@ -1,7 +1,6 @@
-package onp;
 
 /**
- * Liczba E 
+ * Liczba E
  */
 public class E extends Op0Arg{
 
