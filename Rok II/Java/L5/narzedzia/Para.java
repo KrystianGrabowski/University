@@ -27,15 +27,11 @@ public class Para {
 	}
 
 	public boolean equals(Object o) {
-		if (o == null || this.getClass() != o.getClass()) {
+		if (o == null) {
 			return false;
 		}
 
-		if (this == o) {
-			return true;
-		}
-		Para para = (Para) o;
-		if (this.key.equals(para.key)){
+		if (this.key.equals(o)){
 			return true;
 		}
 		return false;

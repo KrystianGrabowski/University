@@ -181,13 +181,13 @@ public class Lista<T> {
     }
 
     public String toString(){
-        Wezel Obecny = poczatek.nastepny;
-        while (Obecny != koniec){
-            System.out.println(Obecny.wartosc);
-            Obecny = Obecny.nastepny;
-
-
+        Wezel Obecny = koniec.poprzedni;
+        while (Obecny != poczatek){
+            System.out.print(Obecny.wartosc);
+            System.out.print(" ");
+            Obecny = Obecny.poprzedni;
         }
+        System.out.println();
     return "AAA";
     }
 

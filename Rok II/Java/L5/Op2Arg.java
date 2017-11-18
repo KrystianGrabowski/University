@@ -8,10 +8,12 @@ public abstract class Op2Arg extends Funkcja{
 
     protected double argument1;
     protected double argument2;
-    public int stan_arg = 0;
+    public int stan_arg;
 
 
-    public Op2Arg(){}
+    public Op2Arg(){
+        stan_arg = 0;
+    }
 
     public Op2Arg(double argument1, double argument2){
         this.argument1 = argument1;
@@ -21,7 +23,7 @@ public abstract class Op2Arg extends Funkcja{
 
     @Override
     public int arnosc(){
-        return 1;
+        return 2;
     }
 
     @Override
@@ -36,11 +38,11 @@ public abstract class Op2Arg extends Funkcja{
         }
         else{
             if (stan_arg == 0){
-                this.argument1 = argument1;
+                this.argument2 = argument;
                 stan_arg ++;
             }
             else if (stan_arg == 1){
-                this.argument2 = argument2;
+                this.argument1 = argument;
                 stan_arg ++;
             }
 

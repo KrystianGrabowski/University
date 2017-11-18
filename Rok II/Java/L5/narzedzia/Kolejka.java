@@ -52,4 +52,5 @@ public class Kolejka<T> {
     public String toString(){
         return kolejka.toString();
     }
+
 }
