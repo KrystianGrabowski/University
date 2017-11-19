@@ -6,7 +6,10 @@ import java.util.regex.Pattern;
 import wyjatki.*;
 import narzedzia.ListaWyjatek;
 
-
+/**
+ * Klasa Wyraznie której głównym zadaniem jest poprawnie obliczyc wyrażenie w ONP
+ *
+ **/
 
 public class Wyrazenie{
     private Kolejka kolejka;
@@ -23,7 +26,7 @@ public class Wyrazenie{
             nakolejke(elementy);
         }
         catch (WyjatkiONP e) {
-            
+
         }
 
 
@@ -77,6 +80,11 @@ public class Wyrazenie{
         }
     }
 
+    /**
+     * Oblicza wyrazenie w Onp
+     * @return wartość wyrażenie typ double
+     * @throws WyjatkiONP kiedy pojawi się bład w zapisie ONP 
+     */
     public double obliczONP() throws WyjatkiONP{
         try{
             Object o;

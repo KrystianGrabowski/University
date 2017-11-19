@@ -2,6 +2,11 @@ import narzedzia.Para;
 import wyjatki.WyjatkiONP;
 import wyjatki.ONP_BladArgumentu;
 
+/**
+ * Klasa Zmienna przetrzymuje parę klucz-wartość (String-double) 
+ *
+ */
+
 public class Zmienna extends Operand implements Obliczalny{
     public final String id;
     private double wartosc;
