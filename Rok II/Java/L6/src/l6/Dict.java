@@ -15,7 +15,7 @@ public interface Dict<T extends Comparable<T>> {
     * @param elem element do znalezienia
     * @return szukany element
     */
-    public T search(T elem);
+    public boolean search(T elem);
     
     /**
      * Wstawia podany element do naszego zbioru

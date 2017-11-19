@@ -74,24 +74,90 @@ public class BST<T extends Comparable<T>> implements Dict<T> {
     }
     
     
+    
+    public Node getNode(T elem) {
+        if (size() == 0){
+            return null;
+        }
+        Node temp = root;
+        Node x = new Node<T>();
+        x.data = elem;
+        while (temp != null){
+            if (x.data.compareTo(temp.data) == 0){
+                return temp;
+            }
+            if (x.data.compareTo(temp.data) < 0){
+                temp = temp.left;
+            }
+            else{
+                temp = temp.right;
+            }
+        }
+        return null;
+    }
+    
     @Override
-    public T search(T elem) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean search(T elem) {
+        if (getNode(elem) == null){
+            return false;
+        }
+        return true;
     }
 
     @Override
     public void remove(T elem) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (getNode(elem) != null){
+            Node x = getNode(elem);
+            if (x.left == null && x.right == null){
+                System.out.println(x.data);
+                x = null;
+                
+                
+                System.out.println("dasda");
+
+            }
+            else if (x.left == null && x.right != null) {
+                x = x.right;
+            }
+            else if (x.left != null && x.right == null) {
+                x = x.left;
+            }
+            else if (x.left != null && x.right != null) {
+                Node repl = minimumNode(x.right);
+                x.data = repl.data;
+                remove((T)repl.data);
+                
+            }
+            
+            
+            
+        }
     }
 
     @Override
     public T min() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return minimumNode(root).data;
     }
 
     @Override
     public T max() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return maximumNode(root).data;
+    }
+    
+    public Node<T> minimumNode(Node<T> node){
+        Node temp = node;
+        while (temp.right != null){
+            temp = temp.right;
+        }
+        return temp;
+    }
+    
+    public Node<T> maximumNode(Node<T> node){
+        Node temp = node;
+        while (temp.left != null){
+            temp = temp.left;
+        }
+        return temp;
     }
     
     public int size(){
