@@ -25,6 +25,22 @@ public class BST<T extends Comparable<T>> implements Dict<T> {
            data = null;
                    
         }
+        public void repleace(Node toChange){
+            if (this == this.parent.left){
+                this.parent.left = toChange;
+            }
+            else{
+                this.parent.right = toChange;
+            }
+
+            if (toChange != null){
+                toChange.parent = this.parent;
+                if(this.parent == null){
+                    root = toChange;
+                }
+            }
+        
+        }
     }
     
     public Node<T> root;
@@ -109,31 +125,29 @@ public class BST<T extends Comparable<T>> implements Dict<T> {
         if (getNode(elem) != null){
             Node x = getNode(elem);
             if (x.left == null && x.right == null){
-                System.out.println(x.data);
-                x = null;
-                
-                
-                System.out.println("dasda");
-
+                x.repleace(null);
             }
             else if (x.left == null && x.right != null) {
-                x = x.right;
+                x.repleace(x.right);
             }
             else if (x.left != null && x.right == null) {
-                x = x.left;
+                x.repleace(x.left);
             }
             else if (x.left != null && x.right != null) {
                 Node repl = minimumNode(x.right);
+                remove((T) repl.data);
                 x.data = repl.data;
-                remove((T)repl.data);
-                
             }
+
+            
             
             
             
         }
     }
+    
 
+    
     @Override
     public T min() {
         return minimumNode(root).data;
@@ -146,16 +160,16 @@ public class BST<T extends Comparable<T>> implements Dict<T> {
     
     public Node<T> minimumNode(Node<T> node){
         Node temp = node;
-        while (temp.right != null){
-            temp = temp.right;
+        while (temp.left != null){
+            temp = temp.left;
         }
         return temp;
     }
     
     public Node<T> maximumNode(Node<T> node){
         Node temp = node;
-        while (temp.left != null){
-            temp = temp.left;
+        while (temp.right != null){
+            temp = temp.right;
         }
         return temp;
     }
@@ -164,6 +178,10 @@ public class BST<T extends Comparable<T>> implements Dict<T> {
         return size;
     }
     
+    public void clear(){
+        root = null;
+        size = 0;
+    }
     public String toString(){
         return toString2(new StringBuilder(), root).toString();
     }

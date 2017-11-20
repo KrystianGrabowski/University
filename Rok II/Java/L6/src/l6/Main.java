@@ -27,8 +27,7 @@ public class Main {
         tree.insert(14);
         tree.insert(13);
         System.out.println(tree.toString());
-        tree.remove(1);
-        System.out.println(tree.search(1));
+        tree.clear();
         System.out.println(tree.toString());
 
 
