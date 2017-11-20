@@ -1,9 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package l6;
+
+package algorithms;
 
 /**
  *
@@ -25,6 +21,10 @@ public class BST<T extends Comparable<T>> implements Dict<T> {
            data = null;
                    
         }
+        /**
+         * Funkcja zmieniająca węzeł na ten podany jako parametr
+         * @param toChange Węzeł który ma zostać podstawiony w dane miejsce 
+         */
         public void repleace(Node toChange){
             if (this == this.parent.left){
                 this.parent.left = toChange;
@@ -90,7 +90,11 @@ public class BST<T extends Comparable<T>> implements Dict<T> {
     }
     
     
-    
+    /**
+     * Zwraca Węzeł posiadający wartość podaną w parametrze
+     * @param elem wartość węzła który mamy zwrócić
+     * @return Wezeł któremu odpowiada wartosc elem 
+     */
     public Node getNode(T elem) {
         if (size() == 0){
             return null;
@@ -145,9 +149,7 @@ public class BST<T extends Comparable<T>> implements Dict<T> {
             
         }
     }
-    
 
-    
     @Override
     public T min() {
         return minimumNode(root).data;
