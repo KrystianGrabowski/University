@@ -7,7 +7,11 @@ package algorithms;
  * @param <T> tsd
  */
 public class BST<T extends Comparable<T>> implements Dict<T> {
-   
+   /**
+    * Klasa węzeł posiadająca wskaźnik na prawe oraz lewe poddrzewo,
+    * na rodzica ,oraz posiadająca unikatową wartość
+    * @param <T> 
+    */
     private class Node <T extends Comparable<T>> {
         Node <T> left;
         Node <T> right;
