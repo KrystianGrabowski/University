@@ -2,9 +2,11 @@ from html.parser import HTMLParser
 import urllib.request
 from urllib import parse
 import re
-import threading
+from threading import *
 import queue
 from time import clock
+
+
 class MyHTML(HTMLParser):
     def __init__(self, b_url):
         self.base_url = b_url
@@ -62,9 +64,12 @@ class Poszukiwacz :
 
 Wyniki_wyszukiwania = []
 przeszukane = set()
-lista = []
+
 def mini_wyszukiwarka(szukana_fraza, url, glebokosc):
+    lck = Lock()
+    lck.acquire()
     przeszukane.add(url)
+    lck.release()
     if glebokosc < 0:
         return 0
     html_chck = Poszukiwacz(szukana_fraza, url)
@@ -76,7 +81,9 @@ def mini_wyszukiwarka(szukana_fraza, url, glebokosc):
     if html_chck.liczba_wystapien != 0:
         for l in range(len(Wyniki_wyszukiwania)):
             if html_chck.liczba_wystapien > Wyniki_wyszukiwania[l].liczba_wystapien:
+                lck.acquire();
                 Wyniki_wyszukiwania.insert(l, html_chck)
+                lck.release();
                 w = True
                 break
         if not w:
@@ -84,7 +91,7 @@ def mini_wyszukiwarka(szukana_fraza, url, glebokosc):
     q = queue.Queue()
     for link in odnosniki:
         if link not in przeszukane:
-            thread = threading.Thread(target = mini_wyszukiwarka, args = (szukana_fraza, link, glebokosc - 1))
+            thread = Thread(target = mini_wyszukiwarka, args = (szukana_fraza, link, glebokosc - 1))
             thread.start()
             q.put(thread)
 
@@ -96,8 +103,9 @@ time1 = clock()
 for i in (mini_wyszukiwarka("Python", "https://pl.python.org/docs/lib/msvcrt-console.html#l2h-4699",1)):
      print(i,i.liczba_wystapien)
 print(clock() - time1)
+
 """
 print("________________")
 for i in (mini_wyszukiwarka("Python", "https://www.ii.uni.wroc.pl/~marcinm/dyd/python/",1)):
     print(i,i.liczba_wystapien)
-    """
+"""
