@@ -1,6 +1,5 @@
 package narzedzia;
 
-
 /**
  * Klasa generyczna implementująca listę dwukierunkową
  * posiada dwa obiekty typu Wezel jeden służy za początek drugi za koniec naszj listy
@@ -180,16 +179,6 @@ public class Lista<T> {
         return null;
     }
 
-    public String toString(){
-        Wezel Obecny = koniec.poprzedni;
-        while (Obecny != poczatek){
-            System.out.print(Obecny.wartosc);
-            System.out.print(" ");
-            Obecny = Obecny.poprzedni;
-        }
-        System.out.println();
-    return "AAA";
-    }
 
 
 

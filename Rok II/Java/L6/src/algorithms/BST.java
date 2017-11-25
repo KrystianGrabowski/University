@@ -22,8 +22,7 @@ public class BST<T extends Comparable<T>> implements Dict<T> {
            right = null;
            left = null;
            parent = null;
-           data = null;
-                   
+           data = null;    
         }
         /**
          * Funkcja zmieniająca węzeł na ten podany jako parametr

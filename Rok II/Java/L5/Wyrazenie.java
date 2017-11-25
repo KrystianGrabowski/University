@@ -69,6 +69,8 @@ public class Wyrazenie{
                             Para p = (Para) o;
                             double z = p.getValue();
                             kolejka.wloz(new Zmienna(element,z));
+                            //kolejka.toString();
+                            System.out.println("PPPPPP");
 
                         }
                     }
@@ -83,7 +85,7 @@ public class Wyrazenie{
     /**
      * Oblicza wyrazenie w Onp
      * @return wartość wyrażenie typ double
-     * @throws WyjatkiONP kiedy pojawi się bład w zapisie ONP 
+     * @throws WyjatkiONP kiedy pojawi się bład w zapisie ONP
      */
     public double obliczONP() throws WyjatkiONP{
         try{
@@ -110,6 +112,7 @@ public class Wyrazenie{
                 }
             }
             if (stos.size() != 1){
+
                 throw new WyjatkiONP("Po obliczeniu w stosie jest wiecej niz jeden wynik");
             }
             Object object = stos.wyciagnij();

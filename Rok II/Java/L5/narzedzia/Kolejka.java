@@ -49,8 +49,5 @@ public class Kolejka<T> {
         return kolejka.isEmpty();
     }
 
-    public String toString(){
-        return kolejka.toString();
-    }
 
 }

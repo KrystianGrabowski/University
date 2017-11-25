@@ -46,7 +46,5 @@ public class Stos<T> {
     public boolean isEmpty(){
         return stos.isEmpty();
     }
-    public String toString(){
-        return stos.toString();
-    }
+
 }
