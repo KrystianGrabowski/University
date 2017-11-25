@@ -1,37 +1,39 @@
 import gi
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk
+from gi.repository import Gtk, Gdk, GdkPixbuf
 
 
 class Im(Gtk.Window):
     def __init__(self):
         Gtk.Window.__init__(self, title="Images")
-
+        self.set_default_size(800,600)
         self.grid = Gtk.Grid()
         self.add(self.grid)
 
-        self.button = Gtk.Button(label = "Choose file")
-        self.button.connect("clicked", self.choose_image)
-        self.grid.add(self.button)
-        """
-        self.frame = Gtk.Frame(label = "Image")
-        self.frame.set_label_align(23, 23)
-        self.frame.set_shadow_type(Gtk.ShadowType.IN)
-        self.grid.attach_next_to(self.frame, self.button,
-                         Gtk.PositionType.RIGHT, 1, 1)
-        """
-        self.imafff = Gtk.Image()
-        self.grid.attach_next_to(self.imafff, self.button,
-                         Gtk.PositionType.RIGHT, 1, 1)
+        self.hb = Gtk.HeaderBar()
+        self.hb.set_show_close_button(True)
+        self.hb.props.title = "Images"
+        self.set_titlebar(self.hb)
 
-    def choose_image(self, widget):
+        self.button = Gtk.Button(label = "Load")
+        self.button.connect("clicked", self.load)
+        self.hb.pack_end(self.button)
+
+
+        self.imafff = Gtk.Image()
+        self.grid.add(self.imafff)
+
+    def load(self, widget):
         dialog = Gtk.FileChooserDialog("Select", self, Gtk.FileChooserAction.OPEN,
                                         ("Cancel", Gtk.ResponseType.CANCEL,
                                         "Open", Gtk.ResponseType.OK))
         response = dialog.run()
         if response == Gtk.ResponseType.OK:
-            print(dialog.get_filename())
-            self.imafff.set_from_file(dialog.get_filename())
+            path = dialog.get_filename()
+            pixbuf = GdkPixbuf.Pixbuf().new_from_file(path)
+            print(path)
+            pixbuf2 = pixbuf.scale_simple(800,600,GdkPixbuf.InterpType.BILINEAR)
+            self.imafff.set_from_pixbuf(pixbuf2)
         elif response == Gtk.ResponseType.CANCEL:
             print("Cancel selected")
 
