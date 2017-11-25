@@ -60,15 +60,15 @@ class Im(Gtk.Window):
         if response == Gtk.ResponseType.OK:
             path = dialog.get_filename()
             self.tab.append(path)
-            print(self.size)
             self.size += 1
             self.i = self.size
             pixbuf = GdkPixbuf.Pixbuf().new_from_file(path)
             pixbuf2 = pixbuf.scale_simple(800,600,GdkPixbuf.InterpType.BILINEAR)
             self.imafff.set_from_pixbuf(pixbuf2)
+        """
         elif response == Gtk.ResponseType.CANCEL:
             print("Cancel selected")
-
+        """
 
         dialog.destroy()
 
