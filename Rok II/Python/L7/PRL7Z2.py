@@ -5,6 +5,9 @@ from gi.repository import Gtk, Gdk, GdkPixbuf
 
 class Im(Gtk.Window):
     def __init__(self):
+        self.tab = []
+        self.size = -1
+        self.i = -1
         Gtk.Window.__init__(self, title="Images")
         self.set_default_size(800,600)
         self.grid = Gtk.Grid()
@@ -19,9 +22,35 @@ class Im(Gtk.Window):
         self.button.connect("clicked", self.load)
         self.hb.pack_end(self.button)
 
+        self.button_next = Gtk.Button(label = "Next")
+        self.button_next.connect("clicked", self.next_f)
+        self.hb.pack_end(self.button_next)
+
+        self.button_prev = Gtk.Button(label = "Prev")
+        self.button_prev.connect("clicked", self.prev_f)
+        self.hb.pack_start(self.button_prev)
+
+
 
         self.imafff = Gtk.Image()
         self.grid.add(self.imafff)
+
+    def next_f(self, widget):
+        if (self.i < self.size):
+            self.i += 1
+            self.show_f(self.i)
+
+    def prev_f(self, widget):
+
+        if (self.i > 0 ):
+            self.i -= 1
+            self.show_f(self.i)
+
+
+    def show_f(self, nr):
+            pixbuf = GdkPixbuf.Pixbuf().new_from_file(self.tab[nr])
+            pixbuf2 = pixbuf.scale_simple(800,600,GdkPixbuf.InterpType.BILINEAR)
+            self.imafff.set_from_pixbuf(pixbuf2)
 
     def load(self, widget):
         dialog = Gtk.FileChooserDialog("Select", self, Gtk.FileChooserAction.OPEN,
@@ -30,8 +59,11 @@ class Im(Gtk.Window):
         response = dialog.run()
         if response == Gtk.ResponseType.OK:
             path = dialog.get_filename()
+            self.tab.append(path)
+            print(self.size)
+            self.size += 1
+            self.i = self.size
             pixbuf = GdkPixbuf.Pixbuf().new_from_file(path)
-            print(path)
             pixbuf2 = pixbuf.scale_simple(800,600,GdkPixbuf.InterpType.BILINEAR)
             self.imafff.set_from_pixbuf(pixbuf2)
         elif response == Gtk.ResponseType.CANCEL:
@@ -39,7 +71,6 @@ class Im(Gtk.Window):
 
 
         dialog.destroy()
-
 
 
 
