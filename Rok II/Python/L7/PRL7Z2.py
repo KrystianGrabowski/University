@@ -5,9 +5,11 @@ from gi.repository import Gtk, Gdk, GdkPixbuf
 
 class Im(Gtk.Window):
     def __init__(self):
+
         self.tab = []
         self.size = -1
         self.i = -1
+
         Gtk.Window.__init__(self, title="Images")
         self.set_default_size(800,600)
         self.grid = Gtk.Grid()
@@ -18,18 +20,17 @@ class Im(Gtk.Window):
         self.hb.props.title = "Images"
         self.set_titlebar(self.hb)
 
-        self.button = Gtk.Button(label = "Load")
-        self.button.connect("clicked", self.load)
-        self.hb.pack_end(self.button)
+        button = Gtk.Button(label = "Load")
+        button.connect("clicked", self.load)
+        self.hb.pack_end(button)
 
-        self.button_next = Gtk.Button(label = "Next")
-        self.button_next.connect("clicked", self.next_f)
-        self.hb.pack_end(self.button_next)
+        button_next = Gtk.Button(label = "Next")
+        button_next.connect("clicked", self.next_f)
+        self.hb.pack_end(button_next)
 
-        self.button_prev = Gtk.Button(label = "Prev")
-        self.button_prev.connect("clicked", self.prev_f)
-        self.hb.pack_start(self.button_prev)
-
+        button_prev = Gtk.Button(label = "Prev")
+        button_prev.connect("clicked", self.prev_f)
+        self.hb.pack_start(button_prev)
 
 
         self.imafff = Gtk.Image()
@@ -41,7 +42,6 @@ class Im(Gtk.Window):
             self.show_f(self.i)
 
     def prev_f(self, widget):
-
         if (self.i > 0 ):
             self.i -= 1
             self.show_f(self.i)
@@ -65,14 +65,12 @@ class Im(Gtk.Window):
             pixbuf = GdkPixbuf.Pixbuf().new_from_file(path)
             pixbuf2 = pixbuf.scale_simple(800,600,GdkPixbuf.InterpType.BILINEAR)
             self.imafff.set_from_pixbuf(pixbuf2)
-        """
-        elif response == Gtk.ResponseType.CANCEL:
-            print("Cancel selected")
-        """
-
         dialog.destroy()
 
 
+        """
+        elif response == Gtk.ResponseType.CANCEL:
+        """
 
 window = Im()
 window.connect("delete-event", Gtk.main_quit)
