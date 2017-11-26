@@ -2,7 +2,7 @@
 public class Main {
 
 	public static void main(String[] args) {
-		Okno o1 = new Okno();
+		Ramka o1 = new Ramka();
 	}
 
 }
