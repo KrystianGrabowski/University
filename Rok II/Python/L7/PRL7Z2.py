@@ -68,10 +68,6 @@ class Im(Gtk.Window):
         dialog.destroy()
 
 
-        """
-        elif response == Gtk.ResponseType.CANCEL:
-        """
-
 window = Im()
 window.connect("delete-event", Gtk.main_quit)
 window.show_all();
