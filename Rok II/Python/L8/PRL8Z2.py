@@ -48,6 +48,17 @@ class Music(Gtk.Window):
         buttupdate.connect("clicked", self.update)
         self.hb.pack_end(buttupdate)
 
+        buttrent = Gtk.Button(label = "Rent")
+        buttrent.connect("clicked", self.rent)
+        self.hb.pack_end(buttrent)
+
+        buttsearch = Gtk.Button(label = "Search")
+        buttsearch.connect("clicked", self.search)
+        self.hb.pack_end(buttsearch)
+
+        self.entrysearch = Gtk.Entry()
+        self.hb.pack_end(self.entrysearch)
+
     def add_(self, widget):
         addArtysta = self.entry1.get_text()
         addAlbum = self.entry2.get_text()
@@ -124,6 +135,23 @@ class Music(Gtk.Window):
         window4.show_all()
         self.show_all()
 
+    def rent(self, widget):
+        window4 = CDrent()
+        window4.show_all()
+        self.show_all()
+
+    def search(self, widget):
+        self.albums = Gtk.ListBox()
+        self.grid.attach_next_to(self.albums, self.artists, Gtk.PositionType.BOTTOM,30,50)
+        self.tracks = Gtk.ListBox()
+        self.grid.attach_next_to(self.tracks, self.albums, Gtk.PositionType.RIGHT, 50,50)
+        self.cur.execute('SELECT * FROM album WHERE nazwa = ?', (self.entrysearch.get_text(), ))
+        albums_list = self.cur.fetchall()
+        for album_ in albums_list:
+            b2 = Gtk.Button(label = album_['nazwa'])
+            b2.connect("clicked", self.load_tracks)
+            self.albums.add(b2)
+        self.show_all()
 
 class CDadd(Gtk.Window):
     def __init__(self):
@@ -221,13 +249,41 @@ class CDupdate(Gtk.Window):
         self.c.row_factory = sqlite3.Row
         self.cur = self.c.cursor()
 
-        delAlbum = self.entry1.get_text()
-        self.cur.execute('DELETE FROM track WHERE nazwa=?', (delAlbum,))
-        self.cur.execute('DELETE FROM album WHERE nazwa=?', (delAlbum,))
+        updateAlbum = self.entry1.get_text()
+        updateAlbumT = self.entry2.get_text()
+        self.cur.execute('UPDATE track SET nazwa=? WHERE nazwa=?', (updateAlbumT, updateAlbum,))
+        self.cur.execute('UPDATE album SET nazwa=? WHERE nazwa=?', (updateAlbumT, updateAlbum,))
         self.c.commit()
 
+class CDrent(Gtk.Window):
+    def __init__(self):
 
+        Gtk.Window.__init__(self, title = "Rent")
 
+        self.set_default_size(200,200)
+        self.grid = Gtk.Grid()
+        self.grid.set_row_spacing(2)
+        self.grid.set_column_spacing(2)
+        self.add(self.grid)
+
+        self.entry1 = Gtk.Entry()
+        self.grid.attach(self.entry1,0,0,20,20)
+
+        addbut = Gtk.Button(label = "Update")
+        addbut.connect("clicked", self.rent_)
+        self.grid.attach_next_to(addbut, self.entry1, Gtk.PositionType.BOTTOM, 20, 20)
+
+    def rent_(self, widget):
+
+        self.c = sqlite3.connect('base.db')
+        self.c.row_factory = sqlite3.Row
+        self.cur = self.c.cursor()
+
+        updateAlbum = self.entry1.get_text()
+        updateAlbumT = updateAlbum + "(wypozyczone)"
+        self.cur.execute('UPDATE track SET nazwa=? WHERE nazwa=?', (updateAlbumT, updateAlbum,))
+        self.cur.execute('UPDATE album SET nazwa=? WHERE nazwa=?', (updateAlbumT, updateAlbum,))
+        self.c.commit()
 
 window = Music()
 window.connect("delete-event", Gtk.main_quit)
