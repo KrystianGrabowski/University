@@ -2,9 +2,17 @@ import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
 
+import sqlite3
+
+
 class Music(Gtk.Window):
     def __init__(self):
         Gtk.Window.__init__(self, title = "Music")
+
+        self.art = []
+        self.rec = []
+        self.tra = []
+
         self.set_default_size(1024,700)
         self.grid = Gtk.Grid()
         self.grid.set_row_spacing(10)
@@ -31,14 +39,51 @@ class Music(Gtk.Window):
         self.hb.props.title = "Records"
         self.set_titlebar(self.hb)
 
-"""    def load(self,widget):
+    def load_artists(self):
+        self.c = sqlite3.connect('base.db')
+        self.c.row_factory = sqlite3.Row
+        self.cur = self.c.cursor()
 
-        self.button0 = Gtk.Label("buttonziro")
-        self.listbox1 = Gtk.ListBox()
-        self.grid.attach_next_to(self.listbox1, self.listbox, Gtk.PositionType.RIGHT, 50,50)
-        self.listbox1.add(self.button0)
+        self.cur.execute("DROP TABLE IF EXISTS artysta")
+
+        self.cur.execute("""
+            CREATE TABLE artysta (
+                id TEXT PRIMARY KEY,
+                nazwa TEXT
+            )""")
+
+        self.cur.execute("""
+            DROP TABLE IF EXISTS album
+            """)
+        self.cur.execute("""
+            CREATE TABLE album (
+            id TEXT PRIMARY KEY,
+            nazwa TEXT ,
+            art TEXT,
+            FOREIGN KEY(art) REFERENCES artysta(nazwa)
+            )""")
+
+        self.c.commit()
+        self.cur.execute('INSERT INTO artysta(nazwa) VALUES(?)', ("Slayer",))
+        self.cur.execute('INSERT INTO artysta(nazwa) VALUES(?)', ("Motor",))
+        self.cur.execute('INSERT INTO artysta(nazwa) VALUES(?)', ("Pantera",))
+        self.c.commit()
+        self.cur.execute('SELECT * FROM artysta')
+        artysci = self.cur.fetchall()
+
+        for artysta in artysci:
+            print(artysta['nazwa'])
+            b = Gtk.Button(label = artysta['nazwa'])
+            b.connect("clicked", self.load_albums)
+            self.art.append(b)
+
+        for i in (self.art):
+            self.artists.pack_start(i, True, True, 0)
         self.show_all()
-        #self.listbox1.unselect_all()"""
+
+    def load_albums(self, widget):
+        print(widget.get_label())
+
 
 
 window = Music()
