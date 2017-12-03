@@ -10,7 +10,7 @@ class Music(Gtk.Window):
         Gtk.Window.__init__(self, title = "Music")
 
         self.art = []
-        self.rec = []
+        self.alb = []
         self.tra = []
 
         self.set_default_size(1024,700)
@@ -62,18 +62,34 @@ class Music(Gtk.Window):
             art TEXT,
             FOREIGN KEY(art) REFERENCES artysta(nazwa)
             )""")
+        self.cur.execute("""
+            DROP TABLE IF EXISTS track
+            """)
+        self.cur.execute("""
+            CREATE TABLE track (
+            id TEXT PRIMARY KEY,
+            tr TEXT,
+            nazwa TEXT,
+            art TEXT,
+            FOREIGN KEY(art) REFERENCES artysta(nazwa),
+            FOREIGN KEY(nazwa) REFERENCES album(nazwa)
+            )""")
 
         self.c.commit()
         self.cur.execute('INSERT INTO artysta(nazwa) VALUES(?)', ("Slayer",))
-        self.cur.execute('INSERT INTO artysta(nazwa) VALUES(?)', ("Motor",))
+        self.cur.execute('INSERT INTO artysta(nazwa) VALUES(?)', ("Factory",))
         self.cur.execute('INSERT INTO artysta(nazwa) VALUES(?)', ("Pantera",))
+        self.cur.execute('INSERT INTO album(nazwa, art) VALUES(?, ?)', ("Vulgar", "Pantera",))
+        self.cur.execute('INSERT INTO album(nazwa, art) VALUES(?, ?)', ("Hostile","Pantera",))
+        self.cur.execute('INSERT INTO album(nazwa, art) VALUES(?, ?)', ("Driven", "Pantera",))
+        self.cur.execute('INSERT INTO track(tr, nazwa, art) VALUES(?, ?, ?)', ("Walk", "Hostile", "Pantera",))
+        self.cur.execute('INSERT INTO track(tr, nazwa, art) VALUES(?, ?, ?)', ("Hollow", "Hostile","Pantera",))
         self.c.commit()
         self.cur.execute('SELECT * FROM artysta')
-        artysci = self.cur.fetchall()
+        artists_list = self.cur.fetchall()
 
-        for artysta in artysci:
-            print(artysta['nazwa'])
-            b = Gtk.Button(label = artysta['nazwa'])
+        for artist_ in artists_list:
+            b = Gtk.Button(label = artist_['nazwa'])
             b.connect("clicked", self.load_albums)
             self.art.append(b)
 
@@ -82,7 +98,28 @@ class Music(Gtk.Window):
         self.show_all()
 
     def load_albums(self, widget):
-        print(widget.get_label())
+        self.albums = Gtk.ListBox()
+        self.grid.attach_next_to(self.albums, self.artists, Gtk.PositionType.BOTTOM,30,50)
+        self.tracks = Gtk.ListBox()
+        self.grid.attach_next_to(self.tracks, self.albums, Gtk.PositionType.RIGHT, 50,50)
+        self.cur.execute('SELECT * FROM album WHERE art = ?', (widget.get_label(), ))
+        albums_list = self.cur.fetchall()
+        for album_ in albums_list:
+            b2 = Gtk.Button(label = album_['nazwa'])
+            b2.connect("clicked", self.load_tracks)
+            self.albums.add(b2)
+        self.show_all()
+
+    def load_tracks(self, widget):
+        self.tracks = Gtk.ListBox()
+        self.grid.attach_next_to(self.tracks, self.albums, Gtk.PositionType.RIGHT, 50,50)
+        self.cur.execute('SELECT * FROM track WHERE nazwa = ? ', (widget.get_label(), ))
+        tracks_list = self.cur.fetchall()
+        for track_ in tracks_list:
+            l = Gtk.Label(track_['tr'])
+            self.tracks.add(l)
+        self.show_all()
+
 
 
 
