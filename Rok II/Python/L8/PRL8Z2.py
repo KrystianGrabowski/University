@@ -37,40 +37,28 @@ class Music(Gtk.Window):
         self.grid.attach_next_to(self.albums, self.artists, Gtk.PositionType.BOTTOM,30,50)
 
         self.tracks = Gtk.ListBox()
-        self.grid.attach_next_to(self.tracks, self.albums, Gtk.PositionType.RIGHT, 30,40)
+        self.grid.attach_next_to(self.tracks, self.albums, Gtk.PositionType.RIGHT, 50,60)
 
-        self.albums = Gtk.ListBox()
-        self.grid.attach_next_to(self.albums, self.artists, Gtk.PositionType.BOTTOM,30,40)
 
-        self.menu = Gtk.ListBox()
-        self.grid.attach_next_to(self.menu, self.tracks, Gtk.PositionType.RIGHT, 30,40)
-
-        self.entry1 = Gtk.Entry()
-        self.entry2 = Gtk.Entry()
-        self.entry3 = Gtk.Entry()
-        self.menu.add(self.entry1)
-        self.menu.add(self.entry2)
-        self.menu.add(self.entry3)
-
-        buttonadd = Gtk.Button(label = "add")
-        buttonadd.connect("clicked", self.add_)
-        self.menu.add(buttonadd)
+        butadd = Gtk.Button(label = "+")
+        butadd.connect("clicked", self.newcd)
+        self.hb.pack_end(butadd)
 
     def add_(self, widget):
-        self.cur.execute('INSERT INTO track(tr, nazwa, art) VALUES(?, ?, ?)', ("Unforgiven", "Albumxyz","Mettalcia",))
+        addArtysta = self.entry1.get_text()
+        addAlbum = self.entry2.get_text()
+        addTracks = self.entry3.get_text()
+
+        self.cur.execute('INSERT INTO artysta(nazwa) VALUES(?)', (addArtysta,))
+        self.cur.execute('INSERT INTO album(nazwa, art) VALUES(?, ?)', (addAlbum, addArtysta,))
+        self.cur.execute('INSERT INTO track(tr, nazwa, art) VALUES(?, ?, ?)', (addTracks, addAlbum, addTracks,))
         self.c.commit()
         self.cur.execute('SELECT * FROM artysta')
         ex = self.cur.fetchall()
-        for i in ex:
-            print(i['nazwa'])
+        bu = Gtk.Button(label = addArtysta)
+        bu.connect("clicked", self.load_albums)
+        self.artists.add(bu)
         self.show_all()
-
-
-
-
-
-
-
 
     def load_artists(self):
         self.c = sqlite3.connect('base.db')
@@ -81,8 +69,6 @@ class Music(Gtk.Window):
         self.cur.execute("CREATE TABLE IF NOT EXISTS album(nazwa TEXT, art TEXT, FOREIGN KEY(art) REFERENCES artysta(nazwa))" )
         self.cur.execute("CREATE TABLE IF NOT EXISTS track(tr TEXT, nazwa TEXT, art TEXT, FOREIGN KEY(art) REFERENCES artysta(nazwa), FOREIGN KEY(nazwa) REFERENCES album(nazwa))" )
 
-        self.c.commit()
-        #self.cur.execute('INSERT INTO artysta VALUES("SLAYER")')
         self.c.commit()
         self.cur.execute('SELECT * FROM artysta')
         artists_list = self.cur.fetchall()
@@ -120,7 +106,50 @@ class Music(Gtk.Window):
         self.show_all()
 
     def newcd(self, widget):
+        window2 = CDWin()
+        window2.show_all()
         self.show_all()
+
+class CDWin(Gtk.Window):
+    def __init__(self):
+
+        Gtk.Window.__init__(self, title = "New")
+
+        self.set_default_size(200,300)
+        self.grid = Gtk.Grid()
+        self.grid.set_row_spacing(2)
+        self.grid.set_column_spacing(2)
+        self.add(self.grid)
+
+        self.entry1 = Gtk.Entry()
+        self.entry2 = Gtk.Entry()
+        self.entry3 = Gtk.Entry()
+
+        self.grid.attach(self.entry1,0,0,20,20)
+        self.grid.attach_next_to(self.entry2, self.entry1, Gtk.PositionType.BOTTOM, 20, 20)
+        self.grid.attach_next_to(self.entry3, self.entry2, Gtk.PositionType.BOTTOM, 20, 20)
+
+        addbut = Gtk.Button(label = "Add")
+        addbut.connect("clicked", self.add_)
+        self.grid.attach_next_to(addbut, self.entry3, Gtk.PositionType.BOTTOM, 20, 20)
+
+    def add_(self, widget):
+
+        self.c = sqlite3.connect('base.db')
+        self.c.row_factory = sqlite3.Row
+        self.cur = self.c.cursor()
+
+        addArtysta = self.entry1.get_text()
+        addAlbum = self.entry2.get_text()
+        addTracks = self.entry3.get_text()
+
+        self.cur.execute('INSERT INTO artysta(nazwa) VALUES(?)', (addArtysta,))
+        self.cur.execute('INSERT INTO album(nazwa, art) VALUES(?, ?)', (addAlbum, addArtysta,))
+        self.cur.execute('INSERT INTO track(tr, nazwa, art) VALUES(?, ?, ?)', (addTracks, addAlbum, addTracks,))
+        self.c.commit()
+        self.show_all()
+
+
 
 
 window = Music()
