@@ -13,15 +13,11 @@ class Music(Gtk.Window):
         self.alb = []
         self.tra = []
 
-        self.set_default_size(1024,700)
+        self.set_default_size(800,600)
         self.grid = Gtk.Grid()
         self.grid.set_row_spacing(10)
         self.grid.set_column_spacing(10)
         self.add(self.grid)
-
-        scrolled = Gtk.ScrolledWindow()
-        scrolled.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
-        #self.add(scrolled)
 
         self.hb = Gtk.HeaderBar()
         self.hb.set_show_close_button(True)
@@ -29,20 +25,28 @@ class Music(Gtk.Window):
         self.set_titlebar(self.hb)
 
         self.artists = Gtk.Box(spacing = 5)
-        self.artists.set_size_request(150,150)
+        self.artists.set_size_request(50,50)
         self.grid.add(self.artists)
         self.load_artists()
 
         self.albums = Gtk.ListBox()
-        self.grid.attach_next_to(self.albums, self.artists, Gtk.PositionType.BOTTOM,30,50)
+        self.grid.attach_next_to(self.albums, self.artists, Gtk.PositionType.BOTTOM,40,50)
 
         self.tracks = Gtk.ListBox()
-        self.grid.attach_next_to(self.tracks, self.albums, Gtk.PositionType.RIGHT, 50,60)
+        self.grid.attach_next_to(self.tracks, self.albums, Gtk.PositionType.RIGHT, 40,50)
 
 
-        butadd = Gtk.Button(label = "+")
-        butadd.connect("clicked", self.newcd)
-        self.hb.pack_end(butadd)
+        buttadd = Gtk.Button(label = "+")
+        buttadd.connect("clicked", self.newcd)
+        self.hb.pack_end(buttadd)
+
+        buttdel = Gtk.Button(label = "-")
+        buttdel.connect("clicked", self.delete)
+        self.hb.pack_end(buttdel)
+
+        buttupdate = Gtk.Button(label = "Update")
+        buttupdate.connect("clicked", self.update)
+        self.hb.pack_end(buttupdate)
 
     def add_(self, widget):
         addArtysta = self.entry1.get_text()
@@ -106,14 +110,25 @@ class Music(Gtk.Window):
         self.show_all()
 
     def newcd(self, widget):
-        window2 = CDWin()
+        window2 = CDadd()
         window2.show_all()
         self.show_all()
 
-class CDWin(Gtk.Window):
+    def delete(self, widget):
+        window3 = CDdelete()
+        window3.show_all()
+        self.show_all()
+
+    def update(self, widget):
+        window4 = CDupdate()
+        window4.show_all()
+        self.show_all()
+
+
+class CDadd(Gtk.Window):
     def __init__(self):
 
-        Gtk.Window.__init__(self, title = "New")
+        Gtk.Window.__init__(self, title = "Add")
 
         self.set_default_size(200,300)
         self.grid = Gtk.Grid()
@@ -141,13 +156,75 @@ class CDWin(Gtk.Window):
 
         addArtysta = self.entry1.get_text()
         addAlbum = self.entry2.get_text()
-        addTracks = self.entry3.get_text()
-
         self.cur.execute('INSERT INTO artysta(nazwa) VALUES(?)', (addArtysta,))
         self.cur.execute('INSERT INTO album(nazwa, art) VALUES(?, ?)', (addAlbum, addArtysta,))
-        self.cur.execute('INSERT INTO track(tr, nazwa, art) VALUES(?, ?, ?)', (addTracks, addAlbum, addTracks,))
+
+        addTracks = self.entry3.get_text()
+        addTracks_list = addTracks.split("-")
+        for i in addTracks_list:
+            self.cur.execute('INSERT INTO track(tr, nazwa, art) VALUES(?, ?, ?)', (i, addAlbum, addArtysta,))
         self.c.commit()
-        self.show_all()
+
+class CDdelete(Gtk.Window):
+    def __init__(self):
+
+        Gtk.Window.__init__(self, title = "Delete")
+
+        self.set_default_size(100,100)
+        self.grid = Gtk.Grid()
+        self.grid.set_row_spacing(2)
+        self.grid.set_column_spacing(2)
+        self.add(self.grid)
+
+        self.entry1 = Gtk.Entry()
+
+        self.grid.add(self.entry1)
+
+        addbut = Gtk.Button(label = "Delete")
+        addbut.connect("clicked", self.del_)
+        self.grid.attach_next_to(addbut, self.entry1, Gtk.PositionType.BOTTOM, 20, 20)
+
+    def del_(self, widget):
+
+        self.c = sqlite3.connect('base.db')
+        self.c.row_factory = sqlite3.Row
+        self.cur = self.c.cursor()
+
+        delAlbum = self.entry1.get_text()
+        self.cur.execute('DELETE FROM track WHERE nazwa=?', (delAlbum,))
+        self.cur.execute('DELETE FROM album WHERE nazwa=?', (delAlbum,))
+        self.c.commit()
+
+class CDupdate(Gtk.Window):
+    def __init__(self):
+
+        Gtk.Window.__init__(self, title = "Delete")
+
+        self.set_default_size(200,200)
+        self.grid = Gtk.Grid()
+        self.grid.set_row_spacing(2)
+        self.grid.set_column_spacing(2)
+        self.add(self.grid)
+
+        self.entry1 = Gtk.Entry()
+        self.entry2 = Gtk.Entry()
+        self.grid.attach(self.entry1,0,0,20,20)
+        self.grid.attach_next_to(self.entry2,self.entry1, Gtk.PositionType.BOTTOM,20,20)
+
+        addbut = Gtk.Button(label = "Update")
+        addbut.connect("clicked", self.update_)
+        self.grid.attach_next_to(addbut, self.entry2, Gtk.PositionType.BOTTOM, 20, 20)
+
+    def update_(self, widget):
+
+        self.c = sqlite3.connect('base.db')
+        self.c.row_factory = sqlite3.Row
+        self.cur = self.c.cursor()
+
+        delAlbum = self.entry1.get_text()
+        self.cur.execute('DELETE FROM track WHERE nazwa=?', (delAlbum,))
+        self.cur.execute('DELETE FROM album WHERE nazwa=?', (delAlbum,))
+        self.c.commit()
 
 
 
