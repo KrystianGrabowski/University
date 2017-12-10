@@ -1,3 +1,5 @@
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
@@ -11,25 +13,31 @@ public class Calendar extends JFrame {
 	public JTabbedPane panelMain = new JTabbedPane();
 	public JPanel panelYear = new JPanel();
 	public MonthList panelMonth;
+	public JToolBar tb;
 	private final String[] months = {"January", "February", "March", "April",
 									"May", "June", "July", "August",
 									"September","October", "November", "December"};
 	
 	public Calendar() {
 		super("Calendar");
+		setLayout(new BorderLayout());
 		gc = new GregorianCalendar();
 		setSize(800,600);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo( null );
-		panels(gc.get(GregorianCalendar.YEAR));
+		panel(gc.get(GregorianCalendar.YEAR));
+		toolbr();
 		panelMonth = new MonthList(gc.get(GregorianCalendar.MONTH) + 1, gc.get(GregorianCalendar.YEAR));
+
+		
 		panelMain.addTab("Miesiac", panelMonth);
 
-		add(panelMain);
+		add(BorderLayout.CENTER, panelMain);
+		add(BorderLayout.PAGE_END, tb);
         setVisible(true);
 	}
 	
-	void panels(int year) {
+	void panel(int year) {
 		panelYear.setLayout(new GridLayout(4, 3));	
 		int i = 0;
 		for(String m : months){
@@ -37,6 +45,12 @@ public class Calendar extends JFrame {
 			i++;
 		}
 		panelMain.addTab("Rok", panelYear);		
+	}
+	public void toolbr() {
+		tb = new JToolBar();
+		tb.setLayout(new FlowLayout());
+		JLabel j = new JLabel("ADSS");
+		tb.add(j);
 	}
 
 }
