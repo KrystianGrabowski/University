@@ -20,39 +20,17 @@ public class MonthList extends JPanel {
 	Integer pmy, amy, nmy;
 	private GregorianCalendar gc;
 	private GregorianCalendar gc_d;
+	public Model modelprev, modelactual, modelnext;
 
-	public void days(Integer m, Integer y) {
-		Integer whichday;
-		gc_d = new GregorianCalendar(amy,am,1);
-		whichday = (gc_d.get(GregorianCalendar.DAY_OF_WEEK));
-		for (int j = 1; j <= days[am]; j++) {
-			String combo = String.valueOf(j) + columns2[(whichday - 1) % 7];
-			actualmonth[j] = combo;
-			whichday++;
-		}
-		System.out.println(pmy);
-		gc_d = new GregorianCalendar(pmy,pm,1);
-		whichday = (gc_d.get(GregorianCalendar.DAY_OF_WEEK));
-		for (int j = 1; j <= days[pm]; j++) {
-			String combo = String.valueOf(j) + columns2[(whichday - 1) % 7];
-			prevmonth[j] = combo;
-			whichday++;
-		}
-		gc_d = new GregorianCalendar(nmy,nm,1);
-		whichday = (gc_d.get(GregorianCalendar.DAY_OF_WEEK));
-		for (int j = 1; j <= days[nm]; j++) {
-			String combo = String.valueOf(j) + columns2[(whichday - 1) % 7];
-			nextmonth[j] = combo;
-			whichday++;
-		}
-	}
+
+	
 	public MonthList(Integer m, Integer y) {
 		listPrev = new JList<String>();
 		list = new JList<String>();
 		listNext = new JList<String>();
-		nextmonth = new String[50];
-		prevmonth = new String[50];
-		actualmonth = new String[50];
+		nextmonth = new String[32];
+		prevmonth = new String[32];
+		actualmonth = new String[32];
 		
 		actualmonth[0] = months[m - 1];
 		am = m-1;
@@ -78,12 +56,14 @@ public class MonthList extends JPanel {
 			pmy = y - 1;
 		}
 		
-		listPrev = new JList<String>(prevmonth);
-		list = new JList<String>(actualmonth);
-		listNext = new JList<String>(nextmonth);	
+		modelprev = new Model(pmy, pm);
+		modelactual = new Model(amy, am);
+		modelnext = new Model(nmy,nm);
+		listPrev = new JList<String>(modelprev);
+		list = new JList<String>(modelactual);
+		listNext = new JList<String>(modelnext);	
 		
 		setLayout(new GridLayout(1,3));
-		days(m, y);
 		add(new JScrollPane(listPrev));
 		add(new JScrollPane(list));
 		add(new JScrollPane(listNext));
@@ -126,6 +106,30 @@ public class MonthList extends JPanel {
 		add(new JScrollPane(listNext));
 		setVisible(true);
 	}
+	/*public void days(Integer m, Integer y) {
+		Integer whichday;
+		gc_d = new GregorianCalendar(amy,am,1);
+		whichday = (gc_d.get(GregorianCalendar.DAY_OF_WEEK));
+		for (int j = 1; j <= days[am]; j++) {
+			String combo = String.valueOf(j) + columns2[(whichday - 1) % 7];
+			actualmonth[j] = combo;
+			whichday++;
+		}
+		System.out.println(pmy);
+		gc_d = new GregorianCalendar(pmy,pm,1);
+		whichday = (gc_d.get(GregorianCalendar.DAY_OF_WEEK));
+		for (int j = 1; j <= days[pm]; j++) {
+			String combo = String.valueOf(j) + columns2[(whichday - 1) % 7];
+			prevmonth[j] = combo;
+			whichday++;
+		}
+		gc_d = new GregorianCalendar(nmy,nm,1);
+		whichday = (gc_d.get(GregorianCalendar.DAY_OF_WEEK));
+		for (int j = 1; j <= days[nm]; j++) {
+			String combo = String.valueOf(j) + columns2[(whichday - 1) % 7];
+			nextmonth[j] = combo;
+			whichday++;
+		}*/
 
 
 }

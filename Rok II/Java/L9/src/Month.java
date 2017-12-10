@@ -15,7 +15,7 @@ public class Month extends JPanel {
 		setLayout(new BorderLayout());
 		button = new JButton(name);
 		table = new JTable(data, columns);
-		table.getColumnModel().getColumn(6).setCellRenderer(new StatusColumnCellRenderer());		
+		table.getColumnModel().getColumn(6).setCellRenderer(new StatusColumnCellRenderer());
 		add(BorderLayout.PAGE_START, button);
 		add(new JScrollPane(table));
 		setVisible(true);

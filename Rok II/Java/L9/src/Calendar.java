@@ -19,7 +19,7 @@ public class Calendar extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo( null );
 		panels();
-		panelMonth = new MonthList(2, 2017);
+		panelMonth = new MonthList(1, 2017);
 		panelMain.addTab("Miesiac", panelMonth);
 
 		add(panelMain);
