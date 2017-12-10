@@ -34,8 +34,6 @@ public class Render implements ListCellRenderer{
 					 
 				 }				 
 			 }
-
-			 
 		 }
 	     renderer.setText(settext);
 	     renderer.setForeground(foreground);

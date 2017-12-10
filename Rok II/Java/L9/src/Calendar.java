@@ -1,10 +1,13 @@
 import java.awt.GridLayout;
+import java.util.GregorianCalendar;
 import java.util.LinkedList;
 
 import javax.swing.*;
 
+
 public class Calendar extends JFrame {
 	
+	private GregorianCalendar gc;
 	public JTabbedPane panelMain = new JTabbedPane();
 	public JPanel panelYear = new JPanel();
 	public MonthList panelMonth;
@@ -14,28 +17,25 @@ public class Calendar extends JFrame {
 	
 	public Calendar() {
 		super("Calendar");
-		
+		gc = new GregorianCalendar();
 		setSize(800,600);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo( null );
-		panels();
-		panelMonth = new MonthList(1, 2017);
+		panels(gc.get(GregorianCalendar.YEAR));
+		panelMonth = new MonthList(gc.get(GregorianCalendar.MONTH) + 1, gc.get(GregorianCalendar.YEAR));
 		panelMain.addTab("Miesiac", panelMonth);
 
 		add(panelMain);
-		
         setVisible(true);
 	}
 	
-	void panels() {
-		
-		panelYear.setLayout(new GridLayout(4, 3));
-		
+	void panels(int year) {
+		panelYear.setLayout(new GridLayout(4, 3));	
+		int i = 0;
 		for(String m : months){
-			panelYear.add(new Month(m));
+			panelYear.add(new Month(m, i ,year));
+			i++;
 		}
-		
-		
 		panelMain.addTab("Rok", panelYear);		
 	}
 

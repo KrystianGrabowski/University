@@ -72,7 +72,7 @@ public class MonthList extends JPanel {
 		add(new JScrollPane(listNext));
 		setVisible(true);
 	}
-
+	/*
 	public MonthList() {
 		gc = new GregorianCalendar();
 		listPrev = new JList<String>();
@@ -108,7 +108,7 @@ public class MonthList extends JPanel {
 		add(new JScrollPane(list));
 		add(new JScrollPane(listNext));
 		setVisible(true);
-	}
+	}*/
 	/*public void days(Integer m, Integer y) {
 		Integer whichday;
 		gc_d = new GregorianCalendar(amy,am,1);
