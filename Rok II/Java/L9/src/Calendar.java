@@ -7,7 +7,7 @@ public class Calendar extends JFrame {
 	
 	public JTabbedPane panelMain = new JTabbedPane();
 	public JPanel panelYear = new JPanel();
-	public JPanel panelMonth = new JPanel();
+	public MonthList panelMonth;
 	private final String[] months = {"January", "February", "March", "April",
 									"May", "June", "July", "August",
 									"September","October", "November", "December"};
@@ -15,10 +15,13 @@ public class Calendar extends JFrame {
 	public Calendar() {
 		super("Calendar");
 		
-		setSize(1000,800);
+		setSize(800,600);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo( null );
 		panels();
+		panelMonth = new MonthList();
+		panelMain.addTab("Miesiac", panelMonth);
+
 		add(panelMain);
 		
         setVisible(true);
@@ -33,9 +36,7 @@ public class Calendar extends JFrame {
 		}
 		
 		
-		panelMain.addTab("Rok", panelYear);
-		panelMain.addTab("Miesiac", panelMonth);
-		
+		panelMain.addTab("Rok", panelYear);		
 	}
 
 }
