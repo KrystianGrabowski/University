@@ -60,8 +60,11 @@ public class MonthList extends JPanel {
 		modelactual = new Model(amy, am);
 		modelnext = new Model(nmy,nm);
 		listPrev = new JList<String>(modelprev);
+		listPrev.setCellRenderer(new Render());
 		list = new JList<String>(modelactual);
+		list.setCellRenderer(new Render());
 		listNext = new JList<String>(modelnext);	
+		listNext.setCellRenderer(new Render());
 		
 		setLayout(new GridLayout(1,3));
 		add(new JScrollPane(listPrev));

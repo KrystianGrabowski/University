@@ -21,9 +21,9 @@ public class Model extends AbstractListModel {
 		list = new ArrayList<>();
 		gc = new GregorianCalendar(year, month, 1);
 		int whichday = (gc.get(GregorianCalendar.DAY_OF_WEEK));
-		list.add(new Object[] {months[month]});
+		list.add(new Object[] {-1,-1,months[month]});
 		for (int j = 1; j <= days[month]; j++) {
-			list.add(new Object[]{columns2[(whichday - 1) % 7], j, month});
+			list.add(new Object[]{columns2[(whichday - 1) % 7], j, months[month]});
 			whichday++;
 		}
 	}
@@ -35,12 +35,8 @@ public class Model extends AbstractListModel {
 	
 	@Override
 	public Object getElementAt(int index) {
-		System.out.println(index);
-		if (index == 0) {
-			return months[month];
-		}
-		Object[] a = list.get(index);
-		return String.valueOf(a[1]) + " " + a[0];
+		return list.get(index);
+
 		
 	}
 }
