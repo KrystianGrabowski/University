@@ -12,7 +12,7 @@ public class Calendar extends JFrame {
 	
 	private GregorianCalendar gc;
 	public JTabbedPane panelMain = new JTabbedPane();
-	public JPanel panelYear = new JPanel();
+	public JPanel panelYear;
 	public MonthList panelMonth;
 	public JToolBar tb;
 	public JLabel year, month;
@@ -31,9 +31,7 @@ public class Calendar extends JFrame {
 		panel(gc.get(GregorianCalendar.YEAR));
 		toolbr();
 		panelMonth = new MonthList(gc.get(GregorianCalendar.MONTH) + 1, gc.get(GregorianCalendar.YEAR));
-
-		
-		panelMain.addTab("Miesiac", panelMonth);
+		panelMain.addTab(months[gc.get(GregorianCalendar.MONTH)], panelMonth);
 
 		add(BorderLayout.CENTER, panelMain);
 		add(BorderLayout.PAGE_END, tb);
@@ -41,13 +39,14 @@ public class Calendar extends JFrame {
 	}
 	
 	void panel(int year) {
+		panelYear = new JPanel();
 		panelYear.setLayout(new GridLayout(4, 3));	
 		int i = 0;
 		for(String m : months){
-			panelYear.add(new Month(m, i ,year));
+			panelYear.add(new Month(m, i ,year, panelMain));
 			i++;
 		}
-		panelMain.addTab("Rok", panelYear);		
+		panelMain.addTab(String.valueOf(year), panelYear);		
 	}
 	public void toolbr() {
 		tb = new JToolBar();
@@ -65,7 +64,34 @@ public class Calendar extends JFrame {
 		monthSp.setValue(months[gc.get(GregorianCalendar.MONTH)]);
 		tb.add(monthSp);
 
+		this.yearSp.addChangeListener(event -> {
+			int a = (int) yearSp.getValue();
+			String b = (String) monthSp.getValue();
+		});
+		
+		this.monthSp.addChangeListener(event -> {
+			int a = (int) yearSp.getValue();
+			String b = (String) monthSp.getValue();
+			int i = 0;
+			int m = 0;
+			for (String month : months) {
+				if (month.equals(b)) {
+					m = i;
+				}
+				else {
+					i++;
+				}
+			}
+			panelMonth.change(m + 1, a);
+			panelMain.setTitleAt(1, months[m]);
 
+		});
+
+
+	}
+	
+	public void upd() {
+		System.out.println("dsad");
 	}
 	
 	public class LoopSpinner extends SpinnerListModel{

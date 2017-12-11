@@ -19,6 +19,19 @@ public class Model extends AbstractListModel {
 		this.month = month;
 		this.year = year;
 		list = new ArrayList<>();
+		set(year, month);
+	}
+	
+	public void changeModel(int year, int month) {
+		this.year = year;
+		this.month = month;
+		list = new ArrayList<>();
+		set(year, month);
+		fireContentsChanged(this, 0, getSize() - 1);
+		
+	}
+	
+	public void set(int year, int month) {
 		gc = new GregorianCalendar(year, month, 1);
 		int whichday = (gc.get(GregorianCalendar.DAY_OF_WEEK));
 		list.add(new Object[] {-1,-1,months[month]});
@@ -39,4 +52,5 @@ public class Model extends AbstractListModel {
 
 		
 	}
+
 }

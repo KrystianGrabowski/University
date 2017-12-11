@@ -24,37 +24,18 @@ public class MonthList extends JPanel {
 
 
 	
-	public MonthList(Integer m, Integer y) {
+	public MonthList(int m, int y) {
 		listPrev = new JList<String>();
 		list = new JList<String>();
 		listNext = new JList<String>();
 		nextmonth = new String[32];
 		prevmonth = new String[32];
 		actualmonth = new String[32];
+		month_choose(m ,y);
 		
-		actualmonth[0] = months[m - 1];
-		am = m-1;
-		amy = y;
-		if (m < 12) {
-			nextmonth[0] = months[m];
-			nm = m;
-			nmy = y;
-		}
-		else {
-			nextmonth[0] = months[0];
-			nm = 0;
-			nmy = y + 1;
-		}
-		if (m > 1) {
-			prevmonth[0] = months[m - 2];
-			pm = m-2;
-			pmy = y;
-		}
-		else {
-			prevmonth[0] = months[11];
-			pm = 11;
-			pmy = y - 1;
-		}
+		actualmonth[0] = months[am];
+		nextmonth[0] = months[nm];
+		prevmonth[0] = months[pm];
 		
 		modelprev = new Model(pmy, pm);
 		modelactual = new Model(amy, am);
@@ -71,6 +52,36 @@ public class MonthList extends JPanel {
 		add(new JScrollPane(list));
 		add(new JScrollPane(listNext));
 		setVisible(true);
+	}
+	
+	public void change(int m, int y) {
+		month_choose(m,y);
+		modelprev.changeModel(pmy, pm);
+		modelactual.changeModel(amy, am);
+		modelnext.changeModel(nmy, nm);
+		
+	}
+	
+	public void month_choose(int m, int y) {
+		am = m-1;
+		amy = y;
+		if (m < 12) {
+			nextmonth[0] = months[m];
+			nm = m;
+			nmy = y;
+		}
+		else {
+			nm = 0;
+			nmy = y + 1;
+		}
+		if (m > 1) {
+			pm = m-2;
+			pmy = y;
+		}
+		else {
+			pm = 11;
+			pmy = y - 1;
+		}		
 	}
 	/*
 	public MonthList() {
