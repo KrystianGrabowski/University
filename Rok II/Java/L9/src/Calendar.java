@@ -19,6 +19,7 @@ public class Calendar extends JFrame {
 	public JLabel year, month;
 	public JSpinner yearSp, monthSp;
 	private ArrayList<Month> list;
+	private int prevmonth;
 	private final String[] months = {"January", "February", "March", "April",
 									"May", "June", "July", "August",
 									"September","October", "November", "December"};
@@ -68,7 +69,9 @@ public class Calendar extends JFrame {
 		tb.add(month);
 		SpinnerModel model_m = new LoopSpinner (months, yearSp);	
 		monthSp = new JSpinner(model_m);
-		monthSp.setValue(months[gc.get(GregorianCalendar.MONTH)]);
+		prevmonth = gc.get(GregorianCalendar.MONTH);
+		monthSp.setValue(months[prevmonth]);
+	
 		tb.add(monthSp);
 
 		this.yearSp.addChangeListener(event -> {
@@ -102,8 +105,25 @@ public class Calendar extends JFrame {
 					i++;
 				}
 			}
-			panelMonth.change(m + 1, a);
-			panelMain.setTitleAt(1, months[m]);
+			System.out.println(prevmonth);
+			System.out.println(m);
+			if (prevmonth == 0 && m == 11) {
+				panelMonth.change(m + 1, a);
+				yearSp.setValue((int)yearSp.getValue() - 1);
+				panelMain.setTitleAt(1, months[m]);
+				
+			}
+			else if (prevmonth == 11 && m == 0) {
+				panelMonth.change(m + 1, a);
+				yearSp.setValue((int)yearSp.getValue() + 1);
+				panelMain.setTitleAt(1, months[m]);				
+			}
+			else {
+				panelMonth.change(m + 1, a);
+				panelMain.setTitleAt(1, months[m]);				
+			}
+			prevmonth = m;
+
 
 		});
 
