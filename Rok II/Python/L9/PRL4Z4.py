@@ -24,7 +24,7 @@ class SimpleTestCase(unittest.TestCase):
 
 class Wyrazy:
 	"""
-	Wyrazy przechowuje tekst zawarty w pliku
+	Klasa przechowuje tekst zawarty w pliku
 	"""
 	def __init__(self, nazwa):
 		"""
@@ -46,7 +46,7 @@ class Wyrazy:
 
 	def __next__(self):
 		"""
-		Metoda zwracająca kolejny wyraz
+		Metoda zwracająca kolejny wyraz z teksu
 
 		@return: String kolejny wyraz
 		"""
@@ -77,6 +77,7 @@ class Wyrazy:
 
 def statystyka_slow(nazwa):
 	"""
+	@file
 	Metoda konsturuująca słownik mówiący ile wyrazów jakiej długości
 	znajduje się w tekście
 
