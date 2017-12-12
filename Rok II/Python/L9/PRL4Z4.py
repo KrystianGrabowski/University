@@ -23,7 +23,15 @@ class SimpleTestCase(unittest.TestCase):
 
 
 class Wyrazy:
+	"""
+	Wyrazy przechowuje tekst zawarty w pliku
+	"""
 	def __init__(self, nazwa):
+		"""
+		Wczytanie nowego tekstu
+
+		@param nazwa : nazwa pliku
+		"""
 		self.ok = [97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121,
 			122, 261, 263, 281, 322, 324, 243, 347, 378, 380,
 			48, 49, 50, 51, 52, 53, 54, 55, 56, 57]
@@ -37,6 +45,11 @@ class Wyrazy:
 		return self
 
 	def __next__(self):
+		"""
+		Metoda zwracająca kolejny wyraz
+
+		@return: String kolejny wyraz
+		"""
 		wyraz = ""
 		litera = ''
 		self.licznik += 1
@@ -63,6 +76,13 @@ class Wyrazy:
 
 
 def statystyka_slow(nazwa):
+	"""
+	Metoda konsturuująca słownik mówiący ile wyrazów jakiej długości
+	znajduje się w tekście
+
+	@param nazwa : nazwa pliku z tekstem do zestatystykwania
+	@return: Słownik kolejny wyraz
+	"""
 	w = Wyrazy(nazwa)
 	stat = {}
 	while(True):
