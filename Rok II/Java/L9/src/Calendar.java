@@ -1,6 +1,7 @@
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
@@ -17,6 +18,7 @@ public class Calendar extends JFrame {
 	public JToolBar tb;
 	public JLabel year, month;
 	public JSpinner yearSp, monthSp;
+	private ArrayList<Month> list;
 	private final String[] months = {"January", "February", "March", "April",
 									"May", "June", "July", "August",
 									"September","October", "November", "December"};
@@ -28,9 +30,11 @@ public class Calendar extends JFrame {
 		setSize(800,600);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo( null );
-		panel(gc.get(GregorianCalendar.YEAR));
-		toolbr();
 		panelMonth = new MonthList(gc.get(GregorianCalendar.MONTH) + 1, gc.get(GregorianCalendar.YEAR));
+		toolbr();
+		panel(gc.get(GregorianCalendar.YEAR));
+		
+		
 		panelMain.addTab(months[gc.get(GregorianCalendar.MONTH)], panelMonth);
 
 		add(BorderLayout.CENTER, panelMain);
@@ -39,11 +43,14 @@ public class Calendar extends JFrame {
 	}
 	
 	void panel(int year) {
+		list = new ArrayList<Month>();
 		panelYear = new JPanel();
 		panelYear.setLayout(new GridLayout(4, 3));	
 		int i = 0;
 		for(String m : months){
-			panelYear.add(new Month(m, i ,year, panelMain));
+			Month table = new Month(m, i ,year, panelMain, panelMonth, yearSp, monthSp);
+			panelYear.add(table);
+			list.add(table);
 			i++;
 		}
 		panelMain.addTab(String.valueOf(year), panelYear);		
@@ -67,6 +74,19 @@ public class Calendar extends JFrame {
 		this.yearSp.addChangeListener(event -> {
 			int a = (int) yearSp.getValue();
 			String b = (String) monthSp.getValue();
+			panelMain.setTitleAt(0, String.valueOf(a));
+			int i = 0;
+			int m = 0;
+			for (String month : months) {
+				if (month.equals(b)) {
+					m = i;
+				}
+				else {
+					i++;
+				}
+			}
+			panelMonth.change(m + 1, a);
+			updateYear(a);
 		});
 		
 		this.monthSp.addChangeListener(event -> {
@@ -89,10 +109,18 @@ public class Calendar extends JFrame {
 
 
 	}
-	
-	public void upd() {
-		System.out.println("dsad");
+	public void updateYear(int year) {
+
+		panelYear.setLayout(new GridLayout(4, 3));	
+		int i = 0;
+		for(Month m : list){
+			m.setdays(i, year);
+			i++;
+		}
 	}
+		
+	
+
 	
 	public class LoopSpinner extends SpinnerListModel{
 		JSpinner spinner; 
