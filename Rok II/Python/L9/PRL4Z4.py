@@ -77,7 +77,6 @@ class Wyrazy:
 
 def statystyka_slow(nazwa):
 	"""
-	@file
 	Metoda konsturuująca słownik mówiący ile wyrazów jakiej długości
 	znajduje się w tekście
 
