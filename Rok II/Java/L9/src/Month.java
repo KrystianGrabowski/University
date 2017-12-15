@@ -10,9 +10,7 @@ public class Month extends JPanel {
 	public JButton button;
 	public JTable table;
 	private final String[] columns = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
-	private final String[] columns2 = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
-	public Object[][] data = {{null,null,null,null,null,null,null},{null,null,null,null,null,null,null},{null,null,null,null,null,null,null},
-			{null,null,null,null,null,null,null},{null,null,null,null,null,null,null}, {null,null,null,null,null,null,null}};
+	public Object[][] data = new Object[6][7];
 	private final int[] days = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 	private final String[] months = {"January", "February", "March", "April",
 			"May", "June", "July", "August",

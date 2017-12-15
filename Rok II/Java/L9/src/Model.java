@@ -43,17 +43,29 @@ public class Model extends AbstractListModel {
 			for (int j = 15; j <= 31; j++) {
 				list.add(new Object[]{columns2[(whichday - 1) % 7], j, months[month]});
 				whichday++;
-			}			
+			}
 		}
 		else {
 			int hwm = 0;
 			if (month == 1) {
-				if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) {
-					hwm = days[month] + 1;
+				if (year >= 1582) {
+					if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) {
+						hwm = days[month] + 1;
+					}					
+					else {
+						hwm = days[month];
+					}
+				}else {
+					if (year % 4 == 0) {
+						hwm = days[month] + 1;
+					}
+					else {
+						hwm = days[month];
+					}
 				}
-				else {
-					hwm = days[month];
-				}
+
+				
+
 			
 			}
 			else {
@@ -75,9 +87,17 @@ public class Model extends AbstractListModel {
 			return days[month] - 9;
 		}
 		if (month == 1) {
-			if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) {
-				return days[month] + 2;
+			if (year >= 1582) {
+				if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) {
+					return days[month] + 2;
+				}
 			}
+			else {
+				if (year % 4 == 0) {
+					return days[month] + 2;
+				}
+			}
+
 		}
 		return days[month] + 1 ;			
 

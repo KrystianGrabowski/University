@@ -184,7 +184,10 @@ class CDadd(Gtk.Window):
 
         addArtysta = self.entry1.get_text()
         addAlbum = self.entry2.get_text()
-        self.cur.execute('INSERT INTO artysta(nazwa) VALUES(?)', (addArtysta,))
+        self.cur.execute('SELECT * FROM artysta WHERE nazwa = ? ', (addArtysta, ))
+        a = self.cur.fetchall()
+        if len(a) == 0:
+            self.cur.execute('INSERT INTO artysta(nazwa) VALUES(?)', (addArtysta,))
         self.cur.execute('INSERT INTO album(nazwa, art) VALUES(?, ?)', (addAlbum, addArtysta,))
 
         addTracks = self.entry3.get_text()

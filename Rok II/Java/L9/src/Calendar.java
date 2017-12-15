@@ -62,7 +62,7 @@ public class Calendar extends JFrame {
 		year = new JLabel("Year:");
 		month = new JLabel("Month:");
 		tb.add(year);
-		SpinnerModel model_y = new SpinnerNumberModel( gc.get(GregorianCalendar.YEAR), 1582, null , 1);
+		SpinnerModel model_y = new SpinnerNumberModel( gc.get(GregorianCalendar.YEAR), null, null , 1);
 		yearSp = new JSpinner(model_y);
 		tb.add(yearSp);
 		
@@ -105,8 +105,6 @@ public class Calendar extends JFrame {
 					i++;
 				}
 			}
-			System.out.println(prevmonth);
-			System.out.println(m);
 			if (prevmonth == 0 && m == 11) {
 				panelMonth.change(m + 1, a);
 				yearSp.setValue((int)yearSp.getValue() - 1);
