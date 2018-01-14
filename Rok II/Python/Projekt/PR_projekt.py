@@ -85,10 +85,51 @@ class My_Gyms(Gtk.Window):
         print("info")
 
     def new_customer(self, widget):
-        print("new")
+        window2 = Custadd(self.gyms)
+        window2.show_all()
+        self.show_all()
 
     def search(self, widget):
         print("search")
+
+
+class Custadd(Gtk.Window):
+    def __init__(self, gyms):
+        Gtk.Window.__init__(self, title= "Add")
+
+        self.set_default_size(300, 300)
+        self.grid = Gtk.Grid()
+        self.grid.set_row_spacing(5)
+        self.grid.set_column_spacing(3)
+        self.add(self.grid)
+
+
+        self.entry1 = Gtk.Entry()
+        self.entry2 = Gtk.Entry()
+        self.entry3 = Gtk.Entry()
+
+        label = Gtk.Label("Imię")
+        self.grid.attach(label, 0, 0, 20, 10)
+        self.grid.attach_next_to(self.entry1, label, Gtk.PositionType.RIGHT, 50, 10)
+        label2 = Gtk.Label("Nazwisko")
+        self.grid.attach(label2, 0, 8, 20, 10)
+        self.grid.attach_next_to(self.entry2, label2, Gtk.PositionType.RIGHT, 50, 10)
+        label3 = Gtk.Label("Silownia")
+        self.grid.attach(label3, 0, 16, 20, 10)
+
+        combobox = Gtk.ComboBoxText()
+        for gym_name in gyms:
+            combobox.append_text(gym_name.get_label())
+            combobox.append_text("test1")
+            combobox.append_text("test2")
+        combobox.connect("changed", self.combo_changed)
+        self.grid.attach_next_to(combobox, label3, Gtk.PositionType.RIGHT, 50, 8)
+
+
+
+    def combo_changed(self, widget):
+        print("ewq")
+
 
 window = My_Gyms()
 window.connect("delete-event", Gtk.main_quit)
