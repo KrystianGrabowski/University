@@ -55,8 +55,6 @@ class My_Gyms(Gtk.Window):
         self.cur.execute("CREATE TABLE IF NOT EXISTS customer(fname TEXT, sname TEXT, name TEXT, FOREIGN KEY(name) REFERENCES gym(name))")
 
         self.c.commit()
-
-
         self.cur.execute('SELECT * FROM gym')
         gyms_ = self.cur.fetchall()
 
@@ -77,7 +75,7 @@ class My_Gyms(Gtk.Window):
         self.cur.execute('SELECT * FROM customer WHERE name = ?', (widget.get_label(), ))
         customers_ = self.cur.fetchall()
         for customer_ in customers_:
-            b2 = Gtk.Button(label = customer_['fname'] + customer_['sname'])
+            b2 = Gtk.Button(label = customer_['fname'] + " " + customer_['sname'])
             b2.connect("clicked", self.cust_info)
             self.customers.append(b2)
 
@@ -136,14 +134,15 @@ class Gymadd(Gtk.Window):
         self.c.row_factory = sqlite3.Row
         self.cur = self.c.cursor()
 
-        cust_firstname = self.entry1.get_text()
-        cust_surname = self.entry2.get_text()
-        sel_gym = self.combobox.get_active_iter()
+        gym_name = self.entry1.get_text()
+        gym_street = self.entry2.get_text()
+        street_nr = self.entry3.get_text()
 
-        if entry3 == "" or self.entry1 == "" or self.entry2 == "":
+        if self.entry3 == "" or self.entry1 == "" or self.entry2 == "":
             self.info_label = Gtk.Label("Wprowadź wszystkie dane")
         else :
-            self.cur.execute('INSERT INTO gym(name, street, nr) VALUES(?,?,?)', (cust_firstname, cust_surname, sel_gym))
+            self.cur.execute('INSERT INTO gym(name, street, nr) VALUES(?,?,?)', (gym_name, gym_street, street_nr))
+        self.c.commit()
 
 class Custadd(Gtk.Window):
     def __init__(self, gyms):
@@ -187,14 +186,15 @@ class Custadd(Gtk.Window):
 
         cust_firstname = self.entry1.get_text()
         cust_surname = self.entry2.get_text()
-        sel_gym = self.combobox.get_active_iter()
+        sel_gym = self.combobox.get_active_text()
+        print(sel_gym)
 
         if sel_gym == None or self.entry1 == "" or self.entry2 == "":
             self.info_label = Gtk.Label("Wprowadź wszystkie dane")
-        else :
+        else:
             self.cur.execute('INSERT INTO customer(fname, sname, name) VALUES(?,?,?)', (cust_firstname, cust_surname, sel_gym))
 
-
+        self.c.commit()
 
 
     def combo_changed(self, widget):
