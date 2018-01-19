@@ -8,8 +8,8 @@ class My_Gyms(Gtk.Window):
     def __init__(self):
         Gtk.Window.__init__(self, title = "Gym")
 
-        self.gyms = []
         self.customers = []
+        self.gyms = []
 
         self.set_default_size(800,600)
         self.grid = Gtk.Grid()
@@ -17,18 +17,12 @@ class My_Gyms(Gtk.Window):
         self.grid.set_column_spacing(10)
         self.add(self.grid)
 
+
+
         self.headerbar = Gtk.HeaderBar()
         self.headerbar.set_show_close_button(True)
         self.headerbar.props.title = "My gym"
         self.set_titlebar(self.headerbar)
-
-        self.gyms_list = Gtk.ListBox()
-        self.grid.attach(self.gyms_list,0,0,40,50)
-
-        self.customers_list = Gtk.ListBox()
-        self.grid.attach_next_to(self.customers_list, self.gyms_list,
-            Gtk.PositionType.RIGHT, 40, 50)
-
 
         buttonadd_c = Gtk.Button(label = "New customer")
         buttonadd_c.connect("clicked", self.new_customer)
@@ -38,11 +32,17 @@ class My_Gyms(Gtk.Window):
         buttonadd_g.connect("clicked", self.new_gym)
         self.headerbar.pack_start(buttonadd_g)
 
+        button_del = Gtk.Button(label = "Delete")
+        button_del.connect("clicked", self.delete_customer)
+        self.headerbar.pack_end(button_del)
+
         buttsearch = Gtk.Button(label = "Search")
         buttsearch.connect("clicked", self.search)
         self.headerbar.pack_end(buttsearch)
 
-        self.load_gyms();
+        self.load_gyms()
+        self.load_customers()
+        self.load_tree()
 
 
 
@@ -52,50 +52,69 @@ class My_Gyms(Gtk.Window):
         self.cur = self.c.cursor()
 
         self.cur.execute("CREATE TABLE IF NOT EXISTS gym(name TEXT, street TEXT, nr INTEGER)")
-        self.cur.execute("CREATE TABLE IF NOT EXISTS customer(fname TEXT, sname TEXT, name TEXT, FOREIGN KEY(name) REFERENCES gym(name))")
+        self.cur.execute("CREATE TABLE IF NOT EXISTS customer(fname TEXT, sname TEXT, id TEXT , name TEXT, FOREIGN KEY(name) REFERENCES gym(name))")
 
         self.c.commit()
         self.cur.execute('SELECT * FROM gym')
         gyms_ = self.cur.fetchall()
-
+        gyms = []
         for gym_ in gyms_:
-            b = Gtk.Button(label = gym_['name'])
-            b.connect("clicked", self.load_customers)
-            self.gyms.append(b)
+            self.gyms.append(gym_['name'])
 
-        for i in self.gyms:
-            self.gyms_list.add(i)
+
+    def load_customers(self):
+        self.cur.execute('SELECT * FROM customer')
+        customers_ = self.cur.fetchall()
+        customers = []
+        for customer_ in customers_:
+            self.customers.append((customer_['fname'], customer_['sname'], customer_['id'] , customer_['name']))
+
+    def load_tree(self):
+        self.customer_list = Gtk.ListStore(str, str, str, str)
+        for customer_ in self.customers:
+            if list(customer_) not in self.customer_list:
+                self.customer_list.append(list(customer_))
+        self.language_filter = self.customer_list.filter_new()
+
+        self.treeview = Gtk.TreeView.new_with_model(self.language_filter)
+        for i, colum_title in enumerate(["First name", "Last name", "ID", "Gym"]):
+            renderer = Gtk.CellRendererText()
+            column = Gtk.TreeViewColumn(colum_title, renderer, text=i)
+
+            self.treeview.append_column(column)
+
+        self.scrollable_treelist = Gtk.ScrolledWindow()
+        self.scrollable_treelist.set_vexpand(True)
+        self.grid.attach(self.scrollable_treelist,0,0,100,20)
+        self.scrollable_treelist.add(self.treeview)
         self.show_all()
 
 
-    def load_customers(self, widget):
+    def delete_customer(self, widget):
+         selection = self.treeview.get_selection()
+         model, path = selection.get_selected_rows()
+         itr = self.customer_list.get_iter(path)
+         modeltree = model.get_model()
+         print(modeltree)
+         print(model.get_string_from_iter(itr))
+         #self.customer_list.remove(itr)
 
-        self.customers_list.gtk_container_remove( self.customers_list)
-        self.cur.execute('SELECT * FROM customer WHERE name = ?', (widget.get_label(), ))
-        customers_ = self.cur.fetchall()
-        for customer_ in customers_:
-            print("DSADA")
-            b2 = Gtk.Label(customer_['fname'] + " " + customer_['sname'])
-            self.customers_list.add(b2)
-
-        #self.customers_list.show_all()
-        '''for j in self.customers:
-            self.customers_list.add(j)
-
-        #self.show_all()
-        '''
-    def cust_info(self, widget):
-        print("info")
 
     def new_customer(self, widget):
         window2 = Custadd(self.gyms)
         window2.show_all()
+        window2.connect("delete-event", self.reload)
         self.show_all()
 
     def new_gym(self, widget):
         window3 = Gymadd()
         window3.show_all()
         self.show_all()
+
+    def reload(self,arg1,arg2):
+        self.load_gyms()
+        self.load_customers()
+        self.load_tree()
 
     def search(self, widget):
         print("search")
@@ -140,7 +159,7 @@ class Gymadd(Gtk.Window):
         gym_name = self.entry1.get_text()
         gym_street = self.entry2.get_text()
         street_nr = self.entry3.get_text()
-        if gym_name == "" or gym_street == "" or street_nr == "":
+        if gym_name == "" or gym_street == "" or street_nr == "" :
             self.error_label.set_label("Brak danych")
         else:
             self.cur.execute('INSERT INTO gym(name, street, nr) VALUES(?,?,?)', (gym_name, gym_street, street_nr))
@@ -152,7 +171,7 @@ class Custadd(Gtk.Window):
     def __init__(self, gyms):
         Gtk.Window.__init__(self, title = "Add customer")
 
-        self.set_default_size(350, 350)
+        self.set_default_size(300, 350)
         self.grid = Gtk.Grid()
         self.grid.set_row_spacing(5)
         self.grid.set_column_spacing(3)
@@ -160,6 +179,7 @@ class Custadd(Gtk.Window):
 
         self.entry1 = Gtk.Entry()
         self.entry2 = Gtk.Entry()
+        self.entry21 = Gtk.Entry()
 
         self.info_label = Gtk.Label("Enter : ")
         self.grid.attach(self.info_label, 5, 0, 40, 10)
@@ -169,12 +189,15 @@ class Custadd(Gtk.Window):
         label2 = Gtk.Label("Nazwisko")
         self.grid.attach(label2, 0, 16, 20, 10)
         self.grid.attach_next_to(self.entry2, label2, Gtk.PositionType.RIGHT, 50, 10)
+        label21 = Gtk.Label("Pesel")
+        self.grid.attach(label21, 0, 24, 20, 10)
+        self.grid.attach_next_to(self.entry21, label21, Gtk.PositionType.RIGHT, 50, 10)
         label3 = Gtk.Label("Silownia")
-        self.grid.attach(label3, 0, 24, 20, 10)
+        self.grid.attach(label3, 0, 32, 20, 10)
 
         self.combobox = Gtk.ComboBoxText()
         for gym_name in gyms:
-            self.combobox.append_text(gym_name.get_label())
+            self.combobox.append_text(gym_name)
         self.combobox.connect("changed", self.combo_changed)
         self.grid.attach_next_to(self.combobox, label3, Gtk.PositionType.RIGHT, 50, 8)
         self.add = Gtk.Button(label = "Add customer")
@@ -182,7 +205,7 @@ class Custadd(Gtk.Window):
         self.grid.attach_next_to(self.add, self.combobox, Gtk.PositionType.BOTTOM, 45, 16)
 
         self.error_label = Gtk.Label()
-        self.grid.attach(self.error_label, 30, 50, 30, 10 )
+        self.grid.attach(self.error_label, 30, 60, 30, 10 )
 
     def add_m(self, widget):
         self.c = sqlite3.connect('gym.db')
@@ -191,11 +214,16 @@ class Custadd(Gtk.Window):
 
         cust_firstname = self.entry1.get_text()
         cust_surname = self.entry2.get_text()
+        cust_id = self.entry21.get_text()
         sel_gym = self.combobox.get_active_text()
-        if sel_gym == None or cust_firstname == "" or cust_surname == "":
+
+
+        if len(cust_id) != 11:
+            self.error_label.set_label("Wrong id")
+        elif sel_gym == None or cust_firstname == "" or cust_surname == "" or cust_id == "":
             self.error_label.set_label("Brak danych")
         else:
-            self.cur.execute('INSERT INTO customer(fname, sname, name) VALUES(?,?,?)', (cust_firstname, cust_surname, sel_gym))
+            self.cur.execute('INSERT INTO customer(fname, sname, id, name) VALUES(?,?,?,?)', (cust_firstname, cust_surname, cust_id, sel_gym))
             self.error_label.set_label("Dodano")
 
         self.c.commit()
