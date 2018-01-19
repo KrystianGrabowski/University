@@ -3,6 +3,9 @@ gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
 
 import sqlite3
+from threading import *
+import queue
+
 
 class My_Gyms(Gtk.Window):
     def __init__(self):
@@ -57,17 +60,17 @@ class My_Gyms(Gtk.Window):
         self.c.commit()
         self.cur.execute('SELECT * FROM gym')
         gyms_ = self.cur.fetchall()
-        gyms = []
         for gym_ in gyms_:
-            self.gyms.append(gym_['name'])
+            if (gym_['name']) not in self.gyms:
+                self.gyms.append(gym_['name'])
 
 
     def load_customers(self):
         self.cur.execute('SELECT * FROM customer')
         customers_ = self.cur.fetchall()
-        customers = []
         for customer_ in customers_:
-            self.customers.append((customer_['fname'], customer_['sname'], customer_['id'] , customer_['name']))
+            if ((customer_['fname'], customer_['sname'], customer_['id'] ,customer_['name'])) not in self.customers:
+                self.customers.append((customer_['fname'], customer_['sname'], customer_['id'] , customer_['name']))
 
     def load_tree(self):
         self.customer_list = Gtk.ListStore(str, str, str, str)
@@ -95,9 +98,15 @@ class My_Gyms(Gtk.Window):
          model, path = selection.get_selected_rows()
          itr = self.customer_list.get_iter(path)
          modeltree = model.get_model()
-         print(modeltree)
-         print(model.get_string_from_iter(itr))
-         #self.customer_list.remove(itr)
+
+         del_id = self.customer_list[itr][2]
+
+         self.customer_list.remove(itr)
+         self.cur.execute('DELETE FROM customer WHERE id=? ', (del_id,))
+         self.c.commit()
+         for c in self.customers:
+             if c[2] == del_id:
+                self.customers.remove(c)
 
 
     def new_customer(self, widget):
@@ -109,12 +118,17 @@ class My_Gyms(Gtk.Window):
     def new_gym(self, widget):
         window3 = Gymadd()
         window3.show_all()
+        window3.connect("delete-event", self.reload_gyms)
         self.show_all()
+
+    def reload_gyms(self,arg1,arg2):
+        self.load_gyms()
 
     def reload(self,arg1,arg2):
         self.load_gyms()
         self.load_customers()
         self.load_tree()
+
 
     def search(self, widget):
         print("search")
@@ -132,7 +146,7 @@ class Gymadd(Gtk.Window):
         self.entry2 = Gtk.Entry()
         self.entry3 = Gtk.Entry()
 
-        self.info_label = Gtk.Label("Podaj dane o siłowni: ")
+        self.info_label = Gtk.Label("Enter necessary data: ")
         self.grid.attach(self.info_label, 5, 0, 40, 10)
         label = Gtk.Label("Name")
         self.grid.attach(label, 0, 8, 20, 10)
@@ -160,10 +174,10 @@ class Gymadd(Gtk.Window):
         gym_street = self.entry2.get_text()
         street_nr = self.entry3.get_text()
         if gym_name == "" or gym_street == "" or street_nr == "" :
-            self.error_label.set_label("Brak danych")
+            self.error_label.set_label("Fill in the blanks!")
         else:
             self.cur.execute('INSERT INTO gym(name, street, nr) VALUES(?,?,?)', (gym_name, gym_street, street_nr))
-            self.error_label.set_label("Udało sie")
+            self.error_label.set_label("Gym added")
         self.c.commit()
         self.show_all()
 
@@ -171,34 +185,34 @@ class Custadd(Gtk.Window):
     def __init__(self, gyms):
         Gtk.Window.__init__(self, title = "Add customer")
 
-        self.set_default_size(300, 350)
+        self.set_default_size(350, 350)
         self.grid = Gtk.Grid()
         self.grid.set_row_spacing(5)
         self.grid.set_column_spacing(3)
         self.add(self.grid)
 
+        self.gyms_add = gyms
         self.entry1 = Gtk.Entry()
         self.entry2 = Gtk.Entry()
         self.entry21 = Gtk.Entry()
 
-        self.info_label = Gtk.Label("Enter : ")
+        self.info_label = Gtk.Label("Enter necessary data: ")
         self.grid.attach(self.info_label, 5, 0, 40, 10)
-        label = Gtk.Label("Imię")
+        label = Gtk.Label("FName")
         self.grid.attach(label, 0, 8, 20, 10)
         self.grid.attach_next_to(self.entry1, label, Gtk.PositionType.RIGHT, 50, 10)
-        label2 = Gtk.Label("Nazwisko")
+        label2 = Gtk.Label("Sname")
         self.grid.attach(label2, 0, 16, 20, 10)
         self.grid.attach_next_to(self.entry2, label2, Gtk.PositionType.RIGHT, 50, 10)
-        label21 = Gtk.Label("Pesel")
+        label21 = Gtk.Label("ID")
         self.grid.attach(label21, 0, 24, 20, 10)
         self.grid.attach_next_to(self.entry21, label21, Gtk.PositionType.RIGHT, 50, 10)
-        label3 = Gtk.Label("Silownia")
+        label3 = Gtk.Label("Gym")
         self.grid.attach(label3, 0, 32, 20, 10)
 
         self.combobox = Gtk.ComboBoxText()
-        for gym_name in gyms:
+        for gym_name in self.gyms_add:
             self.combobox.append_text(gym_name)
-        self.combobox.connect("changed", self.combo_changed)
         self.grid.attach_next_to(self.combobox, label3, Gtk.PositionType.RIGHT, 50, 8)
         self.add = Gtk.Button(label = "Add customer")
         self.add.connect("clicked", self.add_m)
@@ -207,10 +221,25 @@ class Custadd(Gtk.Window):
         self.error_label = Gtk.Label()
         self.grid.attach(self.error_label, 30, 60, 30, 10 )
 
+    def check(self, gym_name, cust_id):
+        self.cur.execute('SELECT * FROM customer where name = ?', (gym_name))
+        customers = self.cur.fetchall()
+        for c in customers:
+            if c['id'] == cust_id:
+                lck = Lock()
+                lck.acquire()
+                self.my_set.add(gym_name)
+                lck.release()
+
+
+
     def add_m(self, widget):
         self.c = sqlite3.connect('gym.db')
         self.c.row_factory = sqlite3.Row
         self.cur = self.c.cursor()
+
+        self.my_set = set()
+        self.is_ok = True
 
         cust_firstname = self.entry1.get_text()
         cust_surname = self.entry2.get_text()
@@ -219,18 +248,34 @@ class Custadd(Gtk.Window):
 
 
         if len(cust_id) != 11:
-            self.error_label.set_label("Wrong id")
+            self.error_label.set_label("Wrong ID")
         elif sel_gym == None or cust_firstname == "" or cust_surname == "" or cust_id == "":
-            self.error_label.set_label("Brak danych")
+            self.error_label.set_label("Fill in the blanks!")
         else:
-            self.cur.execute('INSERT INTO customer(fname, sname, id, name) VALUES(?,?,?,?)', (cust_firstname, cust_surname, cust_id, sel_gym))
-            self.error_label.set_label("Dodano")
+            q = queue.Queue()
+            for gym in self.gyms_add:
+                thread = Thread(target = check, args = (gym, cust_id))
+                thread.start()
+                q.put(thread)
+            while(not q.empty()):
+                q.get().join()
+
+            if len(self.my_set) > 3 :
+                self.error_label.set_label("Limit of gyms exceeded")
+                self.is_ok = False
+            else:
+                while len(self.my_set):
+                    if self.my_set.pop() == sel_gym:
+                        self.error_label.set_label("Customer already exists")
+                        self.is_ok = False
+
+            if self.is_ok:
+                self.cur.execute('INSERT INTO customer(fname, sname, id, name) VALUES(?,?,?,?)', (cust_firstname, cust_surname, cust_id, sel_gym))
+                self.error_label.set_label("Customer added")
 
         self.c.commit()
         self.show_all()
 
-    def combo_changed(self, widget):
-        print("ewq")
 
 
 window = My_Gyms()
