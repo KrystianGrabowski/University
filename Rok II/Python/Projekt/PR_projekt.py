@@ -3,8 +3,9 @@ gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
 
 import sqlite3
-from threading import *
-import queue
+from threading import Thread, Lock
+import queue as queue
+
 
 
 class My_Gyms(Gtk.Window):
@@ -116,7 +117,7 @@ class My_Gyms(Gtk.Window):
         self.show_all()
 
     def new_gym(self, widget):
-        window3 = Gymadd()
+        window3 = Gymadd(self.gyms)
         window3.show_all()
         window3.connect("delete-event", self.reload_gyms)
         self.show_all()
@@ -134,13 +135,14 @@ class My_Gyms(Gtk.Window):
         print("search")
 
 class Gymadd(Gtk.Window):
-    def __init__(self):
+    def __init__(self, gyms):
         Gtk.Window.__init__(self, title = "New Gym")
         self.set_default_size(350, 350)
         self.grid = Gtk.Grid()
         self.grid.set_row_spacing(5)
         self.grid.set_column_spacing(3)
         self.add(self.grid)
+        self.gyms = gyms
 
         self.entry1 = Gtk.Entry()
         self.entry2 = Gtk.Entry()
@@ -175,9 +177,12 @@ class Gymadd(Gtk.Window):
         street_nr = self.entry3.get_text()
         if gym_name == "" or gym_street == "" or street_nr == "" :
             self.error_label.set_label("Fill in the blanks!")
+        elif gym_name in self.gyms:
+            self.error_label.set_label("This gym already exists")
         else:
             self.cur.execute('INSERT INTO gym(name, street, nr) VALUES(?,?,?)', (gym_name, gym_street, street_nr))
             self.error_label.set_label("Gym added")
+            self.gyms.append(gym_name)
         self.c.commit()
         self.show_all()
 
@@ -221,14 +226,12 @@ class Custadd(Gtk.Window):
         self.error_label = Gtk.Label()
         self.grid.attach(self.error_label, 30, 60, 30, 10 )
 
-    def check(self, gym_name, cust_id):
-        self.cur.execute('SELECT * FROM customer where name = ?', (gym_name))
-        customers = self.cur.fetchall()
-        for c in customers:
+    def check(self, cust, cust_id):
+        lck = Lock()
+        for c in cust:
             if c['id'] == cust_id:
-                lck = Lock()
                 lck.acquire()
-                self.my_set.add(gym_name)
+                self.my_set.add(c['name'])
                 lck.release()
 
 
@@ -254,7 +257,9 @@ class Custadd(Gtk.Window):
         else:
             q = queue.Queue()
             for gym in self.gyms_add:
-                thread = Thread(target = check, args = (gym, cust_id))
+                self.cur.execute('SELECT * FROM customer where name = ?', (gym,))
+                cust = self.cur.fetchall()
+                thread = Thread(target = self.check, args = (cust, cust_id))
                 thread.start()
                 q.put(thread)
             while(not q.empty()):
