@@ -7,7 +7,15 @@ from gi.repository import Gtk
 
 
 class Custadd(Gtk.Window):
+    """
+    Klasa umożliwiająca dodanie nowego klienita
+    """
     def __init__(self, gyms):
+        """
+        Rozmieszczenie niezbędnych składowych w oknie
+
+        @param gyms : lista dodanych wcześniej siłowni
+        """
         Gtk.Window.__init__(self, title="Add customer")
 
         self.set_default_size(350, 350)
@@ -52,6 +60,13 @@ class Custadd(Gtk.Window):
         self.grid.attach(self.error_label, 30, 60, 30, 10)
 
     def check(self, cust, cust_id):
+        """
+        Metoda sprawdzająca czy w danej siłowi nie ma użytkownika
+        o takim samym peselu
+
+        @param cust : lista wszystkich klientów danej siłowni
+        @param cust_id : pesel sprawdzanego klienta
+        """
         lck = Lock()
         for c in cust:
             if c['id'] == cust_id:
@@ -60,6 +75,9 @@ class Custadd(Gtk.Window):
                 lck.release()
 
     def add_m(self, widget):
+        """
+        Metoda dodająca klienta do bazy wszyskich siłowni
+        """
         self.c = sqlite3.connect('gym.db')
         self.c.row_factory = sqlite3.Row
         self.cur = self.c.cursor()

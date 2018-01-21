@@ -5,7 +5,13 @@ from gi.repository import Gtk
 
 
 class Gymadd(Gtk.Window):
+    """
+    Klasa umożliwiająca dodanie nowej siłowni
+    """
     def __init__(self, gyms):
+        """
+        Rozmieszczenie niezbędnych składowych w oknie
+        """
         Gtk.Window.__init__(self, title="New Gym")
         self.set_default_size(350, 350)
         self.grid = Gtk.Grid()
@@ -42,6 +48,9 @@ class Gymadd(Gtk.Window):
         self.grid.attach(self.error_label, 30, 50, 30, 10)
 
     def add_m(self, widget):
+        """
+        Metoda dodająca nową siłownię do bazy wszyskich siłowni
+        """
         self.c = sqlite3.connect('gym.db')
         self.c.row_factory = sqlite3.Row
         self.cur = self.c.cursor()

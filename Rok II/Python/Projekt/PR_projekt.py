@@ -1,8 +1,6 @@
 from customer_add import *
 from gym_add import *
 import sqlite3
-from threading import Thread, Lock
-import queue as queue
 import re
 import gi
 gi.require_version('Gtk', '3.0')
@@ -10,13 +8,16 @@ from gi.repository import Gtk
 
 
 class My_Gyms(Gtk.Window):
+    """
+    Klasa umożliwiająca zarządzanie siecią siłowni
+    """
     def __init__(self):
         Gtk.Window.__init__(self, title="Gym")
 
         self.customers = []
         self.gyms = []
 
-        self.set_default_size(800, 600)
+        self.set_default_size(1000, 600)
         self.grid = Gtk.Grid()
         self.grid.set_row_spacing(10)
         self.grid.set_column_spacing(10)
@@ -53,6 +54,9 @@ class My_Gyms(Gtk.Window):
         self.load_tree()
 
     def load_gyms(self):
+        """
+        Wczytywanie listy siłowni z bazy danych
+        """
         self.c = sqlite3.connect('gym.db')
         self.c.row_factory = sqlite3.Row
         self.cur = self.c.cursor()
@@ -76,6 +80,9 @@ class My_Gyms(Gtk.Window):
                 self.gyms.append(gym_['name'])
 
     def load_customers(self):
+        """
+        Wczytywanie listy klientów z bazy danych
+        """
         self.cur.execute('SELECT * FROM customer')
         customers_ = self.cur.fetchall()
         for c_ in customers_:
@@ -84,6 +91,9 @@ class My_Gyms(Gtk.Window):
                 self.customers.append(i)
 
     def load_tree(self):
+        """
+        Stworzenie listy klientów w TreeView
+        """
         self.customer_list = Gtk.ListStore(str, str, str, str)
         for customer_ in self.customers:
             if list(customer_) not in self.customer_list:
@@ -104,6 +114,9 @@ class My_Gyms(Gtk.Window):
         self.show_all()
 
     def delete_customer(self, widget):
+        """
+        Usuwanie klienita
+        """
         selection = self.treeview.get_selection()
         model, path = selection.get_selected_rows()
         itr = self.customer_list.get_iter(path)
@@ -119,26 +132,47 @@ class My_Gyms(Gtk.Window):
                 self.customers.remove(c)
 
     def new_customer(self, widget):
+        """
+        Dodawanie klienita
+        """
         window2 = Custadd(self.gyms)
         window2.show_all()
         window2.connect("delete-event", self.reload)
         self.show_all()
 
     def new_gym(self, widget):
+        """
+        Dodawanie siłowni
+        """
         window3 = Gymadd(self.gyms)
         window3.show_all()
         window3.connect("delete-event", self.reload_gyms)
         self.show_all()
 
     def reload_gyms(self, arg1, arg2):
+        """
+        Ponowne wczytanie siłowni
+        """
         self.load_gyms()
 
     def reload(self, arg1, arg2):
+        """
+        Ponowne wczytanie całego interfejsu
+        """
         self.load_gyms()
         self.load_customers()
         self.load_tree()
 
     def custgym_filter_func(self, model, iter, data):
+        """
+        Filtruje klientów według podanych parametrów
+
+        @param iter: indeks klienita
+        @param model: dane o kliencie ("wiersz")
+
+        @return True jeśli klient "pasuje" do wpisanych filtrów
+                False wpp.
+        """
         if self.filter_gym is None and self.filter_cus is None:
             return True
         else:
@@ -151,8 +185,12 @@ class My_Gyms(Gtk.Window):
                 b = re.match(self.filter_gym, model[iter][3], re.IGNORECASE)
                 c = a and b
                 return c
+        return False
 
     def search(self, widget):
+        """
+        Ustawia filtry do wyszukiwania klientów (nazwa siłowni oraz pesel)
+        """
         if self.search_entry.get_text() == "":
             self.filter_gym = None
         else:
@@ -163,8 +201,3 @@ class My_Gyms(Gtk.Window):
         else:
             self.filter_cus = self.search_entry2.get_text()
         self.load_tree()
-
-window = My_Gyms()
-window.connect("delete-event", Gtk.main_quit)
-window.show_all()
-Gtk.main()
