@@ -5,7 +5,7 @@ from gi.repository import Gtk
 import sqlite3
 from threading import Thread, Lock
 import queue as queue
-
+import re
 
 
 class My_Gyms(Gtk.Window):
@@ -20,8 +20,8 @@ class My_Gyms(Gtk.Window):
         self.grid.set_row_spacing(10)
         self.grid.set_column_spacing(10)
         self.add(self.grid)
-
-
+        self.filter_gym = None
+        self.filter_cust = None
 
         self.headerbar = Gtk.HeaderBar()
         self.headerbar.set_show_close_button(True)
@@ -40,9 +40,13 @@ class My_Gyms(Gtk.Window):
         button_del.connect("clicked", self.delete_customer)
         self.headerbar.pack_end(button_del)
 
-        buttsearch = Gtk.Button(label = "Search")
-        buttsearch.connect("clicked", self.search)
-        self.headerbar.pack_end(buttsearch)
+        self.search_entry = Gtk.Entry()
+        self.search_entry.connect("changed", self.search)
+        self.headerbar.pack_start(self.search_entry)
+
+        self.search_entry2 = Gtk.Entry()
+        self.search_entry2.connect("changed", self.search)
+        self.headerbar.pack_end(self.search_entry2)
 
         self.load_gyms()
         self.load_customers()
@@ -78,13 +82,13 @@ class My_Gyms(Gtk.Window):
         for customer_ in self.customers:
             if list(customer_) not in self.customer_list:
                 self.customer_list.append(list(customer_))
-        self.language_filter = self.customer_list.filter_new()
+        self.custgym_filter = self.customer_list.filter_new()
+        self.custgym_filter.set_visible_func(self.custgym_filter_func)
 
-        self.treeview = Gtk.TreeView.new_with_model(self.language_filter)
+        self.treeview = Gtk.TreeView.new_with_model(self.custgym_filter)
         for i, colum_title in enumerate(["First name", "Last name", "ID", "Gym"]):
             renderer = Gtk.CellRendererText()
             column = Gtk.TreeViewColumn(colum_title, renderer, text=i)
-
             self.treeview.append_column(column)
 
         self.scrollable_treelist = Gtk.ScrolledWindow()
@@ -130,9 +134,31 @@ class My_Gyms(Gtk.Window):
         self.load_customers()
         self.load_tree()
 
+    def custgym_filter_func(self, model, iter, data):
+        if self.filter_gym == None and self.filter_cust == None:
+            return True
+        else:
+            if self.filter_gym != None and self.filter_cust == None:
+                return re.match(self.filter_gym, model[iter][3], re.IGNORECASE)
+            elif self.filter_gym == None and self.filter_cust != None:
+                return re.match(self.filter_cust, model[iter][2], re.IGNORECASE)
+            else:
+                return re.match(self.filter_cust, model[iter][2],
+                    re.IGNORECASE) and re.match(self.filter_gym, model[iter][3],
+                     re.IGNORECASE)
+
 
     def search(self, widget):
-        print("search")
+        if self.search_entry.get_text() == "":
+            self.filter_gym = None
+        else:
+            self.filter_gym = self.search_entry.get_text()
+
+        if self.search_entry2.get_text() == "":
+            self.filter_cust = None
+        else:
+            self.filter_cust = self.search_entry2.get_text()
+        self.load_tree()
 
 class Gymadd(Gtk.Window):
     def __init__(self, gyms):
@@ -250,10 +276,10 @@ class Custadd(Gtk.Window):
         sel_gym = self.combobox.get_active_text()
 
 
-        if len(cust_id) != 11:
-            self.error_label.set_label("Wrong ID")
-        elif sel_gym == None or cust_firstname == "" or cust_surname == "" or cust_id == "":
+        if sel_gym == None or cust_firstname == "" or cust_surname == "" or cust_id == "":
             self.error_label.set_label("Fill in the blanks!")
+        elif len(cust_id) != 11:
+            self.error_label.set_label("Wrong ID")
         else:
             q = queue.Queue()
             for gym in self.gyms_add:
