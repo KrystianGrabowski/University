@@ -2,6 +2,9 @@ import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
 
+from customer_add import *
+from gym_add import *
+
 import sqlite3
 from threading import Thread, Lock
 import queue as queue
@@ -25,28 +28,29 @@ class My_Gyms(Gtk.Window):
 
         self.headerbar = Gtk.HeaderBar()
         self.headerbar.set_show_close_button(True)
-        self.headerbar.props.title = "My gym"
         self.set_titlebar(self.headerbar)
-
-        buttonadd_c = Gtk.Button(label = "New customer")
-        buttonadd_c.connect("clicked", self.new_customer)
-        self.headerbar.pack_end(buttonadd_c)
-
-        buttonadd_g = Gtk.Button(label = "New gym")
-        buttonadd_g.connect("clicked", self.new_gym)
-        self.headerbar.pack_start(buttonadd_g)
 
         button_del = Gtk.Button(label = "Delete")
         button_del.connect("clicked", self.delete_customer)
         self.headerbar.pack_end(button_del)
 
+        self.search_entry2 = Gtk.Entry()
+        self.search_entry2.connect("changed", self.search)
+        self.headerbar.pack_end(self.search_entry2)
+
+        buttonadd_c = Gtk.Button(label = "+Customer")
+        buttonadd_c.connect("clicked", self.new_customer)
+        self.headerbar.pack_end(buttonadd_c)
+
+        buttonadd_g = Gtk.Button(label = "+Gym")
+        buttonadd_g.connect("clicked", self.new_gym)
+        self.headerbar.pack_start(buttonadd_g)
+
         self.search_entry = Gtk.Entry()
         self.search_entry.connect("changed", self.search)
         self.headerbar.pack_start(self.search_entry)
 
-        self.search_entry2 = Gtk.Entry()
-        self.search_entry2.connect("changed", self.search)
-        self.headerbar.pack_end(self.search_entry2)
+
 
         self.load_gyms()
         self.load_customers()
@@ -160,152 +164,7 @@ class My_Gyms(Gtk.Window):
             self.filter_cust = self.search_entry2.get_text()
         self.load_tree()
 
-class Gymadd(Gtk.Window):
-    def __init__(self, gyms):
-        Gtk.Window.__init__(self, title = "New Gym")
-        self.set_default_size(350, 350)
-        self.grid = Gtk.Grid()
-        self.grid.set_row_spacing(5)
-        self.grid.set_column_spacing(3)
-        self.add(self.grid)
-        self.gyms = gyms
 
-        self.entry1 = Gtk.Entry()
-        self.entry2 = Gtk.Entry()
-        self.entry3 = Gtk.Entry()
-
-        self.info_label = Gtk.Label("Enter necessary data: ")
-        self.grid.attach(self.info_label, 5, 0, 40, 10)
-        label = Gtk.Label("Name")
-        self.grid.attach(label, 0, 8, 20, 10)
-        self.grid.attach_next_to(self.entry1, label, Gtk.PositionType.RIGHT, 50, 10)
-        label2 = Gtk.Label("Street")
-        self.grid.attach(label2, 0, 16, 20, 10)
-        self.grid.attach_next_to(self.entry2, label2, Gtk.PositionType.RIGHT, 50, 10)
-        label3 = Gtk.Label("Number")
-        self.grid.attach(label3, 0, 24, 20, 10)
-        self.grid.attach_next_to(self.entry3, label3, Gtk.PositionType.RIGHT, 50, 10)
-
-        self.add = Gtk.Button(label = "Add gym")
-        self.add.connect("clicked", self.add_m)
-        self.grid.attach_next_to(self.add, self.entry3, Gtk.PositionType.BOTTOM, 45, 16)
-
-        self.error_label = Gtk.Label()
-        self.grid.attach(self.error_label, 30, 50, 30, 10 )
-
-    def add_m(self, widget):
-        self.c = sqlite3.connect('gym.db')
-        self.c.row_factory = sqlite3.Row
-        self.cur = self.c.cursor()
-
-        gym_name = self.entry1.get_text()
-        gym_street = self.entry2.get_text()
-        street_nr = self.entry3.get_text()
-        if gym_name == "" or gym_street == "" or street_nr == "" :
-            self.error_label.set_label("Fill in the blanks!")
-        elif gym_name in self.gyms:
-            self.error_label.set_label("This gym already exists")
-        else:
-            self.cur.execute('INSERT INTO gym(name, street, nr) VALUES(?,?,?)', (gym_name, gym_street, street_nr))
-            self.error_label.set_label("Gym added")
-            self.gyms.append(gym_name)
-        self.c.commit()
-        self.show_all()
-
-class Custadd(Gtk.Window):
-    def __init__(self, gyms):
-        Gtk.Window.__init__(self, title = "Add customer")
-
-        self.set_default_size(350, 350)
-        self.grid = Gtk.Grid()
-        self.grid.set_row_spacing(5)
-        self.grid.set_column_spacing(3)
-        self.add(self.grid)
-
-        self.gyms_add = gyms
-        self.entry1 = Gtk.Entry()
-        self.entry2 = Gtk.Entry()
-        self.entry21 = Gtk.Entry()
-
-        self.info_label = Gtk.Label("Enter necessary data: ")
-        self.grid.attach(self.info_label, 5, 0, 40, 10)
-        label = Gtk.Label("FName")
-        self.grid.attach(label, 0, 8, 20, 10)
-        self.grid.attach_next_to(self.entry1, label, Gtk.PositionType.RIGHT, 50, 10)
-        label2 = Gtk.Label("Sname")
-        self.grid.attach(label2, 0, 16, 20, 10)
-        self.grid.attach_next_to(self.entry2, label2, Gtk.PositionType.RIGHT, 50, 10)
-        label21 = Gtk.Label("ID")
-        self.grid.attach(label21, 0, 24, 20, 10)
-        self.grid.attach_next_to(self.entry21, label21, Gtk.PositionType.RIGHT, 50, 10)
-        label3 = Gtk.Label("Gym")
-        self.grid.attach(label3, 0, 32, 20, 10)
-
-        self.combobox = Gtk.ComboBoxText()
-        for gym_name in self.gyms_add:
-            self.combobox.append_text(gym_name)
-        self.grid.attach_next_to(self.combobox, label3, Gtk.PositionType.RIGHT, 50, 8)
-        self.add = Gtk.Button(label = "Add customer")
-        self.add.connect("clicked", self.add_m)
-        self.grid.attach_next_to(self.add, self.combobox, Gtk.PositionType.BOTTOM, 45, 16)
-
-        self.error_label = Gtk.Label()
-        self.grid.attach(self.error_label, 30, 60, 30, 10 )
-
-    def check(self, cust, cust_id):
-        lck = Lock()
-        for c in cust:
-            if c['id'] == cust_id:
-                lck.acquire()
-                self.my_set.add(c['name'])
-                lck.release()
-
-
-
-    def add_m(self, widget):
-        self.c = sqlite3.connect('gym.db')
-        self.c.row_factory = sqlite3.Row
-        self.cur = self.c.cursor()
-
-        self.my_set = set()
-        self.is_ok = True
-
-        cust_firstname = self.entry1.get_text()
-        cust_surname = self.entry2.get_text()
-        cust_id = self.entry21.get_text()
-        sel_gym = self.combobox.get_active_text()
-
-
-        if sel_gym == None or cust_firstname == "" or cust_surname == "" or cust_id == "":
-            self.error_label.set_label("Fill in the blanks!")
-        elif len(cust_id) != 11:
-            self.error_label.set_label("Wrong ID")
-        else:
-            q = queue.Queue()
-            for gym in self.gyms_add:
-                self.cur.execute('SELECT * FROM customer where name = ?', (gym,))
-                cust = self.cur.fetchall()
-                thread = Thread(target = self.check, args = (cust, cust_id))
-                thread.start()
-                q.put(thread)
-            while(not q.empty()):
-                q.get().join()
-
-            if len(self.my_set) > 3 :
-                self.error_label.set_label("Limit of gyms exceeded")
-                self.is_ok = False
-            else:
-                while len(self.my_set):
-                    if self.my_set.pop() == sel_gym:
-                        self.error_label.set_label("Customer already exists")
-                        self.is_ok = False
-
-            if self.is_ok:
-                self.cur.execute('INSERT INTO customer(fname, sname, id, name) VALUES(?,?,?,?)', (cust_firstname, cust_surname, cust_id, sel_gym))
-                self.error_label.set_label("Customer added")
-
-        self.c.commit()
-        self.show_all()
 
 
 
