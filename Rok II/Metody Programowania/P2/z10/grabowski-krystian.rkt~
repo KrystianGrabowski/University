@@ -1,3 +1,0 @@
-#lang racket
-(define (distance x y)
-  (abs (- x y)))
