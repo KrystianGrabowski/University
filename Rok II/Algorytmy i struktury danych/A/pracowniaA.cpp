@@ -107,6 +107,16 @@ int main(){
         }
     }
 
+    
+    std::vector<dfsstruct> que(q);
+
+    for (int j=0; j<q; j++){
+        if(scanf("%d %d", &que[j].timein, &que[j].timeout) != 2){
+             printf("ERROR");
+        }
+    }
+
+    
     iotime = -1;
     for (int j=0; j<n; j++){
         dfsstruct dfs1;
@@ -117,14 +127,8 @@ int main(){
     
     iter_visit(0);
     
-
-    for (int j=0; j<q; j++){
-        int a;
-        int b;
-        if(scanf("%d %d", &a, &b) != 2){
-             printf("ERROR");
-        }
-        if(check_path(a - 1, b - 1)){
+    for (int i=0; i<q; i++){
+        if(check_path(que[i].timein - 1, que[i].timeout - 1)){
             printf("TAK\n");
         }
         else{
