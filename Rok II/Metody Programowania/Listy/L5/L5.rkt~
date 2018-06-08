@@ -1,0 +1,10 @@
+#lang racket
+;; treść
+
+(define (var? t)
+  (symbol? t))
+
+(define (neg? t)
+  (and (list? t)
+       (= 2 (length t))
+       (eq? 'neg (car t))))
