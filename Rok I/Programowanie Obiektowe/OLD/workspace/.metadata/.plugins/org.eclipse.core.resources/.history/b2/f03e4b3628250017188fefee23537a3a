@@ -1,0 +1,16 @@
+
+import java.io.IOException;
+
+public class Main {
+
+	public static void main(String[] args) throws InterruptedException, IOException  {
+		WydawnictwoCiagle k = new WydawnictwoCiagle("Mickiewicz", "Dziady", 1234);
+		System.out.print(k.toString());
+		k.Edycja();
+		System.in.read();
+		System.out.print(k.toString());
+
+
+	}
+
+}

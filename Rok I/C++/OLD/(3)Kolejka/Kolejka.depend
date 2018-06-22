@@ -1,0 +1,43 @@
+# depslib dependency file v1.0
+1490089123 source:c:\users\krystian\uczelnia\c++\kolejka\main.cpp
+	<iostream>
+	<stdio.h>
+	<conio.h>
+	<cstdlib>
+	"kolejka.h"
+
+1490377822 source:c:\users\krystian\uczelnia\c++\kolejka\kolejka.cpp
+	<iostream>
+	"kolejka.h"
+
+1490168763 c:\users\krystian\uczelnia\c++\kolejka\kolejka.h
+	<iostream>
+
+1490088803 source:d:\uczelnia\c++\kolejka\kolejka.cpp
+	<iostream>
+	"kolejka.h"
+
+1490085290 d:\uczelnia\c++\kolejka\kolejka.h
+	<iostream>
+
+1490089123 source:d:\uczelnia\c++\kolejka\main.cpp
+	<iostream>
+	<stdio.h>
+	<conio.h>
+	<cstdlib>
+	"kolejka.h"
+
+1490171359 source:c:\users\krystian\desktop\kolejka\main.cpp
+	<iostream>
+	<stdio.h>
+	<conio.h>
+	<cstdlib>
+	"kolejka.h"
+
+1490168763 c:\users\krystian\desktop\kolejka\kolejka.h
+	<iostream>
+
+1490170936 source:c:\users\krystian\desktop\kolejka\kolejka.cpp
+	<iostream>
+	"kolejka.h"
+

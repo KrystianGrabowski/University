@@ -1,0 +1,18 @@
+c:\users\krystian\documents\visual studio 2015\Projects\ConsoleApplication4\ConsoleApplication4\bin\Debug\ConsoleApplication4.exe.config
+c:\users\krystian\documents\visual studio 2015\Projects\ConsoleApplication4\ConsoleApplication4\bin\Debug\ConsoleApplication4.exe
+c:\users\krystian\documents\visual studio 2015\Projects\ConsoleApplication4\ConsoleApplication4\bin\Debug\ConsoleApplication4.pdb
+c:\users\krystian\documents\visual studio 2015\Projects\ConsoleApplication4\ConsoleApplication4\obj\Debug\ConsoleApplication4.csprojResolveAssemblyReference.cache
+c:\users\krystian\documents\visual studio 2015\Projects\ConsoleApplication4\ConsoleApplication4\obj\Debug\ConsoleApplication4.exe
+c:\users\krystian\documents\visual studio 2015\Projects\ConsoleApplication4\ConsoleApplication4\obj\Debug\ConsoleApplication4.pdb
+C:\Users\Krystian\Uczelnia\PO\POL2\Z1\ConsoleApplication4\bin\Debug\ConsoleApplication4.exe.config
+C:\Users\Krystian\Uczelnia\PO\POL2\Z1\ConsoleApplication4\obj\Debug\ConsoleApplication4.exe
+C:\Users\Krystian\Uczelnia\PO\POL2\Z1\ConsoleApplication4\obj\Debug\ConsoleApplication4.pdb
+C:\Users\Krystian\Uczelnia\PO\POL2\Z1\ConsoleApplication4\obj\Debug\ConsoleApplication4.csprojResolveAssemblyReference.cache
+C:\Users\Krystian\Uczelnia\PO\POL2\Z1\ConsoleApplication4\bin\Debug\ConsoleApplication4.exe
+C:\Users\Krystian\Uczelnia\PO\POL2\Z1\ConsoleApplication4\bin\Debug\ConsoleApplication4.pdb
+C:\Users\Krystian\Desktop\Z1\ConsoleApplication4\bin\Debug\ConsoleApplication4.exe.config
+C:\Users\Krystian\Desktop\Z1\ConsoleApplication4\obj\Debug\ConsoleApplication4.exe
+C:\Users\Krystian\Desktop\Z1\ConsoleApplication4\obj\Debug\ConsoleApplication4.pdb
+C:\Users\Krystian\Desktop\Z1\ConsoleApplication4\bin\Debug\ConsoleApplication4.exe
+C:\Users\Krystian\Desktop\Z1\ConsoleApplication4\bin\Debug\ConsoleApplication4.pdb
+C:\Users\Krystian\Desktop\Z1\ConsoleApplication4\obj\Debug\ConsoleApplication4.csprojResolveAssemblyReference.cache

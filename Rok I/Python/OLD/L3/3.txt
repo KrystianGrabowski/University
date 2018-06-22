@@ -1,0 +1,25 @@
+def pierwsza(liczba):
+    pomoc=liczba // 2
+    b = 0
+    l = 2
+    while l <= pomoc:
+        reszta = liczba % l
+        if reszta == 0:
+            b = b + 1
+        l = l + 1
+    if b == 0:
+        return 1
+    else:
+        return 0
+
+czyt = 2
+licznik = 0
+while czyt < 100000:
+    if "777" in str(czyt):
+        if pierwsza(czyt) == 1:
+            print(czyt)
+            licznik=licznik + 1
+    czyt = czyt + 1
+print("Liczb szczesliwych jest", licznik)    
+    
+

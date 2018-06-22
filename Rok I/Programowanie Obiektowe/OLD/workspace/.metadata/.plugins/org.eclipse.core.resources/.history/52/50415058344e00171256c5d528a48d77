@@ -1,0 +1,13 @@
+
+
+public class Main {
+	public static void main(String[] args)
+	{
+		Silownia Gym = new Silownia("Golds Gym", "Kustosza", 21, 987654321);
+		Gym.wypisz_klientow();
+		Gym.waznosc_karnetu("Krystian", "Grabowski");
+
+			
+		
+	}
+}

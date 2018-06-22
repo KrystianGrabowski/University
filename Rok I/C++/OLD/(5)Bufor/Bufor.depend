@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1491983716 source:c:\users\krystian\uczelnia\c++\bufor\bufor.cpp
+	<iostream>
+	<cstdlib>
+	"bufor.h"
+
+1491984740 source:c:\users\krystian\uczelnia\c++\bufor\main.cpp
+	<iostream>
+	"bufor.h"
+
+1491970947 c:\users\krystian\uczelnia\c++\bufor\bufor.h
+	<iostream>
+

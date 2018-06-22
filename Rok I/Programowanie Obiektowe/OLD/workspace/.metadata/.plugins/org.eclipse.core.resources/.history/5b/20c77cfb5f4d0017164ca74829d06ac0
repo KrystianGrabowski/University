@@ -1,0 +1,107 @@
+
+import java.io.FileNotFoundException;
+import java.util.Objects;
+
+
+public class Silownia extends Obiekt_Sportowy implements OpisOb {
+	public Pracownicy P = new Pracownicy();
+	public Klienci K = new Klienci();
+	public int nr_lokalu;
+	public String zapisP = "pracownicy.txt", zapisK = "klienci.txt";
+	public Silownia(String n, String u, int nr, Integer t)
+	{
+		nazwa = n;
+		ulica = u;
+		nr_lokalu = nr;
+		telefon = t;
+		wczytaj("Pracownicy");
+		wczytaj("Klienci");
+
+	}
+	public Silownia()
+	{
+	}
+	public String nazwa()
+	{
+		return "Witamy w silowni " + nazwa;
+	}
+	public String kontakt()
+	{
+		return "Kontakt do silowni " + nazwa + " -> " + telefon;
+	}
+	
+	public void dodaj_k(String imie, String nazwisko, String datax, String datay, int wiek)
+	{
+		K.dodaj(imie, nazwisko, datax, datay, wiek);
+		zapisz("Klienci");
+	}
+	
+	public void usun_k(String imie, String nazwisko)
+	{
+		K.usun(imie, nazwisko);
+		zapisz("Klienci");
+	}
+	public boolean klient_k(String imie, String nazwisko)
+	{
+		return K.klient(imie, nazwisko);
+	}
+
+	public void wypisz_klientow(){
+		System.out.print(K.ToStringK()) ;
+	}
+	
+	public void dodaj_p(String imie, String nazwisko, String stanowisko, int wiek)
+	{
+		P.dodaj(imie, nazwisko, stanowisko, wiek);
+		zapisz("Pracownicy");
+	}
+	
+	public void usun_p(String imie, String nazwisko)
+	{
+		P.usun(imie, nazwisko);
+		zapisz("Pracownicy");
+	}
+	public boolean pracuje_p(String imie, String nazwisko)
+	{
+		return P.zatrudniony(imie, nazwisko);
+	}
+
+	public void wypisz_pracownikow(){
+		System.out.print(P.ToStringP()) ;
+	}
+	
+	
+	
+	
+	
+	public void zapisz(String T){
+		try {
+			if (Objects.equals(T, "Pracownicy" )){
+				P.WriteToFile(zapisP);				
+			}
+			else{
+				K.WriteToFile(zapisK);
+			}
+
+		} catch (FileNotFoundException e) {
+			System.out.println("NIE ZNAEZIONO PLIKU");
+		}
+	}
+	public void wczytaj(String T){
+		try {
+			if (Objects.equals(T, "Pracownicy" )){
+				P.ReadFromFile(zapisP);				
+			}
+			else{
+				K.ReadFromFile(zapisK);
+			}
+
+		} 
+		catch (FileNotFoundException e) {
+			System.out.println("NIE ZNAEZIONO PLIKU");
+		}
+
+	}
+
+
+}

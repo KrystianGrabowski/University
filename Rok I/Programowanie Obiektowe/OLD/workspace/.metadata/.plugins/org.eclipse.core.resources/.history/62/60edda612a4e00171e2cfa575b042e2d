@@ -1,0 +1,8 @@
+
+public class Main {
+	public static void main(String[] args)
+	{
+		Plywalnia SFim = new Plywalnia("Golds Gym", "Kustosza", 21, 987654321);
+		System.out.print("POPOPOPO");
+	}
+}

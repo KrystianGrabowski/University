@@ -1,0 +1,39 @@
+Wprawka w grupie FCh na 04.01
+W matematyce spotyka siê ci¹gi zdefiniowane rekurencyjnie. Przyk³adem jest ci¹g Fibonacciego:
+
+F0 = 0,
+F1 = 1,
+Fn = Fn - 1 + Fn - 2 [dla n > 1].
+Definicja ci¹gu i pytania maj¹ byæ podane w trzylinijkowym pliku.
+
+W pierwszej linii znajduj¹ siê wartoœci bazowe – F0 F1 w przypadku ci¹gu Fibonacciego, czyli "0 1".
+
+W drugiej linii s¹ wartoœci stoj¹ce przy n - 1, n - 2, ... w zwi¹zku rekurencyjnym. W przyk³adzie jest to "1 1".
+
+W trzeciej linii znajduj¹ siê kolejne numery wyrazów ci¹gu, o które pytamy. Jeœli interesowa³yby nas pi¹ty, ósmy i dwunasty wyraz ci¹gu Fibonacciego, linia by³aby postaci "5 8 12".
+
+Ca³y plik wygl¹da³by nastêpuj¹co:
+
+0 1
+
+1 1
+
+5 8 12
+
+Dla ci¹gu
+
+C0 = 1,
+C1 = 3,
+C2 = 0,
+Cn = Cn-1 - 2 Cn-3
+i pytañ o C15, C8, C13 i C4 plik bêdzie postaci:
+
+1 3 0
+
+1 0 -2
+
+15 8 13 4
+
+Napisz program, który przyjmie definicjê ci¹gu i odpowie na pytania o wyrazy ci¹gu (na standardowe wyjœcie). Program powinien zawieraæ funkcjê przyjmuj¹c¹ 3 listy (odpowiadaj¹ce kolejnym wierszom pliku) i zwraca jedn¹ (odpowiadaj¹c¹ wynikowi).
+
+Spróbuj znaleŸæ odleg³y wyraz ci¹gu Fibonacciego. Dzia³a powoli, prawda? Zadbaj, ¿eby tak nie by³o (wskazówka: niektóre wyrazy ci¹gu mog¹ byæ wyliczane wiêcej razy ni¿ to jest konieczne).

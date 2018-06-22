@@ -1,0 +1,10 @@
+
+public class Main {
+
+	public static void main(String[] args) {
+		Ksiazka k = new Ksiazka();
+		System.out.print(k.toString());
+
+	}
+
+}

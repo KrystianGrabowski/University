@@ -1,0 +1,24 @@
+c:\users\krystian\documents\visual studio 2015\Projects\ConsoleApplication11\ConsoleApplication11\bin\Debug\ConsoleApplication11.exe.config
+C:\Users\Krystian\Documents\Visual Studio 2015\Projects\ConsoleApplication11\ConsoleApplication11\bin\Debug\ConsoleApplication11.exe
+C:\Users\Krystian\Documents\Visual Studio 2015\Projects\ConsoleApplication11\ConsoleApplication11\bin\Debug\ConsoleApplication11.pdb
+C:\Users\Krystian\Documents\Visual Studio 2015\Projects\ConsoleApplication11\ConsoleApplication11\obj\Debug\ConsoleApplication11.csprojResolveAssemblyReference.cache
+C:\Users\Krystian\Documents\Visual Studio 2015\Projects\ConsoleApplication11\ConsoleApplication11\obj\Debug\ConsoleApplication11.exe
+C:\Users\Krystian\Documents\Visual Studio 2015\Projects\ConsoleApplication11\ConsoleApplication11\obj\Debug\ConsoleApplication11.pdb
+C:\Users\Krystian\Uczelnia\PO\POL3\ZAD1\ConsoleApplication11\bin\Debug\ConsoleApplication11.exe.config
+C:\Users\Krystian\Uczelnia\PO\POL3\ZAD1\ConsoleApplication11\obj\Debug\ConsoleApplication11.exe
+C:\Users\Krystian\Uczelnia\PO\POL3\ZAD1\ConsoleApplication11\obj\Debug\ConsoleApplication11.pdb
+C:\Users\Krystian\Uczelnia\PO\POL3\ZAD1\ConsoleApplication11\bin\Debug\ConsoleApplication11.exe
+C:\Users\Krystian\Uczelnia\PO\POL3\ZAD1\ConsoleApplication11\bin\Debug\ConsoleApplication11.pdb
+C:\Users\Krystian\Uczelnia\PO\POL3\ZAD1\ConsoleApplication11\obj\Debug\ConsoleApplication11.csprojResolveAssemblyReference.cache
+C:\Users\Krystian\Desktop\ZAD1\ConsoleApplication11\bin\Debug\ConsoleApplication11.exe.config
+C:\Users\Krystian\Desktop\ZAD1\ConsoleApplication11\obj\Debug\ConsoleApplication11.exe
+C:\Users\Krystian\Desktop\ZAD1\ConsoleApplication11\obj\Debug\ConsoleApplication11.pdb
+C:\Users\Krystian\Desktop\ZAD1\ConsoleApplication11\obj\Debug\ConsoleApplication11.csprojResolveAssemblyReference.cache
+C:\Users\Krystian\Desktop\ZAD1\ConsoleApplication11\bin\Debug\ConsoleApplication11.exe
+C:\Users\Krystian\Desktop\ZAD1\ConsoleApplication11\bin\Debug\ConsoleApplication11.pdb
+C:\Users\Krystian\Uczelnia\PO\POL3\ZAD1P\ConsoleApplication11\bin\Debug\ConsoleApplication11.exe.config
+C:\Users\Krystian\Uczelnia\PO\POL3\ZAD1P\ConsoleApplication11\obj\Debug\ConsoleApplication11.exe
+C:\Users\Krystian\Uczelnia\PO\POL3\ZAD1P\ConsoleApplication11\obj\Debug\ConsoleApplication11.pdb
+C:\Users\Krystian\Uczelnia\PO\POL3\ZAD1P\ConsoleApplication11\bin\Debug\ConsoleApplication11.exe
+C:\Users\Krystian\Uczelnia\PO\POL3\ZAD1P\ConsoleApplication11\bin\Debug\ConsoleApplication11.pdb
+C:\Users\Krystian\Uczelnia\PO\POL3\ZAD1P\ConsoleApplication11\obj\Debug\ConsoleApplication11.csprojResolveAssemblyReference.cache

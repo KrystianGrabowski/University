@@ -1,0 +1,18 @@
+c:\users\krystian\documents\visual studio 2015\Projects\ConsoleApplication5\ConsoleApplication5\bin\Debug\ConsoleApplication5.exe.config
+c:\users\krystian\documents\visual studio 2015\Projects\ConsoleApplication5\ConsoleApplication5\obj\Debug\ConsoleApplication5.csprojResolveAssemblyReference.cache
+c:\users\krystian\documents\visual studio 2015\Projects\ConsoleApplication5\ConsoleApplication5\bin\Debug\ConsoleApplication5.exe
+c:\users\krystian\documents\visual studio 2015\Projects\ConsoleApplication5\ConsoleApplication5\bin\Debug\ConsoleApplication5.pdb
+c:\users\krystian\documents\visual studio 2015\Projects\ConsoleApplication5\ConsoleApplication5\obj\Debug\ConsoleApplication5.exe
+c:\users\krystian\documents\visual studio 2015\Projects\ConsoleApplication5\ConsoleApplication5\obj\Debug\ConsoleApplication5.pdb
+C:\Users\Krystian\Uczelnia\PO\POL2\Z4\ConsoleApplication5\bin\Debug\ConsoleApplication5.exe.config
+C:\Users\Krystian\Uczelnia\PO\POL2\Z4\ConsoleApplication5\obj\Debug\ConsoleApplication5.exe
+C:\Users\Krystian\Uczelnia\PO\POL2\Z4\ConsoleApplication5\obj\Debug\ConsoleApplication5.pdb
+C:\Users\Krystian\Uczelnia\PO\POL2\Z4\ConsoleApplication5\bin\Debug\ConsoleApplication5.exe
+C:\Users\Krystian\Uczelnia\PO\POL2\Z4\ConsoleApplication5\bin\Debug\ConsoleApplication5.pdb
+C:\Users\Krystian\Uczelnia\PO\POL2\Z4\ConsoleApplication5\obj\Debug\ConsoleApplication5.csprojResolveAssemblyReference.cache
+C:\Users\Krystian\Desktop\Z4\ConsoleApplication5\bin\Debug\ConsoleApplication5.exe.config
+C:\Users\Krystian\Desktop\Z4\ConsoleApplication5\obj\Debug\ConsoleApplication5.exe
+C:\Users\Krystian\Desktop\Z4\ConsoleApplication5\obj\Debug\ConsoleApplication5.pdb
+C:\Users\Krystian\Desktop\Z4\ConsoleApplication5\bin\Debug\ConsoleApplication5.exe
+C:\Users\Krystian\Desktop\Z4\ConsoleApplication5\bin\Debug\ConsoleApplication5.pdb
+C:\Users\Krystian\Desktop\Z4\ConsoleApplication5\obj\Debug\ConsoleApplication5.csprojResolveAssemblyReference.cache

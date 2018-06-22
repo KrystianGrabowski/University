@@ -1,0 +1,10 @@
+
+public class WydawnictwoCiagle extends Ksiazka {
+	
+	public WydawnictwoCiagle(String x, String y, int z)
+	{
+		super(x,y,z);
+		
+	}
+
+}

@@ -1,0 +1,65 @@
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+import java.io.File;
+import java.io.Serializable;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.Scanner;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+
+public class Obiekt_Sportowy extends JFrame implements Serializable, ActionListener {
+	public String nazwa;
+	public String ulica;
+	public Integer telefon;
+	public void zarzadzanie(){
+		
+		JFrame frame = new JFrame();
+	    setSize(800	, 900);
+	    setTitle("Zarzadzanie");
+	    JPanel panel = new JPanel();
+	    panel.setLayout(null);
+	    frame.add(panel);
+	        
+		JLabel imie_etykieta = new JLabel("Wybierz akcje");
+		imie_etykieta.setFont(new Font("Serif", Font.PLAIN, 34));
+		imie_etykieta.setBounds(30,30,300,70);
+		panel.add(imie_etykieta);
+
+
+
+	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    frame.setSize(500, 300);
+	    frame.setVisible(true);
+
+
+		}
+
+		public void actionPerformed(ActionEvent e) {
+
+			
+	}
+}
+

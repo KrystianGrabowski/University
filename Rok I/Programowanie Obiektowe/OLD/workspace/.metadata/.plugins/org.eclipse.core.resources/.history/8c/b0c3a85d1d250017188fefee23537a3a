@@ -1,0 +1,10 @@
+
+public class Main {
+
+	public static void main(String[] args) {
+		WydawnictwoCiagle k = new WydawnictwoCiagle("Mickiewicz", "Dziady", 1234);
+		System.out.print(k.toString());
+
+	}
+
+}

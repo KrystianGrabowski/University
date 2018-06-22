@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1488959656 source:c:\users\krystian\uczelnia\c++\arab2\main.cpp
+	<iostream>
+	<string>
+	<cstdlib>
+

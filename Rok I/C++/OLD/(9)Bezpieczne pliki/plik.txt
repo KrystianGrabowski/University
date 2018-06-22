@@ -1,0 +1,4 @@
+tekst tekst1 tekst2 tekst3
+tekst4 tekst5
+tekst6 tekst 7
+tekst8 tekst 9

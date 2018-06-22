@@ -1,0 +1,9 @@
+c:\users\krystian\documents\visual studio 2015\Projects\ConsoleApplication17\ConsoleApplication17\bin\Debug\ConsoleApplication17.exe.config
+c:\users\krystian\documents\visual studio 2015\Projects\ConsoleApplication17\ConsoleApplication17\bin\Debug\ConsoleApplication17.exe
+c:\users\krystian\documents\visual studio 2015\Projects\ConsoleApplication17\ConsoleApplication17\bin\Debug\ConsoleApplication17.pdb
+c:\users\krystian\documents\visual studio 2015\Projects\ConsoleApplication17\ConsoleApplication17\obj\Debug\ConsoleApplication17.csprojResolveAssemblyReference.cache
+c:\users\krystian\documents\visual studio 2015\Projects\ConsoleApplication17\ConsoleApplication17\obj\Debug\ConsoleApplication17.exe
+c:\users\krystian\documents\visual studio 2015\Projects\ConsoleApplication17\ConsoleApplication17\obj\Debug\ConsoleApplication17.pdb
+C:\Users\Krystian\Uczelnia\PO\POL4\ZAD2\ConsoleApplication17\bin\Debug\ConsoleApplication17.exe.config
+C:\Users\Krystian\Uczelnia\PO\POL4\ZAD2\ConsoleApplication17\obj\Debug\ConsoleApplication17.exe
+C:\Users\Krystian\Uczelnia\PO\POL4\ZAD2\ConsoleApplication17\obj\Debug\ConsoleApplication17.pdb

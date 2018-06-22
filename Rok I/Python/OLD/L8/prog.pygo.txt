@@ -1,0 +1,10 @@
+n = input("Podaj liczbe")
+n0 = n
+sil = 1
+
+start: if n<=0 goto koniec
+sil = sil * n
+n = n - 1 
+goto start
+
+koniec: print "Silnia(" + str(n0) + ") = " + str(sil)

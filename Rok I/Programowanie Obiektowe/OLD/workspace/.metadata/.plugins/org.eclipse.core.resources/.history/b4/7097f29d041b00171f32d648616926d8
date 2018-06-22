@@ -1,0 +1,49 @@
+
+public class Sort extends Thread
+{
+	int[] tab;
+	int a, b;
+	
+	public Sort(int[] x, int i, int j )
+	{
+		tab = x;
+		a = i;
+		b = j;
+	}
+	public void s()
+    {
+        for (int i = a; i < b; i++)
+        {
+            int j, v = tab[i];
+
+            for (j = i - 1; j >= 0; j--) {
+                if (tab[j] <= v)
+                    break;
+                tab[j + 1] = tab[j];
+            }
+
+            tab[j + 1] = v;
+        }
+    }
+	public void run()
+	{
+		if ((b - a) < 2)
+		{
+			s();
+			return;
+		}
+		Sort m1 = new Sort(tab,a,(a+b)/2);
+		Sort m2 = new Sort(tab,((a+b)/2)+1,b);
+		
+		m1.start();
+		m2.start();
+		
+		try
+		{
+			m1.join();
+			m2.join();
+		}
+		catch(Exception e) {}
+	}
+
+}

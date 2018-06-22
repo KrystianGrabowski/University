@@ -1,0 +1,104 @@
+import java.io.File;
+import java.io.Serializable;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Random;
+import java.util.Scanner;
+
+class Slownik<K extends Comparable<K>, V> implements Serializable
+        {
+			private static final long serialVersionUID = 1L;
+			Slownik<K, V> next;
+            Slownik<K, V> prev;
+            private K klucz;
+            private V wartosc;
+            public void Dodaj(K e1, V e2)
+            {
+                if (this.next == null && this.prev == null)
+                {
+                    klucz = e1;
+                    wartosc = e2;
+                    this.prev = new Slownik<K, V>();
+
+                    this.next = new Slownik<K, V>();
+                }
+                else
+                {
+                    if (this.prev == null)
+                        this.prev = new Slownik<K, V>();
+                    this.prev.Dodaj(e1, e2);
+
+                    if (this.next == null)
+                        this.next = new Slownik<K, V>();
+                    this.next.Dodaj(e1, e2);
+                }
+            }
+            public V Szukaj(K haslo)
+            {
+               
+                if ((this.klucz != null) && (this.klucz.compareTo(haslo) == 0))
+                    return wartosc;
+                    
+                else
+                {
+                    if (this.prev != null)
+                        return this.prev.Szukaj(haslo);
+                    else if (this.next != null)
+                        return this.next.Szukaj(haslo);
+
+                    else
+                    {
+                        System.out.printf("Nie ma takiego elementu - ");
+                        return wartosc;
+                    }
+                }
+            }
+
+            public void Usun(K uslo)
+            {
+                if (this.klucz.compareTo(uslo) == 0)
+                {
+                    this.klucz = null;
+					this.wartosc = null;
+
+                }
+                else
+                {
+                    if (this.prev != null)
+                        this.prev.Usun(uslo);
+                    if (this.next != null)
+                        this.next.Usun(uslo);
+                }
+            }
+            public String Zroc(K key, V value)
+            {
+            	String s = "";
+            	s = s + key + value;
+            	return s;
+            }
+            public String toString()
+            {
+            	String zbior = "";
+            	while (this != null)
+            	{
+            		//zbior = zbior + Zroc (this.klucz, this.wartosc);
+            		zbior = zbior + "(" + this.klucz + ":" + this.wartosc + ")";
+            		System.out.println(zbior);
+            		this.klucz = this.next.klucz;
+            		this.wartosc = this.next.wartosc;
+            		this.next = this.next.next;
+            		//System.out.println(this.klucz);
+            	}
+            	return zbior;
+            }
+            public static void WriteToFile() throws FileNotFoundException
+            {
+            	PrintWriter zapis = new PrintWriter("Slownik.txt");
+            	zapis.println("12345");
+            	zapis.close();
+            }
+
+
+}

@@ -1,0 +1,9 @@
+
+public class Czasopismo extends Ksiazka {
+	
+	public Czasopismo(String x, String y, int z)
+	{
+		super(x,y,z);
+	}
+
+}

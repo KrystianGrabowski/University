@@ -1,0 +1,19 @@
+
+public class Main {
+
+	public static void main(String[] args) 
+		{
+		int[] T = {30,29,28,27,26,25,1,2,3,4,5,6,7,24,23,22,21,20,19,18,8,9,10,11,17,16,15,13,14,12};
+
+	        MergeSort sort = new MergeSort(T, 0, 29); 
+	        sort.start();
+	        
+	        try
+	        {
+	        	sort.join();
+	        }
+	        catch(Exception e) {}
+	        
+	        for(int i = 0; i < 30; i++) System.out.println(T[i]);
+		}
+}

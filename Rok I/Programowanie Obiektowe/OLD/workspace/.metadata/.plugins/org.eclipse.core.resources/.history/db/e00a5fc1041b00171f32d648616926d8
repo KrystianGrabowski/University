@@ -1,0 +1,74 @@
+
+public class Sort extends Thread
+{
+	int[] tab;
+	int a, b;
+	
+	public Sort(int[] x, int i, int j )
+	{
+		tab = x;
+		a = i;
+		b = j;
+	}
+    private void merge(int[] temp)
+    {
+        int i1, i2, tempi;
+
+        i1 = a;
+        i2 = b / 2;
+        tempi = 0;
+
+        while (i1 < b / 2 && i2 < b) {
+            if (tab[i1] < tab[i2])
+                temp[tempi++] = tab[i1++];
+            else
+                temp[tempi++] = tab[i2++];
+        }
+
+        while (i1 < b / 2) {
+            temp[tempi++] = tab[i1++];
+        }
+
+        while (i2 < b) {
+            temp[tempi++] = tab[i2++];
+        }
+
+        System.arraycopy(tab, a, temp, 0, b - a);
+    }
+	public void s()
+    {
+        for (int i = a; i < b; i++)
+        {
+            int j, v = tab[i];
+
+            for (j = i - 1; j >= 0; j--) {
+                if (tab[j] <= v)
+                    break;
+                tab[j + 1] = tab[j];
+            }
+
+            tab[j + 1] = v;
+        }
+    }
+	public void run()
+	{
+		if ((b - a) < 2)
+		{
+			s();
+			return;
+		}
+		Sort m1 = new Sort(tab,a,(a+b)/2);
+		Sort m2 = new Sort(tab,((a+b)/2)+1,b);
+		
+		m1.start();
+		m2.start();
+		
+		try
+		{
+			m1.join();
+			m2.join();
+		}
+		catch(Exception e) {}
+	}
+
+}

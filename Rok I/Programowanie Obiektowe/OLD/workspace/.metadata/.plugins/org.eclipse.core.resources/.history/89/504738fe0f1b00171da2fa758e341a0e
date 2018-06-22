@@ -1,0 +1,54 @@
+
+public class MergeSort extends Thread
+{
+	int[] tab;
+	int poczatek, koniec;
+	public MergeSort(int[] x, int a, int b)
+	{
+		tab = x;
+		poczatek = a;
+		koniec = b;
+	}
+
+	
+	public void dwa()
+	{	
+		int j;
+		if (koniec - poczatek == 2 )
+		{
+			if (tab[poczatek] > tab[koniec] )
+			{
+				j = tab[koniec];
+				tab[koniec] = tab[poczatek];
+				tab[poczatek] = j;
+			}
+			
+
+		}
+		
+	}
+	public void run()
+	{
+		if (koniec - poczatek < 2)
+		{
+			dwa();
+			return;
+		}
+		
+		int srodek = (koniec - poczatek) /2;
+		
+		MergeSort left = new MergeSort(tab,poczatek,srodek);
+		MergeSort right = new MergeSort(tab,srodek + 1,koniec);
+		
+		left.start();
+		right.start();
+		
+		try
+		{
+			left.join();
+			right.join();
+		}
+		catch (Exception e) {}
+		
+	}
+}

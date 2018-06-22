@@ -1,0 +1,8 @@
+
+
+public class Obiekt_Sportowy {
+	public String nazwa;
+	public String ulica;
+	public Integer telefon;
+
+}

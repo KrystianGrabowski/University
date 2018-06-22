@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1491380943 source:c:\users\krystian\uczelnia\c++\123\123.cpp
+	<iostream>
+	"123.h"
+
+1490737716 c:\users\krystian\uczelnia\c++\123\123.h
+	<iostream>
+
+1491381001 source:c:\users\krystian\uczelnia\c++\123\main.cpp
+	<iostream>
+	"123.h"
+
