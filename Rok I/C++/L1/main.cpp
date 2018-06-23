@@ -32,9 +32,9 @@ int arab2bin (const char *x){
 
 std::string bin2rzym (int x){
     std::string roman = "";
-    if (x < 3999){
+    if ((x <= 3999) && (x>=0)){
         int i = 0;
-        while (x != 0){
+        while (x > 0){
             if (x >= B[i]){
                 roman += R[i];
                 x -= B[i];
