@@ -1,5 +1,6 @@
 #include<iostream>
 #include<string.h>
+#include <cmath>
 
 const int B[] = {1000,
                 900, 500, 400, 100,
@@ -27,6 +28,28 @@ int arab2bin (const char *x){
         }
     }
     return std::stoi(x);
+}
+
+std::string bin2rzym (int x){
+    std::string roman = "";
+    if (x < 3999){
+        int i = 0;
+        while (x != 0){
+            if (x >= B[i]){
+                roman += R[i];
+                x -= B[i];
+            }
+            else{
+                i++;
+            }
+        }
+    }
+    else{
+        int l = floor(x / 100);
+        int rest = x - (l * 100);
+        roman = "|"+ bin2rzym(l) + "|" + bin2rzym(rest);
+    }
+    return roman;
 }
 
 int main(int argc, char *argv[]){
