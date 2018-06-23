@@ -5,7 +5,7 @@
 const int B[] = {1000,
                 900, 500, 400, 100,
                 90, 50, 40, 10,
-                9, 5, 4, 1};  
+                9, 5, 4, 1};
 
 const std::string R[] = {"M",
                         "CM", "D", "CD", "C",
@@ -32,7 +32,7 @@ int arab2bin (const char *x){
 
 std::string bin2rzym (int x){
     std::string roman = "";
-    if ((x <= 3999) && (x>=0)){
+    if (x <= 3999){
         int i = 0;
         while (x > 0){
             if (x >= B[i]){
