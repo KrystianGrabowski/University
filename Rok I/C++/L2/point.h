@@ -8,9 +8,11 @@ class Point{
     double y;
 
 public:
-    Point(int=0, int=0);
+    Point(double=0, double=0);
     Point(const Point &p);
     Point & operator= (const Point &p);
+
+    std::string toString();
 };
 
 #endif

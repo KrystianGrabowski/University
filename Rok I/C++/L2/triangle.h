@@ -14,6 +14,8 @@ public:
     Triangle(Point, Point, Point);
     Triangle(const Triangle &t);
     Triangle & operator= (const Triangle &p);
+
+    std::string toString();    
 };
 
 #endif

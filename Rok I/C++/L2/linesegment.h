@@ -11,7 +11,9 @@ class Line_segment{
 public:
     Line_segment(Point, Point);
     Line_segment(const Line_segment &ls);
-    Line_segment & operator= (const Line_segment &p);
+    Line_segment & operator= (const Line_segment &ls);
+
+    std::string toString();
 };
 
 #endif
