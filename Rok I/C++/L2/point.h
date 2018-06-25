@@ -12,6 +12,8 @@ public:
     Point(const Point &p);
     double getX();
     double getY();
+    void translate(double, double);
+    void rotation(Point &p, double);
     Point & operator= (const Point &p);
 
     std::string toString();

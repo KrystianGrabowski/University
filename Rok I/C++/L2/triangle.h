@@ -14,6 +14,8 @@ class Triangle{
 public:
     Triangle(Point, Point, Point);
     Triangle(const Triangle &t);
+    void translate(double, double);
+    void rotation(Point &p, double);
     Triangle & operator= (const Triangle &p);
 
     std::string toString();

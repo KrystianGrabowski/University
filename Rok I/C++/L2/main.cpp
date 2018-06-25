@@ -13,6 +13,10 @@ int main(){
     Point p0(2,5);
     Point p01(5,9);
     std::cout << distance(p0,p01) << std::endl;
+    Point p02(-1,2);
+    p02.translate(-2,2);
+    std::cout << p02.toString() << std::endl;
+
     //Point
     Point p1(2,5);
     Point p2(5,9);
@@ -50,6 +54,21 @@ int main(){
     t2 = t2;
     std::cout << t2.toString() << std::endl;
 
+    //translation
+    Triangle t122(p0, p01, p02);
+    std::cout << t122.toString() << std::endl;
+    t122.translate(-2,2);
+    std::cout << t122.toString() << std::endl;
+
+    //rotation
+    Point pr1(3,2);
+    Point z(0,0);
+    pr1.rotation(z, -140);
+    std::cout << pr1.toString() << std::endl;
+
+    Point prrr1(3,5);
+    prrr1.rotation(z, 90);
+    std::cout << prrr1.toString() << std::endl;
 
     return 0;
 }

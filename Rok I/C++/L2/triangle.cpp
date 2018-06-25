@@ -34,6 +34,18 @@ Triangle::Triangle(const Triangle &t)
     : a(t.a), b(t.b), c(t.c)
     {}
 
+void Triangle::translate(double vec_x, double vec_y){
+    a.translate(vec_x, vec_y);
+    b.translate(vec_x, vec_y);
+    c.translate(vec_x, vec_y);
+}
+
+void Triangle::rotation(Point &p, double angle){
+    a.rotation(p, angle);
+    b.rotation(p, angle);
+    c.rotation(p, angle);
+}
+
 Triangle & Triangle::operator= (const Triangle &p){
     if (this != &p){
         a = p.a;
