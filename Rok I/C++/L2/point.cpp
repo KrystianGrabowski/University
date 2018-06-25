@@ -12,9 +12,20 @@ Point::Point(const Point &p){
     y = p.y;
 }
 
+double Point::getX(){
+    return x;
+}
+
+double Point::getY(){
+    return y;
+}
+
 Point & Point::operator= (const Point &p){
-    x = p.x;
-    y = p.y;
+    if (this != &p){
+        x = p.x;
+        y = p.y;        
+    }
+
     return *this;
 }
 

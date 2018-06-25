@@ -11,8 +11,11 @@ Line_segment::Line_segment(const Line_segment &ls)
     {}
 
 Line_segment & Line_segment::operator= (const Line_segment &ls){
-    a = ls.a;
-    b = ls.b;
+    if (this != &ls){
+        a = ls.a;
+        b = ls.b;
+    }
+
     return *this;
 }
 
