@@ -16,6 +16,7 @@ public:
     void rotation(Point &p, double);
     Point & operator= (const Point &p);
 
+
     std::string toString();
 };
 

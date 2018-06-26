@@ -2,6 +2,7 @@
 #include<math.h>
 #include"point.h"
 #include<sstream>
+#include"global.h"
 
 Point::Point(double p_x, double p_y){
     x = p_x;

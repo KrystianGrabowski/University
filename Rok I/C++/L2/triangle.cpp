@@ -1,17 +1,8 @@
 #include<iostream>
 #include"triangle.h"
 #include<sstream>
-
-bool Triangle::collinear(Point p1, Point p2, Point p3){
-    if((p1.getX() * p2.getY() * 1) +
-       (p2.getX() * p3.getY() * 1) +
-       (p3.getX() * p1.getY() * 1) == 0){
-        return true;
-    }
-    else{
-         return false;
-    }
-}
+#include<math.h>
+#include"global.h"
 
 Triangle::Triangle(Point p_a, Point p_b, Point p_c)
     {
@@ -53,6 +44,24 @@ Triangle & Triangle::operator= (const Triangle &p){
         c = p.c;
     }
     return *this;
+}
+
+double Triangle::perimeter(){
+    return (distance(a, b) + distance(b, c) + distance(c, a));
+}
+
+double Triangle::area(){
+    double half_per = (1/2.0) * perimeter();
+    return sqrt(half_per * (half_per - distance(a, b)) *
+                (half_per - distance(b, c)) * (half_per - distance(c, a)));
+}
+
+bool Triangle::in_triangle(Point &p){
+    return fabs(area() - (area_three(a, b, p) + area_three(a, c, p) + area_three(b, c, p))) <= 0.001;
+}
+
+Point Triangle::center(){
+    return Point((a.getX() + b.getX() + c.getX()) / 3, (a.getY() + b.getY() + c.getY()) / 3);
 }
 
 std::string Triangle::toString(){
