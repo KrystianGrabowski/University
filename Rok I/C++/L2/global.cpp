@@ -19,7 +19,6 @@ bool collinear(Point &p1, Point &p2, Point &p3){
     }
 }
 
-
 double distance(Point &p1, Point &p2){
     return sqrt(pow(p2.getX() - p1.getX(), 2) + (pow (p2.getY() - p1.getY(), 2)));
 }

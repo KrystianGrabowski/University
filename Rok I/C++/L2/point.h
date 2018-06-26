@@ -9,14 +9,13 @@ class Point{
 
 public:
     Point(double=0, double=0);
-    Point(const Point &p);
+    Point(const Point&);
+    Point & operator= (const Point&);
+
     double getX();
     double getY();
     void translate(double, double);
-    void rotation(Point &p, double);
-    Point & operator= (const Point &p);
-
-
+    void rotation(Point&, double);
     std::string toString();
 };
 

@@ -5,25 +5,34 @@
 #include"global.h"
 
 Triangle::Triangle(Point p_a, Point p_b, Point p_c)
-    {
-        try{
-            if (collinear(p_a, p_b, p_c)){
-                throw "Collinear points";
-            }
-            else{
-                a = p_a;
-                b = p_b;
-                c = p_c;
-            }
+{
+    try{
+        if (collinear(p_a, p_b, p_c)){
+            throw "Collinear points";
         }
-        catch (const char* s){
-            std::cerr << s << std::endl;
+        else{
+            a = p_a;
+            b = p_b;
+            c = p_c;
         }
     }
+    catch (const char* s){
+        std::cerr << s << std::endl;
+    }
+}
 
 Triangle::Triangle(const Triangle &t)
     : a(t.a), b(t.b), c(t.c)
     {}
+
+Triangle & Triangle::operator= (const Triangle &p){
+    if (this != &p){
+        a = p.a;
+        b = p.b;
+        c = p.c;
+    }
+    return *this;
+}
 
 void Triangle::translate(double vec_x, double vec_y){
     a.translate(vec_x, vec_y);
@@ -35,15 +44,6 @@ void Triangle::rotation(Point &p, double angle){
     a.rotation(p, angle);
     b.rotation(p, angle);
     c.rotation(p, angle);
-}
-
-Triangle & Triangle::operator= (const Triangle &p){
-    if (this != &p){
-        a = p.a;
-        b = p.b;
-        c = p.c;
-    }
-    return *this;
 }
 
 double Triangle::perimeter(){

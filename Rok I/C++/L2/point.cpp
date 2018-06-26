@@ -14,6 +14,14 @@ Point::Point(const Point &p){
     y = p.y;
 }
 
+Point & Point::operator= (const Point &p){
+    if (this != &p){
+        x = p.x;
+        y = p.y;
+    }
+    return *this;
+}
+
 double Point::getX(){
     return x;
 }
@@ -35,14 +43,7 @@ void Point::rotation(Point &p, double angle){
     y = y1;
 }
 
-Point & Point::operator= (const Point &p){
-    if (this != &p){
-        x = p.x;
-        y = p.y;
-    }
 
-    return *this;
-}
 
 std::string Point::toString(){
     std::stringstream ss;

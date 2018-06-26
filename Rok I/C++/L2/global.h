@@ -5,16 +5,16 @@
 #include"linesegment.h"
 #include"triangle.h"
 
-bool collinear(Point &p1, Point &p2, Point &p3);
-double distance(Point &p1, Point &p2);
-bool parallel(Line_segment &l1, Line_segment &l2);
-bool perpendicular(Line_segment &l1, Line_segment &l2);
-Point intersection(Line_segment &l1, Line_segment &l2);
-double vectorX(Line_segment &l);
-double vectorY(Line_segment &l);
-double perimeter_three(Point &a, Point&b, Point&c);
-double area_three(Point &a, Point&b, Point&c);
-bool disjoint(Triangle &t1, Triangle &t2);
-bool contains(Triangle &t1, Triangle &t2);
+bool collinear(Point&, Point&, Point&);
+double distance(Point&, Point&);
+bool parallel(Line_segment&, Line_segment&);
+bool perpendicular(Line_segment&, Line_segment&);
+Point intersection(Line_segment&, Line_segment&);
+double vectorX(Line_segment&);
+double vectorY(Line_segment&);
+double perimeter_three(Point&, Point&, Point&);
+double area_three(Point&, Point&, Point&);
+bool disjoint(Triangle&, Triangle&);
+bool contains(Triangle&, Triangle&);
 
 #endif

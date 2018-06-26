@@ -10,7 +10,7 @@
 
 int main(){
     //Tests
-    /*Point p0(2,5);
+    Point p0(2,5);
     Point p01(5,9);
     std::cout << distance(p0,p01) << std::endl;
     Point p02(-1,2);
@@ -146,6 +146,6 @@ int main(){
     Point cont15(4,0);
     Triangle conttest5(cont13, cont14, cont15);
     std::cout << "disjoint?: " << disjoint(tr1, conttest5) << std::endl;
-    std::cout << "contains:? " << contains(tr1, conttest5) << std::endl;*/
+    std::cout << "contains:? " << contains(tr1, conttest5) << std::endl;
     return 0;
 }
