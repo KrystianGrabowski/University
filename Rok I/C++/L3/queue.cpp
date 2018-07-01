@@ -65,6 +65,65 @@ Queue& Queue::operator=(Queue &&q){
     return *this;
 }
 
+void Queue::insert(std::string elem){
+    try{
+        if (current_size < capacity){
+            Q[current_size] = elem;
+            current_size++;
+        }
+        else{
+            throw std::string("Container is full");
+        }
+    }
+    catch(std::string e){
+        std::cerr << e << std::endl;
+    }
+
+}
+
+std::string Queue::get(){
+    std::string first_elem = "";
+    try{
+        if (current_size > 0){
+            first_elem = Q[first];
+            Q[first] = "";
+        }
+        else{
+            throw std::string("Empty container");
+        }
+    }
+    catch(std::string e){
+        std::cerr << e << std::endl;
+    }
+    if (first == capacity - 1){
+        first = 0;
+    }
+    else{
+        first++;
+    }
+    current_size--;
+    return first_elem;
+}
+
+std::string Queue::check(){
+    try{
+        if (current_size > 0){
+            return Q[first];
+        }
+        else{
+            throw std::string("Empty container");
+        }
+    }
+    catch(std::string e){
+        std::cerr << e << std::endl;
+    }
+    return "";
+}
+
+int Queue::size(){
+    return current_size;
+}
+
 std::ostream& operator<< (std::ostream &os, const Queue &q){
     os << "[";
     int iter = q.first;
