@@ -68,7 +68,7 @@ Queue& Queue::operator=(Queue &&q){
 void Queue::insert(std::string elem){
     try{
         if (current_size < capacity){
-            Q[current_size] = elem;
+            Q[(first+current_size) % capacity] = elem;
             current_size++;
         }
         else{
@@ -87,6 +87,14 @@ std::string Queue::get(){
         if (current_size > 0){
             first_elem = Q[first];
             Q[first] = "";
+            if (first == capacity - 1){
+                first = 0;
+            }
+            else{
+                first++;
+            }
+            current_size--;
+            return first_elem;
         }
         else{
             throw std::string("Empty container");
@@ -95,13 +103,6 @@ std::string Queue::get(){
     catch(std::string e){
         std::cerr << e << std::endl;
     }
-    if (first == capacity - 1){
-        first = 0;
-    }
-    else{
-        first++;
-    }
-    current_size--;
     return first_elem;
 }
 
@@ -135,8 +136,8 @@ std::ostream& operator<< (std::ostream &os, const Queue &q){
         }
         number--;
         iter++;
-        if (iter == q.capacity){
-            iter == 0;
+        if (iter >= q.capacity){
+            iter = 0;
         }
     }
     os << "]";
