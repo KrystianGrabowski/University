@@ -13,7 +13,7 @@ int test(Queue &q){
         std::cin >> choice;
         switch(choice){
             case 1:
-                std::cout << "Enter value: ";
+                std::cout << "Enter a value: ";
                 std::cin >> arg;
                 q.insert(arg);
             break;
@@ -36,7 +36,9 @@ int test(Queue &q){
 }
 
 int main(){
-    Queue c1;
+    //Queue c1;
+    //Queue c1(6);
+    Queue c1 {"pigeon", "cat" ,"dog"};
     test(c1);
     return 0;
 }
