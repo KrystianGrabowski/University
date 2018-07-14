@@ -10,14 +10,14 @@ public:
     Point a;
     Point b;
 
-    Line_segment(Point, Point);
-    Line_segment(const Line_segment&);
-    Line_segment & operator= (const Line_segment&);
+    Line_segment(Point p_a, Point p_b);
+    Line_segment(const Line_segment &ls);
+    Line_segment & operator= (const Line_segment &ls);
 
-    void translate(double, double);
-    void rotation(Point&, double);
+    void translate(double vec_x, double vec_y);
+    void rotation(Point &p, double angle);
     double length();
-    bool on_line(Point&);
+    bool on_line(Point &p);
     Point middle();
     std::string toString();
 };

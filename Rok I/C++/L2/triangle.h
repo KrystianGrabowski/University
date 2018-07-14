@@ -11,15 +11,15 @@ public:
     Point b;
     Point c;
 
-    Triangle(Point, Point, Point);
-    Triangle(const Triangle&);
-    Triangle & operator= (const Triangle&);
+    Triangle(Point p_a, Point p_b, Point p_c);
+    Triangle(const Triangle &t);
+    Triangle & operator= (const Triangle &p);
 
-    void translate(double, double);
-    void rotation(Point&, double);
+    void translate(double vec_x, double vec_y);
+    void rotation(Point &p, double angle);
     double perimeter();
     double area();
-    bool in_triangle(Point&);
+    bool in_triangle(Point &p);
     Point center();
     std::string toString();
 };
