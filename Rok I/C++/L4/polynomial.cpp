@@ -45,7 +45,7 @@ Polynomial::Polynomial(const Polynomial &p) :degree(p.degree) {
     }
 }
 
-Polynomial(Polynomial &&p){
+Polynomial::Polynomial(Polynomial &&p)
     :degree(p.degree), coefficients(p.coefficients){
     p.degree = 0;
     p.coefficients = nullptr;
@@ -55,7 +55,7 @@ Polynomial& Polynomial::operator= (const Polynomial &p){
     if(this != &p){
         degree = p.degree;
         delete coefficients;
-        coefficient = new double[degree + 1];
+        coefficients = new double[degree + 1];
         for (int i=0; i<=degree; i++){
             coefficients[i] = p.coefficients[i];
         }
@@ -67,12 +67,29 @@ Polynomial& Polynomial::operator= (Polynomial &&p){
     if(this != &p){
         degree = p.degree;
         delete coefficients;
-        coefficients = p.coefficient;
+        coefficients = p.coefficients;
 
         p.coefficients = nullptr;
         p.degree = 0;
     }
     return *this;
+}
+
+std::istream & operator >> (std::istream &is, Polynomial &p){
+    is >> p.degree;
+    delete p.coefficients;
+    p.coefficients = new double[p.degree + 1];
+    for (int i=0; i<=p.degree; i++){
+        is >> p.coefficients[i];
+    }
+    return is;
+}
+
+std::ostream & operator << (std::ostream &os, const Polynomial &p){
+    for(int i=p.degree; i>=0; i--){
+        std::cout << p.coefficients[i] << "x^" << i << " ";
+    }
+    return os;
 }
 
 
