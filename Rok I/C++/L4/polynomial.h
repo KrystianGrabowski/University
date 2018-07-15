@@ -4,7 +4,7 @@
 
 class Polynomial{
     int degree;
-    int* coefficients;
+    double* coefficients;
 
 public:
     Polynomial(int p_degree=0, double p_coefficient=1.0);
@@ -16,17 +16,17 @@ public:
     Polynomial& operator= (Polynomial &&p);
     ~Polynomial();
 
-    friend istream & operator >> (istream &is, Polynomial &p);
-    friend ostream & operator << (ostream &os, const Polynomial &p);
+    friend std::istream & operator >> (std::istream &is, Polynomial &p);
+    friend std::ostream & operator << (std::ostream &os, const Polynomial &p);
 
     friend Polynomial operator+ (const Polynomial &p1, const Polynomial &p2);
     friend Polynomial operator- (const Polynomial &p1, const Polynomial &p2);
     friend Polynomial operator* (const Polynomial &p1, const Polynomial &p2);
-    friend Polynomial operator* (double c);
-    Polynomial operator+= (const Polynomial &p);
-    Polynomial operator-= (const Polynomial &p);
-    Polynomial operator*= (const Polynomial &p);
-    Polynomial operator*= (double c);
+    friend Polynomial operator* (const Polynomial &p,  double c);
+    Polynomial& operator+= (const Polynomial &p);
+    Polynomial& operator-= (const Polynomial &p);
+    Polynomial& operator*= (const Polynomial &p);
+    Polynomial& operator*= (double c);
     double operator () (double x) const;
     double operator [] (int i) const;
 };
