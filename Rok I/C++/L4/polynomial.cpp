@@ -38,6 +38,45 @@ Polynomial::Polynomial(std::initializer_list<double> list)
     }
 }
 
+Polynomial::Polynomial(const Polynomial &p) :degree(p.degree) {
+    coefficients = new double[degree + 1];
+    for(int i=0; i <= degree; i++){
+        coefficients[i] = p.coefficients[i];
+    }
+}
+
+Polynomial(Polynomial &&p){
+    :degree(p.degree), coefficients(p.coefficients){
+    p.degree = 0;
+    p.coefficients = nullptr;
+}
+
+Polynomial& Polynomial::operator= (const Polynomial &p){
+    if(this != &p){
+        degree = p.degree;
+        delete coefficients;
+        coefficient = new double[degree + 1];
+        for (int i=0; i<=degree; i++){
+            coefficients[i] = p.coefficients[i];
+        }
+    }
+    return *this;
+}
+
+Polynomial& Polynomial::operator= (Polynomial &&p){
+    if(this != &p){
+        degree = p.degree;
+        delete coefficients;
+        coefficients = p.coefficient;
+
+        p.coefficients = nullptr;
+        p.degree = 0;
+    }
+    return *this;
+}
+
+
+
 Polynomial::~Polynomial(){
     delete[] coefficients;
 }

@@ -11,7 +11,7 @@ public:
     Polynomial(int p_degree, const double p_coefficients[]);
     Polynomial(std::initializer_list<double> list);
     Polynomial(const Polynomial &p);
-    Polynomial(Polynomial &&p1);
+    Polynomial(Polynomial &&p);
     Polynomial& operator= (const Polynomial &p);
     Polynomial& operator= (Polynomial &&p);
     ~Polynomial();
