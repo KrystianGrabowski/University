@@ -149,6 +149,22 @@ Polynomial operator* (const Polynomial &p, double c){
     }
     return Polynomial(tempdeg, tempcoef);
 }
+Polynomial& Polynomial::operator+= (const Polynomial &p){
+    *this = *this + p;
+    return *this;
+}
+Polynomial& Polynomial::operator-= (const Polynomial &p){
+    *this = *this - p;
+    return *this;
+}
+Polynomial& Polynomial::operator*= (const Polynomial &p){
+    *this = *this * p;
+    return *this;
+}
+Polynomial& Polynomial::operator*= (double c){
+    *this = *this * c;
+    return *this;
+}
 
 Polynomial::~Polynomial(){
     delete[] coefficients;
