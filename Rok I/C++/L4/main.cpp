@@ -2,6 +2,30 @@
 #include"polynomial.h"
 
 int main(){
+    //constructors
+    Polynomial cons1;
+    std::cout << "Cons1: " << cons1 << std::endl;
+    double elem[4] = {4,3,4,3};
+    Polynomial cons2(3,elem);
+    std::cout << "Cons2: " << cons2 << std::endl;
+    Polynomial cons3{96,5,22,1};
+    std::cout << "Cons3: " << cons3 << std::endl;
+    Polynomial cons4(cons2);
+    Polynomial cons5(std::move(cons3));
+    std::cout << "Cons4: " << cons4 << std::endl;
+    std::cout << "Cons5: " << cons5 << std::endl;
+    std::cout << "\n";
+
+    //assignment
+    Polynomial aop;
+    aop = cons2;
+    std::cout << "Assig1: " << aop << std::endl;
+    Polynomial aop1;
+    aop1 = std::move(cons4);
+    std::cout << "Assig2: " << aop1 << std::endl;
+    std::cout << "\n";
+
+
     //+ - * *
     Polynomial a{2,2,2,2,2,2};
     Polynomial b{1,1,1,1};

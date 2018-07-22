@@ -54,7 +54,7 @@ Polynomial::Polynomial(Polynomial &&p)
 Polynomial& Polynomial::operator= (const Polynomial &p){
     if(this != &p){
         degree = p.degree;
-        delete coefficients;
+        delete[] coefficients;
         coefficients = new double[degree + 1];
         for (int i=0; i<=degree; i++){
             coefficients[i] = p.coefficients[i];
@@ -66,7 +66,7 @@ Polynomial& Polynomial::operator= (const Polynomial &p){
 Polynomial& Polynomial::operator= (Polynomial &&p){
     if(this != &p){
         degree = p.degree;
-        delete coefficients;
+        delete[] coefficients;
         coefficients = p.coefficients;
 
         p.coefficients = nullptr;
@@ -77,7 +77,7 @@ Polynomial& Polynomial::operator= (Polynomial &&p){
 
 std::istream & operator >> (std::istream &is, Polynomial &p){
     is >> p.degree;
-    delete p.coefficients;
+    delete[] p.coefficients;
     p.coefficients = new double[p.degree + 1];
     for (int i=0; i<=p.degree; i++){
         is >> p.coefficients[i];

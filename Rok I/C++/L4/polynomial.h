@@ -23,10 +23,12 @@ public:
     friend Polynomial operator- (const Polynomial &p1, const Polynomial &p2);
     friend Polynomial operator* (const Polynomial &p1, const Polynomial &p2);
     friend Polynomial operator* (const Polynomial &p,  double c);
+
     Polynomial& operator+= (const Polynomial &p);
     Polynomial& operator-= (const Polynomial &p);
     Polynomial& operator*= (const Polynomial &p);
     Polynomial& operator*= (double c);
+    
     double operator () (double x) const;
     double operator [] (int i) const;
 };
