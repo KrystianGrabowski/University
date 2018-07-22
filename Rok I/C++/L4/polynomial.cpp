@@ -92,7 +92,63 @@ std::ostream & operator << (std::ostream &os, const Polynomial &p){
     return os;
 }
 
+Polynomial operator+ (const Polynomial &p1, const Polynomial &p2){
+    int tempdeg = std::max(p1.degree, p2.degree);
+    double tempcoef[tempdeg + 1];
+    if(p1.degree > p2.degree){
+        for(int i=0; i<=p2.degree; i++){
+            tempcoef[i] = p2.coefficients[i] + p1.coefficients[i];}
+        for(int j=p2.degree+1; j<=p1.degree; j++){
+            tempcoef[j] = p1.coefficients[j];}
+    }
+    else{
+        for(int i=0; i<=p1.degree; i++){
+            tempcoef[i] = p1.coefficients[i] + p2.coefficients[i];}
+        for(int j=p1.degree+1; j<=p2.degree; j++){
+            tempcoef[j] = p2.coefficients[j];}
+    }
+    return Polynomial(tempdeg, tempcoef);
+}
 
+Polynomial operator- (const Polynomial &p1, const Polynomial &p2){
+
+    int tempdeg = std::max(p1.degree, p2.degree);
+    double tempcoef[tempdeg + 1];
+    if(p1.degree > p2.degree){
+        for(int i=0; i<=p2.degree; i++){
+            tempcoef[i] = p1.coefficients[i] - p2.coefficients[i];}
+        for(int j=p2.degree+1; j<=p1.degree; j++){
+            tempcoef[j] = p1.coefficients[j];}
+    }
+    else{
+        for(int i=0; i<=p1.degree; i++){
+            tempcoef[i] = p1.coefficients[i] - p2.coefficients[i];}
+        for(int j=p1.degree+1; j<=p2.degree; j++){
+            tempcoef[j] = (-1) * p2.coefficients[j];}
+    }
+    return Polynomial(tempdeg, tempcoef);
+}
+
+Polynomial operator* (const Polynomial &p1, const Polynomial &p2){
+
+    int tempdeg = p1.degree + p2.degree;
+    double tempcoef[tempdeg + 1] = {};
+    for(int i=0; i<=p1.degree; i++){
+        for(int j=0; j<=p2.degree; j++){
+            tempcoef[i+j] += p1.coefficients[i] * p2.coefficients[j];
+        }
+    }
+    return Polynomial(tempdeg, tempcoef);
+}
+
+Polynomial operator* (const Polynomial &p, double c){
+    int tempdeg = p.degree;
+    double tempcoef[tempdeg + 1];
+    for(int i=0; i<=p.degree; i++){
+        tempcoef[i] = p.coefficients[i] * c;
+    }
+    return Polynomial(tempdeg, tempcoef);
+}
 
 Polynomial::~Polynomial(){
     delete[] coefficients;
