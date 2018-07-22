@@ -166,6 +166,20 @@ Polynomial& Polynomial::operator*= (double c){
     return *this;
 }
 
+double Polynomial::operator () (double x) const{
+    double value = coefficients[degree];
+    for(int i=degree-1; i>=0; i--){
+        value = value * x + coefficients[i];
+    }
+}
+
+double Polynomial::operator [] (int i) const{
+    if(i<0 || i>degree){
+        throw "Incorrect index";
+    }
+    return coefficients[i];
+}
+
 Polynomial::~Polynomial(){
     delete[] coefficients;
 }

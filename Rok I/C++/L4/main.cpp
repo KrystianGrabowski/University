@@ -37,5 +37,15 @@ int main(){
     std::cout << "Multconst=1: " << mc1 << std::endl;
     std::cout << "Multconst=2: " << mc2 << std::endl;
 
+    //Horner
+    Polynomial h1{1,4,-5,0,2};
+    std::cout << h1(3/2.0) << std::endl;
+    Polynomial h2{-1,0,2,-5,3};
+    std::cout << h2(-2) << std::endl;
+
+    std::cout << h2[0] << std::endl;
+    std::cout << h1[4] << std::endl;
+    std::cout << h1[2] << std::endl;
+
     return 0;
 }
