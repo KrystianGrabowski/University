@@ -1,0 +1,99 @@
+body{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+
+.paw{
+    width: 150px;
+    height: 150px;
+    vertical-align: middle;
+
+}
+
+header{
+    font-style: italic;
+    font-size: 60px;
+    text-align: center;
+}
+
+.active {
+    display: inline-block;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    background-color: darkgray;
+    font-size: 20px;
+    height: 100%;
+    width: 130px;
+}
+
+.navig{
+    display: inline-block;
+    font-size: 20px;
+    height: 100%;
+    width: 130px;
+}
+
+nav{
+    margin-top: 20px;
+    text-align: center;
+    height: 50px;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    
+}
+
+a{
+    color: black;
+    font-style: italic;
+    text-decoration: none;
+}
+
+
+aside{
+    height: 600px;
+    float: left;
+    width: 35%;
+    margin-right: 10px;
+    border-right: 1px solid grey;
+    border-left: 1px solid grey;
+    border-radius: 15px;
+}
+
+section{
+    height: 600px;
+    width: 63%;
+    float: right;
+    border-right: 1px solid grey;
+    border-left: 1px solid grey;
+    border-radius: 15px;
+
+}
+
+div{
+    color: grey;
+    margin: 40px;
+    font-style: italic;
+}
+
+aside{
+    font-size: 20px;
+    line-height: 1.8;
+}
+
+.sidebar{
+    font-size: 20px;
+}
+
+
+article{
+    margin: 20px;
+}
+
+h1{
+    margin: 10px;
+}
+
+footer{
+    margin: 10px;
+    float: right;
+}

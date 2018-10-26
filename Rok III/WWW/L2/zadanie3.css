@@ -1,0 +1,42 @@
+/*selektor type -> dowolny znacznik*/
+h1{
+    font-size: 25px;
+    color: green;
+}
+
+/*selektor descendant przodek1 przodek2 ... potomek*/
+div h1{
+    color: blueviolet;
+}
+/*selector child rodzic > dziecko*/
+section > article{
+    color: darkturquoise;
+}
+
+/*selector adjacent brat1 + brat2* ten sam rząd hierarchii (nadajemy atrybut bratu2 )*/
+header + footer{
+    font-style: italic;
+    color: fuchsia;
+    font-size: 2em;
+}
+/*
+header ~ footer{
+    font-style: italic;
+    color: fuchsia;
+    font-size: 2em;
+}*/
+
+/*selector id selektor#identyfikator { cecha: wartość }*/
+p#bluebg{
+    background-color: blue;
+    font-size: 1cm;
+}
+/*selector class selektor.klasa1.klasa3 { cecha: wartość }*/
+article.greenbg{
+    background-color: green;
+    font-size: 15px;
+}
+.it{
+    font-style: italic;
+    color: pink;
+}

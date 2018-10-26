@@ -1,0 +1,12 @@
+p:after { 
+    content: " - Remember";
+    background-color: yellow;
+    color: red;
+    font-weight: bold;
+}
+
+p:before {
+    content: "This is ";
+    font-weight: bold;
+    font-style: italic;
+}
