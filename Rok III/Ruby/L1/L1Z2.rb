@@ -1,5 +1,6 @@
 #!/usr/bin/ruby
 
+#L1Z2
 def pascal(n)
     for i in 0..n-1
         (pascal_array ||= []) << 1

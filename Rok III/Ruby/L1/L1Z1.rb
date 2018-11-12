@@ -40,3 +40,45 @@ for t in Test
     puts "%d -> %s" % [t, slownie(t)] # 9999max
 end
 
+
+
+
+
+
+
+=begin
+def slownie(x)
+    digits = x.to_s.split("")
+    length = digits.length
+    text = ""
+    for i in digits
+        x = i.to_i
+        if x == 0 and digits.length == 0
+            return tab10[0]
+        elsif x == 0 and digits.length != 1
+            length = length - 1
+            next
+        elsif length == 4
+            case x
+                when 1
+                    text = text + @tab1000000[0] + " "
+                when 2..4
+                    text = text + @tab10[x] + " " + @tab1000000[1] + " "
+                else
+                    text = text + @tab10[x] + " " + @tab1000000[2] + " "
+            end
+        elsif length == 3
+            text = text + @tab1000[x-1] + " "
+        elsif length == 2 and x == 1
+            text = text + @tab20[digits[-1].to_i]
+            return text
+        elsif length == 2
+            text = text + @tab100[x-2] + " "
+        else
+            text = text + @tab10[x]
+        end
+        length -= 1
+    end
+    text
+end
+=end

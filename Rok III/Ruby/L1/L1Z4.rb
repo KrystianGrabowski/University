@@ -8,8 +8,8 @@ end
 def podzielniki(n)
     for j in 2..n
         if n%j == 0 and pierwsza(j)
-            (tab ||= []) << j
-            n = n/j                                                        
+            (tab ||= []) << j # ||= przypisanie jesli left = nil,false  || #tab << j
+            n = n/j                                                        #tab.push(j)
         end
     end
     tab
