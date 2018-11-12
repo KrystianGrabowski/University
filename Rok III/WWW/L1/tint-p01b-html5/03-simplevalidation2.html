@@ -1,0 +1,62 @@
+﻿<!doctype html>
+<html lang="pl">
+<head>
+<title>Simple page</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<style>
+* { font-family: Arial, sans-serif; font-size: 10pt; }
+input { display: block; margin-bottom:2px; }
+
+input:valid { border: 1px solid #ccc }
+input:valid + .invalid { visibility:hidden; }
+input:invalid + .invalid { visibility:visible; }
+.invalid { position:relative;display:block;color:#900;margin-top:0;margin-bottom:10px; }
+input:placeholder-shown + .invalid { visibility:hidden; }
+</style>
+</head>
+<body>
+
+<form id="formm" onsubmit="return this.checkValidity()">
+<label for="name">Name:</label>
+<input type="text" id="name" name="name" placeholder="First and last name" pattern="[a-zA-Z ]{5,}" required />
+<div class="invalid">Pole jest wymagane i ma mieć co najmniej 5 znaków</div>
+
+<label for="email">E-mail:</label>
+<input type="email" id="email" name="email" placeholder="Email please..." required />
+<div class="invalid">Pole jest wymagane i ma być poprawnym mailem</div>
+
+<label for="url">URL:</label>
+<input type="url" id="url" name="url" placeholder="URL please" required />
+<div class="invalid">Wartość jest niepoprawna</div>
+
+<label for="tel">Phone:</label>
+<input type="tel" id="tel" name="tel" placeholder="Phone please" required />
+<div class="invalid">Wartość jest niepoprawna</div>
+
+<label for="date">Date:</label>
+<input type="date" id="date" name="date" min="2010-01-01" max="2020-12-31" required />
+<div class="invalid">Wartość jest niepoprawna</div>
+
+<label for="range">Range:</label>
+<input type="range" id="range" name="range" min="5" max="45" step="5" value="35" />
+<div class="invalid">Wartość jest niepoprawna</div>
+
+<label for="number">Number:</label>
+<input type="number" id="number" name="number" min="5" max="45" step="5" value="35" required />
+<div class="invalid">Wartość jest niepoprawna</div>
+
+<label for="number">Colours:</label>
+<input type="text" id="datalist" name="colours" list="colours" placeholder="Phone please" required />
+<div class="invalid">Wartość jest niepoprawna</div>
+<datalist id="colours">
+<option value="red">
+<option value="green">
+<option value="blue">
+</datalist>
+
+<button type="submit" id="submit" name="submit" onclick="">Wyślij</button>
+</form>
+
+</body>
+</html>
+		

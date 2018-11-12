@@ -1,0 +1,37 @@
+/*domyślne, brak poz początkowej*/
+.p_static{
+    background-color: green;
+    position: static;
+    margin: 20px; 
+}
+/*przesuwamy element względem jego domyślnego położenia
+    (right - od prawej o). ZOstaje po nim ślad dzięki czemu nie rusza innych elementów*/
+.p_relative{
+    background-color: purple;
+    position: relative;
+    left: 500px;
+    bottom: 50px;
+    
+}
+/*przesuwamy względem brzegów, nie pozostawia po sobie nic, elementy na niego nie reagują*/
+.p_absolute{
+    background-color: yellow;
+    position: absolute;
+    left: 450px;
+    top: 60px;
+}
+/*podobne do absolutnego jednak liczone od okna przeglądarki*/
+.p_fixed{
+    background-color: crimson;
+    position: fixed;
+    right: 3cm;
+    top: 3cm;
+}
+
+div{
+    width: 100px;
+    height: 50px;
+    font-size: 20px;
+    color: azure;
+    text-align: center;
+}

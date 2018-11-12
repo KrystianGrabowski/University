@@ -1,0 +1,30 @@
+.MyBlur{
+    display:inline-block;
+    position:relative;
+}
+  
+.MyBlur img{
+    width:300px;
+    height:400px;
+    transition: 13s;
+}
+
+.MyBlur :not(img){
+    position:absolute;
+    top:40%;
+    left:30%;
+    opacity:0;
+    transition: 3s;
+}
+
+.MyBlur:hover img{
+    filter:blur(5px);
+}
+
+.MyBlur:hover :not(img){
+    opacity:1;
+}
+
+.MyBlur p{
+    font-size: 30px; 
+}

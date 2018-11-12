@@ -1,0 +1,57 @@
+p:first-of-type{
+    color: blueviolet;
+}
+
+p:last-of-type{
+    color: brown;
+}
+
+article:only-of-type {
+    color: green;
+}
+
+span:nth-child(even) {
+    color:blue;
+ }
+
+span:nth-last-child(3n-2) {
+    color: darkorange;
+}
+/*liczmy od dołu poz -2 co 3 (kolorujemy jeśli dobry typ inaczej iterujemy od nowa)*/
+
+article:nth-of-type(3n) {
+  color: crimson;
+}
+
+article:nth-last-of-type(4n) {
+  color: lightseagreen;
+}
+
+aside:last-child {
+    color: chocolate;
+}
+
+:root {
+    background-color: khaki;
+}
+
+td:empty {
+    background-color: black;
+}
+
+td, table{
+    border: 1px solid black;
+}
+
+
+table:not(.mybg) {
+    background-color: cadetblue;
+  }
+
+.mybg{
+    background-color: darksalmon;
+}
+
+h3::selection {
+    color: magenta;
+}

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Zadanie 5
+        </title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="zadanie5.css">
+    </head>
+    <body>
+        <section>
+            <h1> ----- h1 first/last of type ----- </h1>
+            <p> koloruję pierwszy element typu p</p>
+            <p> drugi już nie</p>
+            <p> trzeci koloruję bo jest ostatnim typu p w section</p>
+            <div> 
+                <h2>h2</h2>
+                <p>first</p>
+                <p>...</p>
+                <p>last</p>
+            </div>
+        </section>
+
+        <section>
+            <h1> ----- h1 only of type ----- </h1>
+            <article> tych nie koloruję bo jest więcej niż jeden article w section</article>
+            <article> tych nie koloruję bo jest więcej niż jeden article w section</article>
+            <div> 
+                <article>koloruję bo nie ma więcej article w div</article>
+            </div>
+        </section>
+
+        <div>
+            <h1> ----- 1 nth-child/last-child ----- </h1>
+            <span>2 span </span>
+            <div>3 div </div>
+            <span>4 span</span>
+            <span>5 span</span>
+            <div>6 div</div>
+            <span>7 span</span>
+            <span>8 span</span>
+            <span>9 span</span>
+            <div>10 div</div>
+        </div>
+
+        <div>
+            <h1> ----- 1 nth-of-type/last-of-type ----- </h1>
+            <article> 2 article </article>
+            <article> 3 article </article>
+            <article> 4 article </article>
+            <article> 5 article </article>
+            <article> 6 article </article>
+            <div> 7 DIV nie "resetuje"</div>
+            <article> 8 article 3 z kolei typu article </article>
+            <article> 9 article </article>
+            <article> 10 article </article>
+            <article> 11 article </article>
+            <article> 12 article </article>
+            <article> 13 article </article>
+            <article> 14 article </article>
+        </div>
+
+        <div>
+            <h1> ----- last-child/root ----- </h1>
+            <aside>test</aside>
+            <aside>test</aside>
+            <aside>last-child</aside>
+        </div>
+        
+        <div>
+            <h1> ----- empty ----- </h1>
+            <table class = mybg>
+                <tr><td>2</td><td></td><td></td></tr>
+                <tr><td></td><td>2</td><td></td></tr>
+                <tr><td>2</td><td></td><td>2</td></tr>
+
+            </table>
+        </div>
+
+        <div>
+            <h1> ----- not ----- </h1>
+                <table>
+                    <tr><td>2</td><td>2</td><td>2</td></tr>
+                    <tr><td>2</td><td>2</td><td>2</td></tr>
+                    <tr><td>2</td><td>2</td><td>2</td></tr>
+                </table>
+        </div>
+        
+        <div>
+            <h1> ----- selection ----- </h1>
+            <h2> h2 nie świeci </h2>
+            <h3> świeci po zaznaczeniu na różowo </h3>
+
+        </div>
+    </body>
+</html>

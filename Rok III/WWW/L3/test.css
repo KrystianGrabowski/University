@@ -1,0 +1,10 @@
+ul#tlo {
+	list-style-image: url(kropa.png);
+}
+
+ul#bef{
+    list-style-type: none;
+}
+/*ul#two li:before {
+    content: url(kropa.png);
+  }*/

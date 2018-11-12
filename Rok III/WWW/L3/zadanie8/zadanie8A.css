@@ -1,0 +1,40 @@
+.flex-container{
+    text-align: center;
+    display: flex;
+    font-size: 22px;
+}
+
+div{
+    margin: 2px;
+}
+
+.logo-area{
+    background-color: bisque;
+    height: 100px;
+    flex-grow: 1;
+    vertical-align: middle; 
+}
+
+.header-area{
+    background-color: lightseagreen;   
+    height: 100px;
+    flex-grow: 4;
+}
+
+.menu-area{
+    background-color: lightcoral;
+    height: 450px;
+    flex-grow: 1;
+}
+
+.content-area{
+    background-color: grey;
+    height: 450px;
+    flex-grow: 4;
+}
+
+.footer-area{
+    background-color: lightgreen;
+    height: 100px;
+    flex-grow: 100;
+}

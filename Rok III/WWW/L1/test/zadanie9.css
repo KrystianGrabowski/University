@@ -1,0 +1,55 @@
+body{
+    background-color: white;
+    background-repeat: no-repeat;
+    background-position: center;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+a {
+    color: whitesmoke;
+    text-decoration: none;
+}
+
+header{
+    
+    font-size: 60px;
+    font-weight: bold;
+    text-align: center;
+}
+
+img.cross{
+    height: 100;
+    width: 100px;
+}
+
+nav{
+    background-color: black;
+    text-align: center;
+    border: 5px groove darkgoldenrod;
+}
+
+li.nax{
+    height: 20px;
+    margin-top: 0px;
+    display: inline-block;
+    font-size: 20px;
+    width: 150px;
+    color: aliceblue;
+    
+}
+
+li.sb{
+    margin: 10px;
+}
+
+aside{
+    
+    font-size: 20px;
+    padding: 20px;
+    margin-top: 10px;
+    background-color: black;
+    color: white;
+    width: 300px;
+    border: 5px solid darkgoldenrod;
+    height: 500px;
+}

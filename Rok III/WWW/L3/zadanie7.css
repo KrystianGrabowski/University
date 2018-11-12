@@ -1,0 +1,67 @@
+.flex-container{
+    display: flex;
+    border: 1px solid black;
+    margin-bottom: 20px;
+}
+/*shrink grow rate*/
+.box{
+    height: 100px;
+    min-width: 100px;
+}
+
+.a{
+    background-color: blueviolet;
+    flex-grow: 1;
+}
+
+.b{
+    background-color: green;
+    flex-grow: 2;
+}
+
+.c{
+    background-color: red;
+    flex-grow: 3;
+}
+
+.box2{
+    height: 100px;
+    width: 400px;
+}
+
+.a2{
+    background-color: blueviolet;
+    flex-shrink: 1;
+}
+
+.b2{
+    background-color: green;
+    flex-shrink: 2;
+}
+
+.c2{
+    background-color: red;
+    flex-shrink: 3;
+}
+.box3{
+    height: 100px;
+    /*min-width: 200px; /*scroll!*/
+    flex-basis: 250px;
+}
+
+.a3{
+    background-color: blueviolet;
+
+}
+
+.b3{
+    background-color: green;
+
+}
+
+.c3{
+    background-color: red;
+
+}
+
+/*colums \*/

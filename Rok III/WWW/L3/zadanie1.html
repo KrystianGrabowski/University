@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Zadanie 1
+        </title>
+        
+        <style>
+            .boxmodel {
+                background-color: grey;
+                width: 400px;
+                padding: 100px;
+                border: 5px dashed rgb(29, 36, 29);
+                margin: 50px;
+            }
+            .box2model{
+                background-color: grey;
+                width: 400px;
+                padding: 100px;
+                border: 5px dashed rgb(29, 36, 29);
+                margin: 50px;
+            }
+        </style>
+        
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="zadanie1.css">
+    </head>
+
+    <body>
+        <!--Składowe box model margin, boarder, padding, content -->
+        <div class="boxmodel">
+            DIV
+        </div>
+            
+        <div style="display: inline; " class="box2model">
+            DIV + DISPLAY:INLINE
+        </div>
+                
+        <br/>
+        <br/>
+        <br/>
+        <!-- stały rozmiar z widoku block na inline-->
+        <!-- margin i padding z inline nie oddziałują na block-->
+        <!-- Brak marginesów góra/dół, width nie dziala dla span -->
+        <span class="box2model">
+            SPAN
+        </span>
+                
+        <span style="display: block;" class="boxmodel">
+            SPAN + DISPLAY:BLOCK
+        </span>
+    </body>
+
+</html>
