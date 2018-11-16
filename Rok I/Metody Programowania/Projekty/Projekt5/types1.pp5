@@ -1,0 +1,4 @@
+fun tpa(x : int) : bool =
+    True
+
+input x in tpa(true)

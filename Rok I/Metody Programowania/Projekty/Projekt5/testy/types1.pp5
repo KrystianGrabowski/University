@@ -1,0 +1,4 @@
+fun tpa(x : int) : int =
+    2 + 3
+
+input x in x + tpa(true)

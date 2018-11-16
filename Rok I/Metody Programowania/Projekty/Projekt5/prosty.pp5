@@ -1,0 +1,4 @@
+fun funkcja(x:int):int =
+    2 
+
+input x in funkcja(x)

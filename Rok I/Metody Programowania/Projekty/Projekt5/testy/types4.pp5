@@ -1,0 +1,4 @@
+fun tpd(x : bool*bool) : int =
+    x + 2 + 3
+
+input x in tpd((9,x)) - x

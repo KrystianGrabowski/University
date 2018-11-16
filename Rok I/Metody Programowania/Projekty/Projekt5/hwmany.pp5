@@ -1,0 +1,6 @@
+fun hw(x : int list) : int =
+    match x with
+      | []      -> 0
+      | x :: xs -> if x mod 2 = 0 then hw(xs) + 1 else hw(xs)
+
+input x y z t in hw([x,y,z,t]:int list)

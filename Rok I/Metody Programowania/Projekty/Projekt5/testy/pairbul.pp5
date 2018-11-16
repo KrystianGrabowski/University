@@ -1,0 +1,6 @@
+fun pairbul(x : bool*bool) : int = 
+    if fst(x) and true then 123
+    else 321
+
+
+input x in if x < 10 then pairbul((true,false)) else pairbul((false,true))

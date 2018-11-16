@@ -1,0 +1,15 @@
+program(A, B) =
+	if A > B then 
+		let _ 89 in A,B
+	else
+		A / B ^ 9 % 2
+
+pomoc(P, R) =
+	if P % 2 = R / 4 then
+		program (P, R)
+	else
+		wyrazzzz[1..1021]
+	
+grop(O, L) = 
+	O = L / 12 * 10 % 100 & 1 , L * O
+		

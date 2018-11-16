@@ -1,0 +1,1 @@
+input x y z k in fn(x:int)->fn(y:int)->if x>1 then fn(z:int)->z-1 else fn(k:int)->k+1

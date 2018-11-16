@@ -1,0 +1,1 @@
+input x y z r in fn(x:int)->fn(y:int)->fn(z:int)->fn(r:int)->x*y*z*r

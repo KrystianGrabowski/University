@@ -1,0 +1,6 @@
+def drogramd2(A, B, C) =
+	~~~~~~~~~A & ~~~~~~B & ~~~~~C
+	
+def drogramd2pom(A, B, C) =
+	A % 2 = B % 2 = C % 2
+	

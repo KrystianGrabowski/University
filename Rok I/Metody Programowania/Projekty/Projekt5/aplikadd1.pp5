@@ -1,0 +1,4 @@
+fun addon(x : int) : int =
+    x + 1
+
+input x in addon(x)

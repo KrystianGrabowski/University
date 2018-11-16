@@ -1,0 +1,4 @@
+fun tpb(x : bool) : int =
+    x + 2 + 3
+
+input x in x + tpb(2)

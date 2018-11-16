@@ -1,0 +1,5 @@
+fun paira(x : int) : int =
+    let y = (10,x) in if x = 10 then fst(y) 
+    else snd(y)
+
+input x in paria(x)

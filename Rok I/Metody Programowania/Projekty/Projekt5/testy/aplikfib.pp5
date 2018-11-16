@@ -1,0 +1,5 @@
+fun fibon(x : int) : int =
+    if n < 2 then n
+    else fibon(n-1) + fibon(n-2)
+
+input x in fibon(x)

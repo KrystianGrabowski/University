@@ -1,0 +1,5 @@
+fun pow(x : int) : int =
+    if x < 2 then 1
+    else x * pow(x-1)
+
+input x in pow(x)

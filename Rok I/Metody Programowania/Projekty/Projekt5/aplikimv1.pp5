@@ -1,0 +1,5 @@
+fun imp(x : int) : int =
+    if x < 100 then let y = 5 + 1 in x + y
+    else imp(x - 10)
+
+input x in imp(x)

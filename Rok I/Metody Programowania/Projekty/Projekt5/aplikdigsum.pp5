@@ -1,0 +1,5 @@
+fun digsum(x : int) : int =
+    if x < 10 then x
+    else x mod 10 + digsum(x div 10)
+
+input x in digsum(x)

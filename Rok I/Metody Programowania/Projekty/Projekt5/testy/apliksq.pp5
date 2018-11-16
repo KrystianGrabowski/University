@@ -1,0 +1,4 @@
+fun sq(x : int) : int =
+    x * x
+
+input x in sq(x)	

@@ -1,0 +1,4 @@
+input x in if x < 3 then match([1,2,3]:int list) with
+      | []    -> 1
+      | x::xs -> 2
+             else 0

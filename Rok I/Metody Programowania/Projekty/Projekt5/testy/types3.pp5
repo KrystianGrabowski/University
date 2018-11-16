@@ -1,0 +1,4 @@
+fun tpc(x : int*int) : int =
+    x + 2 + 3
+
+input x in tpc((x,true)) - x

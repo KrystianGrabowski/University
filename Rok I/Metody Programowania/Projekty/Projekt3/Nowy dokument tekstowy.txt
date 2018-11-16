@@ -1,0 +1,18 @@
+
+
+parse(_Path, Codes, Program) :-
+	string_codes(Codes, A),
+	program(Program,A,[]).
+
+  
+program(X) --> d(X1), program(R), {X = [X1|R]}.
+program([]) --> []. 
+d(X1) -->  znak(X1).
+znak(X1) --> "def" ,posrednik(C),{atom_codes(D,C)}, znak(X1,def(D,"L","K")). 
+znak(N,N) --> [].
+
+posrednik(C) --> " ",reszta(C).
+reszta(C) --> nazwa(L),{C = [L|R]}, reszta(R).
+reszta([]) --> [].
+nazwa(L) --> [Char], {char_type(Char, alnum), L is Char} .
+

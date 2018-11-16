@@ -1,0 +1,6 @@
+fun pairbi(x : int*bool) : int = 
+    if snd(x) and true then fst(x)
+    else 5
+
+
+input x in if x < 10 then pairbi((x,true)) else pairbi((x,false))

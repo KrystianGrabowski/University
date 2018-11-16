@@ -1,0 +1,4 @@
+fun un(x : unit) : int =
+    2 + 3
+
+input x in un() * x

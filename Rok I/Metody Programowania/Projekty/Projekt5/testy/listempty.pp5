@@ -1,0 +1,6 @@
+fun empty(x : int list) : int =
+    match x with
+      | []    -> 1
+      | x::xs -> 2
+
+input x in if lis([1,2,3]:int list) > 1 then x div 2 else x div 1

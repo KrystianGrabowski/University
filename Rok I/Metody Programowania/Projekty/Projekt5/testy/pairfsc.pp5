@@ -1,0 +1,5 @@
+fun pairc(x : int*int) : int =
+    let y = (5,5) in if fst(y) <> fst(x) then snd(x) 
+    else snd(y)
+
+input x z in paric((x,z))

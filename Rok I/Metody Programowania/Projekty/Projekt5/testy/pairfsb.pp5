@@ -1,0 +1,5 @@
+fun pairb(x : int) : int =
+    if x <= 9 then let y = (9,10) in snd(y) - fst(y)
+    else let y = (10,9) in snd(y) + fst(y)
+
+input x in parib(x-1)

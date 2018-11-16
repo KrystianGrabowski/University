@@ -1,0 +1,4 @@
+fun paird(x : (int*int)*(int*int)) : int =
+    fst(fst(x)) * snd(fst(x)) * fst(snd(x)) * snd(snd(x))
+
+input a b c d in parid((a,b),(c,d))

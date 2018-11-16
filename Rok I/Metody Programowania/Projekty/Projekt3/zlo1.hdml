@@ -1,0 +1,5 @@
+def program1 (G) =
+	let _ = if G % 2 = 1 then
+		G = G / 2 * 121 - 12
+	else
+		G = 1
