@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Zadanie 3
+        </title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="zadanie3.css"> 
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script language="javascript" type="text/javascript" src="zadanie3.js"></script>
+        <script>
+            $( function() {
+                $( ".draggable" ).draggable({helper: 'clone'});
+                $( ".droppable" ).droppable({
+                  drop: function( event, ui ) {
+                      var item = $(ui.draggable).css("background-color");
+                      $( this )
+                        .css('background-color', item );
+                    }
+                  });
+                } );
+        </script>
+    </head>
+    
+    <body>
+        <div id="box">
+        </div>
+        <div class ="container">
+            <div id="colors">
+                <div  class="boxGreen draggable"></div>
+                <div  class="boxBlue draggable"></div>
+                <div  class="boxRed draggable"></div>
+            </div>
+
+
+        </div>
+        <script>
+            for(var i=0; i<9; i++){
+                var my_div = document.createElement("div");
+                 my_div.setAttribute('class', 'square droppable')
+                document.getElementById('box').appendChild(my_div);
+            }
+        </script>
+    </body>
+</html>

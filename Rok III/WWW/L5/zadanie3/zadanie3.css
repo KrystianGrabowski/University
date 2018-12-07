@@ -1,0 +1,24 @@
+.boxGreen { width: 100px; height: 100px; background-color: green; }
+.boxBlue { width: 100px; height: 100px; background-color: blue; }
+.boxRed { width: 100px; height: 100px; background-color: red; }
+
+
+#box{ 
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 310px;
+    height: 310px;
+}
+.container{
+    position: absolute;
+    left: 50%;
+    top: 0;
+}
+
+.square{
+    height: 100px;
+    width: 100px;
+    border : 1px solid black;
+    float: left;
+}

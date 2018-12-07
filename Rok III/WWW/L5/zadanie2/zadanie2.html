@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Zadanie 2
+        </title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="zadanie2.css"> 
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script language="javascript" type="text/javascript" src="zadanie2.js"></script>
+    </head>
+    
+    <body>
+        <div id="dialog-form" title="Create new user">
+            <p class="validateTips">All form fields are required.</p>
+           
+            <form>
+              <fieldset>
+                <label for="name">Imię</label>
+                <input type="text" name="name" id="name" value="Jane" class="text ui-widget-content ui-corner-all">
+                <label for="surname">Nazwisko</label>
+                <input type="text" name="surname" id="surname" value="Smith" class="text ui-widget-content ui-corner-all">
+                <label for="city">Miasto</label>
+                <input type="text" name="city" id="city" value="Berlin" class="text ui-widget-content ui-corner-all">
+                <label for="zipcode">Kod pocztowy</label>
+                <input type="text" name="zipcode" id="zipcode" value="10-115" class="text ui-widget-content ui-corner-all">
+                <label for="birthdate">Data urodzenia</label>
+                <input type="text" name="birthdate" id="birthdate" value="01-01-2018" class="text ui-widget-content ui-corner-all">
+                <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+              </fieldset>
+            </form>
+          </div>
+           
+           
+          <div id="users-contain" class="ui-widget">
+            <h1>Existing Users:</h1>
+            <table id="users" class="ui-widget ui-widget-content">
+              <thead>
+                <tr class="ui-widget-header ">
+                  <th>Imie</th>
+                  <th>Nazwisko</th>
+                  <th>Miasto</th>
+                  <th>Kod pocztowy</th>
+                  <th>Data urodzenia</th>
+                  <th>Usuń</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+          <div id="dialog-remove" title="Usunąć?">
+            <p>Czy jesteś pewien swojego wyboru?</p>
+        </div>
+          <button id="create-user">Create new user</button>
+           
+    </body>
+</html>
