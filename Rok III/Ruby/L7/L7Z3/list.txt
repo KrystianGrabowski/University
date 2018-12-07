@@ -1,0 +1,3 @@
+druby://localhost:9000
+druby://localhost:8000
+druby://localhost:7000
