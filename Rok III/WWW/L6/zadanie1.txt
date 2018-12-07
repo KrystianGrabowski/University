@@ -1,0 +1,16 @@
+N-A
+www.ii.uni.wroc.pl 156.17.4.11
+www.uj.edu.pl 149.156.169.67
+
+ii.uni.wroc.pl swiatowit.ii.uni.wroc.pl
+www.uj.edu.pl theta.uoks.uj.edu.pl
+
+ii.uni.wroc.pl rashad.swiatowit.ii.uni.wroc.pl
+www.uj.edu.pl. hostmaster.theta.uoks.uj.edu.pl
+
+nslookup -type=soa www.ii.uni.wroc.pl
+nslookup www.ii.uni.wroc.pl swiatowit.ii.uni.wroc.pl
+
+server 198.41.0.4
+set q=mx
+a.root-servers.net
