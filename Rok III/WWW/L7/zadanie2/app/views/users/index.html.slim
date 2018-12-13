@@ -1,0 +1,26 @@
+style
+  |  th {width: 100px;} 
+
+h1 Wszyscy nasi użytkownicy:
+br
+table.table
+  thead
+    tr 
+      th Imie
+      th Nazwisko
+      th Nick
+      th
+      th
+
+  tbody
+    - @users.each do |user|
+      tr
+        td = user.name
+        td = user.surname
+        td = user.nick
+        td = link_to 'Show', user
+        td = link_to 'Destroy', user, data: { confirm: 'Are you sure?' }, method: :delete
+    
+= paginate @users
+br
+= link_to 'Back', root_path

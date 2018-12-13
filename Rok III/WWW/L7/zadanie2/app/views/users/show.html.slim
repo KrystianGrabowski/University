@@ -1,0 +1,22 @@
+p#notice 
+p
+  strong Imie:
+  br
+  = @user.name
+  br
+p
+  strong Nazwisko:
+  br
+  = @user.surname
+p
+  strong Email:
+  br
+  = @user.email
+p
+  strong Nick:
+  br
+  = @user.nick
+
+br
+
+=< link_to 'Back', users_index_path

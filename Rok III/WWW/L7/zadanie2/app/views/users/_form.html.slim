@@ -1,0 +1,20 @@
+style
+  |  label {display: inline-block; font-weight: bold; width: 80px;} 
+
+= form_for @user do |f|
+  .field
+    = f.label :name
+    = f.text_field :name
+  .field
+    = f.label :surname
+    = f.text_field :surname
+  .field
+    = f.label :email
+    = f.text_field :email
+  .field
+    = f.label :nick
+    = f.text_field :nick
+  br
+  .actions = f.submit
+
+

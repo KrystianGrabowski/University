@@ -1,0 +1,23 @@
+h1 Wszystkie nasze samochody:
+br
+table.table
+  thead
+    tr 
+      th Numer
+      th Data rejestracji
+      th Marka
+      th Rok
+      th Paliwo
+      th
+
+
+  tbody
+    - @cars.each do |car|
+      tr
+        td = car.reg_number
+        td = car.reg_date
+        td = car.make
+        td = car.year
+        td = car.fuel
+        td = link_to 'Destroy', car, data: { confirm: 'Are you sure?' }, method: :delete
+
