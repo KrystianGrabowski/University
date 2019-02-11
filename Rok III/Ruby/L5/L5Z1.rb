@@ -20,7 +20,7 @@ class WebAgent
             new_urls = Set.new(find_links(@content))
             @current_urls = new_urls - @visited_urls
             for url in @current_urls
-                revise(url, depth-1, block )
+                revise(url, depth-1, block)
             end
         else
             return
@@ -81,9 +81,11 @@ class WebAgent
 
 end
 
-page1 = WebAgent.new()
+
+
+page1b = WebAgent.new()
 start = Time.now
-page1.revise('http://www.ii.uni.wroc.pl/', 1, lambda {|text| page1.page_weight(text)} )
+page1b.revise('http://www.ii.uni.wroc.pl/', 1, lambda {|text| page1b.page_weight(text)} )
 finish = Time.now
 diff = finish - start
 puts diff
