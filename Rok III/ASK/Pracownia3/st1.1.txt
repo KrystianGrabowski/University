@@ -1,0 +1,50 @@
+	.text
+	.global	add_bignum
+	.type	add_bignum, @function
+add_bignum:
+    mov $0, %r8
+    mov $0, %r9
+    mov $0, %r10
+    mov $0, %rbx
+
+AddLoop:
+    lea 4(%rdi, %r8, 1), %r13
+    lea 4(%rsi, %r9, 1), %r14
+    lea 4(%rdx, %r10, 1), %r15
+    mov (%rdi), %rax
+    cmp %eax, %r8d
+    ja S1a
+    mov (%r14), %r11
+    jmp S1
+S1a:
+    mov $0, %r11
+S1:
+    mov %r11b, (%r15)
+    mov (%rsi), %rax
+    cmp %eax, %r8d
+    ja S2a
+    mov (%r13), %r11
+    jmp S2
+S2a:
+    mov $0, %r11
+S2:
+    add %r11b, (%r15)
+    jb L1
+    add %bl, (%r15)
+    mov $0, %rbx
+    jmp L2
+L1:
+    add %bl, (%r15)
+    mov $1, %rbx
+L2:
+    add $1, %r10 
+    add $1, %r8
+    add $1, %r9
+
+    mov (%rdx), %rax 
+    cmp %eax, %r10d
+    jne AddLoop
+    mov 4(%rdx), %rax
+    ret
+
+	.size	add_bignum, . - add_bignum
