@@ -65,7 +65,7 @@ int main()
 {
   // zainicjalizuj UART
   uart_init();
-  uint16_t data[16] = {1, 2, 3, 4, 5 ,6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16}; 
+  //uint16_t data[16] = {1, 2, 3, 4, 5 ,6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16}; 
 
   // skonfiguruj strumienie wejścia/wyjścia
   fdev_setup_stream(&uart_file, uart_transmit, uart_receive, _FDEV_SETUP_RW);
@@ -81,8 +81,8 @@ int main()
     while (!(ADCSRA & _BV(ADIF))); // czekaj na wynik
     ADCSRA |= _BV(ADIF); // wyczyść bit ADIF (pisząc 1!)
     uint16_t v = ADC; // weź zmierzoną wartość (0..1023)
-    OCR1A = ICR1 / data[ v>>6 ];
-    printf("Odczytano: %"PRIu16"\r\n",  data[ v>>6 ]);
+    OCR1A = ICR1 / ((v>>6) + 1);
+    printf("Odczytano: %"PRIu16"\r\n",  v>>6);
   }
 
 
