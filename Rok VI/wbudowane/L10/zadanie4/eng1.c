@@ -69,7 +69,7 @@ int main()
 {
   // zainicjalizuj UART
   uart_init();
-  uint16_t data[16] = {35, 45, 50, 77, 81, 85, 90, 94, 100, 104, 109, 113, 117, 121, 135, 145}; 
+  uint16_t data[16] = {35, 42, 50, 57, 65, 72, 80, 87, 95, 102, 110, 117, 125, 132, 140, 145};
 
   // skonfiguruj strumienie wejścia/wyjścia
   fdev_setup_stream(&uart_file, uart_transmit, uart_receive, _FDEV_SETUP_RW);
