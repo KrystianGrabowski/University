@@ -40,7 +40,7 @@ int uart_receive(FILE *stream)
 // inicjalizacja ADC
 void adc_init()
 {
-  ADMUX = _BV(REFS0) | _BV(REFS1);
+  ADMUX = _BV(REFS0) | _BV(REFS1) | _BV(MUX0);
 
   DIDR0   = _BV(ADC0D) | _BV(ADC1D); // wyłącz wejście cyfrowe na ADC0
   // częstotliwość zegara ADC 125 kHz (16 MHz / 128)
@@ -55,11 +55,11 @@ void adc_init()
  * need to be modified to adapt to the application at hand
  */
 //! \xrefitem todo "Todo" "Todo list"
-#define K_P     20.00
+#define K_P     5.00
 //! \xrefitem todo "Todo" "Todo list"
-#define K_I     5.00
+#define K_I     1.00
 //! \xrefitem todo "Todo" "Todo list"
-#define K_D     0.00
+#define K_D     0.5
 
 #define LED PB5
 #define LED_DDR DDRB
@@ -124,7 +124,8 @@ int16_t Get_Reference(void)
   ADCSRA |= _BV(ADSC); // wykonaj konwersję
   while (!(ADCSRA & _BV(ADIF))); // czekaj na wynik
   ADCSRA |= _BV(ADIF); // wyczyść bit ADIF (pisząc 1!)
-  return temps[ADC>>6];
+  ADMUX |=  _BV(REFS0) | _BV(MUX0) | _BV(REFS1);
+  return ADC;
 }
 
 /*! \brief Read system process value
@@ -133,13 +134,10 @@ int16_t Get_Reference(void)
  */
 int16_t Get_Measurement(void)
 {
-  ADMUX = _BV(REFS0) | _BV(REFS1) | _BV(MUX0);
-  _delay_ms(150);
   ADCSRA |= _BV(ADSC); // wykonaj konwersję
   while (!(ADCSRA & _BV(ADIF))); // czekaj na wynik
   ADCSRA |= _BV(ADIF); // wyczyść bit ADIF (pisząc 1!)
-  int16_t tempe = ((ADC* (1100/1024)) - 500) / 10;
-  return tempe;
+  return ADC;
 }
 
 /*! \brief Set control input to system
@@ -156,14 +154,14 @@ void meine_delete(int16_t inputValue) {
 
 void Set_Input(int16_t inputValue)
 {
-  // if (inputValue < 0) {
-  //   meine_delete(inputValue * -1);
-  // }
-  // else{
-  //   LED_PORT |= _BV(LED);
-  //   meine_delete(inputValue);
-  //   LED_PORT &= ~_BV(LED);
-  // }
+  if (inputValue < 0) {
+     meine_delete(inputValue * -1);
+  }
+  else{
+    LED_PORT |= _BV(LED);
+    meine_delete(inputValue);
+    LED_PORT &= ~_BV(LED);
+  }
 
 }
 
@@ -171,9 +169,9 @@ FILE uart_file;
 
 /*! \brief Demo of PID controller
  */
-void main(void)
+int main(void)
 {
-  int16_t referenceValue, measurementValue, inputValue;
+  int16_t referenceValue, measurementValue, inputValue, mes_temp, ref_temp;
   Init();
   uart_init();
   // skonfiguruj strumienie wejścia/wyjścia
@@ -192,11 +190,12 @@ void main(void)
       measurementValue = Get_Measurement();
       referenceValue = Get_Reference();
       
+      mes_temp = ((measurementValue* (1100 >> 10)) - 500) / 10;
+      ref_temp = ((referenceValue* (1100 >> 10)) - 500) / 10;
 
       inputValue = pid_Controller(referenceValue, measurementValue, &pidData);
 
-      printf("GET %"PRId16"\r\n", referenceValue);
-      printf("TEMPP %"PRId16"\r\n", measurementValue);
+      printf("%"PRId16" -> %"PRId16"   PID: %"PRId16"\r\n", mes_temp, ref_temp, inputValue);
 
       Set_Input(inputValue);
 
