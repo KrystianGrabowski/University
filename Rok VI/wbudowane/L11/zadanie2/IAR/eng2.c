@@ -84,7 +84,7 @@ void adc_init()
  * need to be modified to adapt to the application at hand
  */
 //! \xrefitem todo "Todo" "Todo list"
-#define K_P     0.2
+#define K_P     0.05
 //! \xrefitem todo "Todo" "Todo list"
 #define K_I     0.005
 //! \xrefitem todo "Todo" "Todo list"
@@ -257,12 +257,13 @@ int main(void)
       referenceValue = Get_Reference();
       inputValue = pid_Controller(referenceValue, measurementValue, &pidData);
       
-      //printf("UP -> %"PRIu32"mV DOWN-> %"PRIu32"mV\r\n",(uint32_t) (up * (5000 / 1024.0)),  (uint32_t) (down * (5000 / 1024.0)));
       Set_Input(inputValue);
-
+      printf("INPUT: "PRId16"\r\n", inputValue);
       gFlags.pidTimer = FALSE;
     }
+    //printf("UP -> %"PRIu32"mV DOWN-> %"PRIu32"mV\r\n",(uint32_t) (up * (5000 / 1024.0)),  (uint32_t) (down * (5000 / 1024.0)));
     printf("EXPECTED: %"PRId16" CURRENT: %"PRId16"\r\n", referenceValue, measurementValue);
+    _delay_ms(10);
 
   }
 }
