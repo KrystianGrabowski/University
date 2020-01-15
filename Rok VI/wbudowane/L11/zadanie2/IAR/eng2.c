@@ -4,8 +4,7 @@
 #include <stdlib.h>
 #include "pid.h"
 #include <util/delay.h>
-// #include <avr/sleep.h>
-// #include <util/delay.h>
+#include <avr/sleep.h>
 
 #define BAUD 9600                          // baudrate
 #define UBRR_VALUE ((F_CPU)/16/(BAUD)-1)   // zgodnie ze wzorem
@@ -83,12 +82,13 @@ void adc_init()
  * The K_P, K_I and K_D values (P, I and D gains)
  * need to be modified to adapt to the application at hand
  */
-//! \xrefitem todo "Todo" "Todo list"
-#define K_P     0.05
-//! \xrefitem todo "Todo" "Todo list"
-#define K_I     0.005
-//! \xrefitem todo "Todo" "Todo list"
-#define K_D     0.001
+#define K_P 0.5
+#define K_I 0.5
+#define K_D 0.05
+
+// #define K_P     0.05
+// #define K_I     0.001
+// #define K_D     0.05
 
 #define LED PB5
 #define LED_DDR DDRB
@@ -247,23 +247,28 @@ int main(void)
   adc_init();
   sei();
   // ustaw wypełnienie 50%
-  //set_sleep_mode(SLEEP_MODE_IDLE);
+  set_sleep_mode(SLEEP_MODE_IDLE);
   while(1) {
+    sleep_mode();
     if(gFlags.pidTimer)
     {
 
-      //sleep_mode();
+      
       measurementValue = Get_Measurement();
       referenceValue = Get_Reference();
       inputValue = pid_Controller(referenceValue, measurementValue, &pidData);
+  		inputValue = (-1 * (uint32_t)inputValue * 1024) / MAX_INT;
+			OCR1A = inputValue;
+      //printf("INPUT: %"PRId16"\r\n", inputValue);
+			
+      //Set_Input(inputValue);
       
-      Set_Input(inputValue);
-      printf("INPUT: "PRId16"\r\n", inputValue);
       gFlags.pidTimer = FALSE;
+
     }
     //printf("UP -> %"PRIu32"mV DOWN-> %"PRIu32"mV\r\n",(uint32_t) (up * (5000 / 1024.0)),  (uint32_t) (down * (5000 / 1024.0)));
-    printf("EXPECTED: %"PRId16" CURRENT: %"PRId16"\r\n", referenceValue, measurementValue);
-    _delay_ms(10);
+    //printf("EXPECTED: %"PRId16" CURRENT: %"PRId16"\r\n", referenceValue, measurementValue);
+    //_delay_ms(10);
 
   }
 }
