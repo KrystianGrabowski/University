@@ -4,8 +4,7 @@
 #include <stdlib.h>
 #include "pid.h"
 #include <util/delay.h>
-// #include <avr/sleep.h>
-// #include <util/delay.h>
+#include <avr/sleep.h>
 
 #define BAUD 9600                          // baudrate
 #define UBRR_VALUE ((F_CPU)/16/(BAUD)-1)   // zgodnie ze wzorem
@@ -77,47 +76,23 @@ void adc_init()
   ADCSRA |= _BV(ADIE); //Przerwania ADC
 }
 
-
-/*! \brief P, I and D parameter values
- *
- * The K_P, K_I and K_D values (P, I and D gains)
- * need to be modified to adapt to the application at hand
- */
-//! \xrefitem todo "Todo" "Todo list"
-#define K_P     0.05
-//! \xrefitem todo "Todo" "Todo list"
+#define K_P     0.07
 #define K_I     0.005
-//! \xrefitem todo "Todo" "Todo list"
 #define K_D     0.001
 
 #define LED PB5
 #define LED_DDR DDRB
 #define LED_PORT PORTB
 
-/*! \brief Flags for status information
- */
 struct GLOBAL_FLAGS {
-  //! True when PID control loop should run one time
   uint8_t pidTimer:1;
   uint8_t dummy:7;
 } gFlags = {1, 7};
 
-//! Parameters for regulator
 struct PID_DATA pidData;
 
-/*! \brief Sampling Time Interval
- *
- * Specify the desired PID sample time interval
- * With a 8-bit counter (255 cylces to overflow), the time interval value is calculated as follows:
- * TIME_INTERVAL = ( desired interval [sec] ) * ( frequency [Hz] ) / 255
- */
-//! \xrefitem todo "Todo" "Todo list"
 #define TIME_INTERVAL   157
 
-/*! \brief Timer interrupt to control the sampling interval
- */
-// #pragma vector = TIMER0_OVF_vect
-// __interrupt void TIMER0_OVF_ISR( void )
 volatile uint16_t ida = 0;
 
 ISR(TIMER0_OVF_vect){
@@ -167,44 +142,24 @@ ISR(ADC_vect) {
     }
 }
 
-
-/*! \brief Init of PID controller demo
- */
 void Init(void)
 {
   pid_Init(K_P * SCALING_FACTOR, K_I * SCALING_FACTOR , K_D * SCALING_FACTOR , &pidData);
 
-  // Set up timer, enable timer/counte 0 overflow interrupt
   TCCR0B = _BV(CS00);
   TIMSK0 = _BV(TOIE0);
   TCNT0 = 0;
 }
 
-//const uint16_t temps[16] = {18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33};
-/*! \brief Read reference value.
- *
- * This function must return the reference value.
- * May be constant or varying
- */
 int16_t Get_Reference(void)
 {
   return pot;
 }
 
-/*! \brief Read system process value
- *
- * This function must return the measured data
- */
 int16_t Get_Measurement(void)
 {
   return down;
 }
-
-/*! \brief Set control input to system
- *
- * Set the output from the controller as input
- * to system.
- */
 
 void meine_delete(int16_t inputValue) {
   for (uint16_t i=0; i<inputValue; i++) {
@@ -229,41 +184,36 @@ void Set_Input(int16_t inputValue)
 
 FILE uart_file;
 
-/*! \brief Demo of PID controller
- */
 int main(void)
 {
   int16_t referenceValue, measurementValue, inputValue;
   Init();
-    // zainicjalizuj UART
   uart_init();
   //uint16_t data[16] = {1, 2, 3, 4, 5 ,6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16}; 
 
-  // skonfiguruj strumienie wejścia/wyjścia
   fdev_setup_stream(&uart_file, uart_transmit, uart_receive, _FDEV_SETUP_RW);
   stdin = stdout = stderr = &uart_file;
-  // uruchom licznik
+
   timer1_init();
   adc_init();
   sei();
-  // ustaw wypełnienie 50%
-  //set_sleep_mode(SLEEP_MODE_IDLE);
+  set_sleep_mode(SLEEP_MODE_IDLE);
   while(1) {
+
+  sleep_mode();
     if(gFlags.pidTimer)
     {
 
-      //sleep_mode();
       measurementValue = Get_Measurement();
       referenceValue = Get_Reference();
       inputValue = pid_Controller(referenceValue, measurementValue, &pidData);
       
       Set_Input(inputValue);
-      printf("INPUT: "PRId16"\r\n", inputValue);
       gFlags.pidTimer = FALSE;
+      printf("EXPECTED: %"PRId16" <-> CURRENT: %"PRId16"  INPUT: %"PRId16"\r\n", referenceValue, measurementValue, -1 * inputValue);
     }
     //printf("UP -> %"PRIu32"mV DOWN-> %"PRIu32"mV\r\n",(uint32_t) (up * (5000 / 1024.0)),  (uint32_t) (down * (5000 / 1024.0)));
-    printf("EXPECTED: %"PRId16" CURRENT: %"PRId16"\r\n", referenceValue, measurementValue);
-    _delay_ms(10);
+    
 
   }
 }
