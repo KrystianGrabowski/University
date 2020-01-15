@@ -1,6 +1,6 @@
 
-PRG            = eng2
-OBJ            = eng2.o
+PRG            = eng3
+OBJ            = eng3.o
 PROGRAMMER     = arduino
 PORT           = /dev/ttyUSB0
 MCU_TARGET     = atmega328p 

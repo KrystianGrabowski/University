@@ -55,11 +55,11 @@ void adc_init()
  * need to be modified to adapt to the application at hand
  */
 //! \xrefitem todo "Todo" "Todo list"
-#define K_P     5.00
+#define K_P     2
 //! \xrefitem todo "Todo" "Todo list"
-#define K_I     1.00
+#define K_I     1
 //! \xrefitem todo "Todo" "Todo list"
-#define K_D     0.5
+#define K_D     0.25
 
 #define LED PB5
 #define LED_DDR DDRB
@@ -112,7 +112,7 @@ void Init(void)
   TCNT0 = 0;
 }
 
-const uint16_t temps[16] = {18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33};
+//const uint16_t temps[16] = {18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33};
 /*! \brief Read reference value.
  *
  * This function must return the reference value.
@@ -154,15 +154,20 @@ void meine_delete(int16_t inputValue) {
 
 void Set_Input(int16_t inputValue)
 {
+  // if (inputValue < 0) {
+  //    meine_delete(inputValue * -1);
+  // }
+  // else{
+  //   LED_PORT |= _BV(LED);
+  //   meine_delete(inputValue);
+  //   LED_PORT &= ~_BV(LED);
+  // }
   if (inputValue < 0) {
-     meine_delete(inputValue * -1);
-  }
-  else{
-    LED_PORT |= _BV(LED);
-    meine_delete(inputValue);
     LED_PORT &= ~_BV(LED);
   }
-
+  else {
+    LED_PORT |= _BV(LED);
+  }
 }
 
 FILE uart_file;

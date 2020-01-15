@@ -56,7 +56,7 @@ void timer1_init()
   // ICR1  = 15624
   // częstotliwość 16e6/(256*(1+99)) = 625 Hz
   // wzór: datasheet 20.12.3 str. 164
-  ICR1 = 1249;
+  ICR1 = 99;
   TCCR1A = _BV(COM1A1) | _BV(WGM11);
   TCCR1B = _BV(WGM12) | _BV(WGM13) | _BV(CS12);
   // ustaw pin OC1A (PB1) jako wyjście
@@ -69,7 +69,7 @@ int main()
 {
   // zainicjalizuj UART
   uart_init();
-  uint16_t data[16] = {35, 42, 50, 57, 65, 72, 80, 87, 95, 102, 110, 117, 125, 132, 140, 145};
+  uint16_t data[16] = {70, 45, 30, 20, 18 ,15, 12, 10, 10, 12, 15, 18, 20, 30, 45, 70}; 
 
   // skonfiguruj strumienie wejścia/wyjścia
   fdev_setup_stream(&uart_file, uart_transmit, uart_receive, _FDEV_SETUP_RW);
@@ -77,20 +77,30 @@ int main()
   // uruchom licznik
   timer1_init();
   adc_init();
+  // ustaw wypełnienie 50%
+  OCR1A = ICR1/2;
+  DDRD |= _BV(PD4) | _BV(PD5);
+  PORTD |= _BV(PD4);
+  PORTD &= ~_BV(PD5);
 
-  //srodek 93.625
-  //lewo 62.45
-  //prawo 124.9
-  OCR1A = 63;
-
-
+  uint16_t v;
+  uint16_t shifted;
   while(1) {
     ADCSRA |= _BV(ADSC); // wykonaj konwersję
     while (!(ADCSRA & _BV(ADIF))); // czekaj na wynik
     ADCSRA |= _BV(ADIF); // wyczyść bit ADIF (pisząc 1!)
     v = ADC; // weź zmierzoną wartość (0..1023)
-    OCR1A = data[v>>6];
-    printf("Odczytano: %"PRIu16"\r\n", data[v>>6]);
+    shifted = v>>6;
+    if (shifted > 7) {
+      PORTD |= _BV(PD4);
+      PORTD &= ~_BV(PD5);
+    }
+    else {
+      PORTD |= _BV(PD5);
+      PORTD &= ~_BV(PD4);
+    }
+    OCR1A = data[shifted];
+    printf("Odczytano: %"PRIu16"\r\n",  v>>6);
   }
 }
 

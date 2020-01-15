@@ -21,7 +21,6 @@
  *****************************************************************************/
 
 #include "pid.h"
-#include "stdint.h"
 
 /*! \brief Initialisation of PID controller parameters.
  *

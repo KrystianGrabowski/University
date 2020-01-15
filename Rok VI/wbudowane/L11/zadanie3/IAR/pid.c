@@ -21,7 +21,6 @@
  *****************************************************************************/
 
 #include "pid.h"
-#include <inttypes.h>
 
 /*! \brief Initialisation of PID controller parameters.
  *

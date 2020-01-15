@@ -20,7 +20,7 @@
 #ifndef PID_H
 #define PID_H
 
-#include "stdint.h"
+#include <inttypes.h>
 
 #define SCALING_FACTOR  128
 

@@ -474,9 +474,9 @@ END GROUP
  *(.stab)
  .stab          0x0000000000000000      0x834 campfire.o
 
-.stabstr        0x0000000000000000      0xeb2
+.stabstr        0x0000000000000000      0xec4
  *(.stabstr)
- .stabstr       0x0000000000000000      0xeb2 campfire.o
+ .stabstr       0x0000000000000000      0xec4 campfire.o
 
 .stab.excl
  *(.stab.excl)
