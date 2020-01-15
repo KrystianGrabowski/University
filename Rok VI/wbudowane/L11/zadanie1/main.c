@@ -65,10 +65,15 @@ void adc_init()
   ADCSRA |= _BV(ADEN); // włącz ADC
 }
 
-#define K_P     0.6
-#define K_I     0.005
-#define K_D     0.001
+// #define K_P     5
+// #define K_I     0.01
+// #define K_D     0.01
 
+#define K_P 0.8
+#define K_I 0.4
+#define K_D 0.05
+
+//1 0.3 0.1
 
 #define LED PB5
 #define LED_DDR DDRB
@@ -167,13 +172,17 @@ int main(void)
 
       inputValue = pid_Controller(referenceValue, measurementValue, &pidData);
 
-      printf("%"PRId16"(%"PRId16") -> %"PRId16"(%"PRId16")   PID: %"PRId16" OCR1A: %"PRId16" \r\n", mes_temp, measurementValue, ref_temp, referenceValue, inputValue, OCR1A);
-
-      Set_Input(inputValue);
-
+      inputValue = pid_Controller(referenceValue, measurementValue, &pidData);
+  		inputValue = ((uint32_t)inputValue * 1024) / MAX_INT;
+      if (inputValue < 0 ) {inputValue = 0;}
+			OCR1A = inputValue;
+      //Set_Input(inputValue);
+      
       gFlags.pidTimer = FALSE;
     }
-    _delay_ms(10);
+    printf("%"PRId16"(%"PRId16") -> %"PRId16"(%"PRId16")   PID: %"PRId16" OCR1A: %"PRId16" \r\n", mes_temp, measurementValue, ref_temp, referenceValue, inputValue, OCR1A);
+
+    //_delay_ms(1);
     //printf("UP -> %"PRIu32"mV DOWN-> %"PRIu32"mV\r\n",(uint32_t) (up * (5000 / 1024.0)),  (uint32_t) (down * (5000 / 1024.0)));
     
 
