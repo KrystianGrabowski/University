@@ -71,7 +71,7 @@ void adc_init()
 
 #define K_P 0.8
 #define K_I 0.4
-#define K_D 0.05
+#define K_D 0.1
 
 //1 0.3 0.1
 
@@ -128,16 +128,16 @@ int16_t Get_Measurement(void)
   return ADC;
 }
 
-void Set_Input(int16_t inputValue) {
-   regulator += inputValue;
-   if ( regulator < 0) {
-     regulator = 0;
-   }
-   if (regulator > 1023) {
-     regulator = 1023;
-   }
-   OCR1A = regulator;
-}
+// void Set_Input(int16_t inputValue) {
+//    regulator += inputValue;
+//    if ( regulator < 0) {
+//      regulator = 0;
+//    }
+//    if (regulator > 1023) {
+//      regulator = 1023;
+//    }
+//    OCR1A = regulator;
+// }
 
 FILE uart_file;
 
@@ -180,9 +180,9 @@ int main(void)
       
       gFlags.pidTimer = FALSE;
     }
-    printf("%"PRId16"(%"PRId16") -> %"PRId16"(%"PRId16")   PID: %"PRId16" OCR1A: %"PRId16" \r\n", mes_temp, measurementValue, ref_temp, referenceValue, inputValue, OCR1A);
+    printf("%"PRId16"(%"PRId16") -> %"PRId16"(%"PRId16") OCR1A: %"PRId16" \r\n", mes_temp, measurementValue, ref_temp, referenceValue, OCR1A);
 
-    //_delay_ms(1);
+    //_delay_ms(1);D
     //printf("UP -> %"PRIu32"mV DOWN-> %"PRIu32"mV\r\n",(uint32_t) (up * (5000 / 1024.0)),  (uint32_t) (down * (5000 / 1024.0)));
     
 

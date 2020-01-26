@@ -1,6 +1,6 @@
 
-PRG            = main_wovar
-OBJ            = main_wovar.o pid.o
+PRG            = mic
+OBJ            = mic.o
 PROGRAMMER     = arduino
 PORT           = /dev/ttyUSB0
 MCU_TARGET     = atmega328p 
